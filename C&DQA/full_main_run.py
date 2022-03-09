@@ -1,0 +1,13 @@
+import main
+import GUI
+
+GUI.Instance.execute()
+main.main()
+
+'''
+SHIT TO DO TOMORROW:
+TITLE PAGE
+COMPLETE UNIFICATION
+SOMETHING ABOUT NEGATIVES
+
+'''
