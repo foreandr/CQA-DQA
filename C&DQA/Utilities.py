@@ -14,51 +14,45 @@ config = {
     'buffered': True
 }
 
-# Format dictonary for the final results number formatting (2=0.00, 1=0.0, 0=0, 'str'=A String, and '2%'=0.00%
-formatDict = {
-    "1": 2,
-    "2": 2,
-    "3": 2,
-    "4": 2,
-    "5": 2,
-    "6": 2,
-    '7': 2,
-    '8': 2,
-    '9': 2,
-    '10': 2,
-    '11': 2,
-    '12': 0,
-    '13': 0,
-    '14': 0,
-    '15': 2,
-    '16': 0,
-    '17': 'str',
-    '18': '2%',
-    '19': '2%',
-    '20': 1,
-    '21': 'str',
-    '22': 'str',
-    '23': 1,
-    '24': '2%',
-    '25': '2%',
-    '26': '2%',
-    '27': '2%',
-    '28': '2%',
-    '29': 0,
-    '30': 0,
-    '31': 'str',
-    '32': '2%',
-    '33': 2,
-    '34': '2%',
-    '35': '2%',
-    '36': '2%',
-    '37': '2%',
-    '38': 2,
-    '39': '2%',
-    '40': '2%'
-}
 import math
+def rpt_name_refno():
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
+    SELECT report.rpt_name,
+        report.custno,
+        report.module,
+        report.rptno,
+        report.company,
+        report.grow_1,
+        report.refno,
+        report.rpt_status,
+        report.create_date,
+        report.state
+        FROM alms.report report
+        WHERE (report.rpt_name = 'SQA_COMP'
+        OR report.rpt_name='AL_CQA-O'
+        OR report.rpt_name = "AL-ON-CQ"
+        OR report.rpt_name = "AL_CQA"
+        OR report.rpt_name = "A&L-WD")
+        AND rpt_status ="6" or rpt_status ="5"
+    '''
+    cursor.execute(query)
+    dqaArray = []
+    cqaArray = []
+    for item in cursor:
+        if item[0] == 'A&L-WD' and item[6] != '':
+            dqaArray.append(item)
+        else:
+            if item[6] != '':
+                cqaArray.append(item)
+    print('\nCQA ARRAY')
+    for i in cqaArray:
+        print(i)
 
+    print('\nDQA ARRAY')
+    for i in dqaArray:
+        print(i)
 
 
 def miniInterpreter(string):
@@ -101,7 +95,13 @@ def get_names_and_indexes(sheet):
     #    print i
 
     return newlist
-
+def add_round_to_excel_formula(string):
+    if string == None or string == '':
+        return string
+    string_no_equals = string[1:]
+    new_string = 'ROUND(' + string_no_equals + ', 2)'
+    final_string_with_equals = '=' + new_string
+    return (final_string_with_equals)
 
 def open_report_csv_INDEXLIST():
     import csv

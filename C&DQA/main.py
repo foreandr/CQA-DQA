@@ -19,7 +19,7 @@ def main():
 
     DQATestList = []
     DQATestList.append(other_demo)
-    # DQATestList.append(ontario_demo)
+    DQATestList.append(ontario_demo)
 
     def rungen():
         path_for_saving = r'C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport'

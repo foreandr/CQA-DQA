@@ -178,6 +178,9 @@ def CFIAPrintDQA(Workbook, CQARef):
         border = Border(right=thin)
         FixFormatting(sheet, 'H9:H9', border)
 
+        border = Border(bottom=thick)
+        FixFormatting(sheet, 'B10:H10', border)
+
     for i in range(11, 21):
         border = Border(bottom=thin, top=thin)
         FixFormatting(sheet, 'B%d:H%d' % (i, i), border)
@@ -222,6 +225,14 @@ def CFIAPrintDQA(Workbook, CQARef):
         border = Border(top=thick, right=thick, bottom=thick)
         FixFormatting(sheet, 'A50:I50', border)
 
+        border = Border(left=thin, right=thin)
+        FixFormatting(sheet, 'D56:D56', border)
+        border = Border(left=thick)
+        FixFormatting(sheet, 'A56:A56', border)
+
+        border = Border(top=thin)
+        FixFormatting(sheet, 'F56:I56', border)
+
         border = Border(bottom=thin, right=thick)
         FixFormatting(sheet, 'A51:I51', border)
 
@@ -244,6 +255,12 @@ def CFIAPrintDQA(Workbook, CQARef):
         border = Border(bottom=thick, right=thick)
         FixFormatting(sheet, 'B62:I62', border)
 
+        border = Border(right=thick)
+        FixFormatting(sheet, 'I63:I63', border)
+
+        border = Border(right=thick)
+        FixFormatting(sheet, 'I57:I57', border)
+
         border = Border(bottom=thin, top=thin, right=thick)
         FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
 
@@ -256,6 +273,25 @@ def CFIAPrintDQA(Workbook, CQARef):
 
         border = Border(bottom=thick, right=thick)
         FixFormatting(sheet, 'B83:I83', border)
+    #--- changging bel locations to NA
+    if float(sheet['D82'].value) < 1.0: # should proably turn this into a function, way easier and more maliable
+        sheet['D82'] = 'BDL'
+        sheet['F82'] = 'N/A'
+        sheet['G82'] = 'N/A'
+        sheet['H82'] = 'N/A'
+        sheet['I82'] = 'N/A'
+
+    #-----
+    #CENTERING THINGS
+    from openpyxl.styles import Alignment
+    from openpyxl.styles import Font
+    for i in range(1, 100):
+        # print(sheet.cell(row=i, column=4).value)
+        # sheet.cell(row=i, column=4).value.alignment = Alignment(horizontal='center')
+        current_cell = sheet['D%d'%i]
+        current_cell.alignment = Alignment(horizontal='center')
+        current_cell.font = Font(bold=True, name='Franklin Gothic Book')
+
 
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image
@@ -263,12 +299,12 @@ def CFIAPrintDQA(Workbook, CQARef):
     img = Image('al.jpg')
     sheet.add_image(img, 'B2')
     img = Image('Digestate-logo.png')
-    sheet.add_image(img, 'I2')
+    sheet.add_image(img, 'H2')
 
     img = Image('al.jpg')
-    sheet.add_image(img, 'B47')
+    sheet.add_image(img, 'A47')
     img = Image('Digestate-logo.png')
-    sheet.add_image(img, 'I47')
+    sheet.add_image(img, 'H47')
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",
                                 CQARef)

@@ -1,59 +1,16 @@
 import os
 
 from openpyxl.styles import PatternFill, Border, Side
+from openpyxl import Workbook
 
 import Utilities
-
-ENVDict = {
-    "1": "Arsenic",
-    "2": "Cadmium",
-    "3": 'Chromium',
-    "4": 'Cobalt',
-    "5": 'Copper',
-    '6': 'Lead',
-    "7": 'Mercury',
-    '8': 'Molybdenum',
-    '9': 'Nickel',
-    '10': 'Selenium',
-    '11': 'Zinc',
-    '12': 'Total FM > 25 mm',
-    '13': 'Total sharps > 2.8 mm*',
-    '14': 'Total sharps > 12.5 mm',
-    '15': 'Respiration-mgCO2-C/g OM/day',
-    '16': 'E. coli',
-    '17': 'Salmonella spp.',
-    '18': 'Total Organic Matter',
-    '19': 'Moisture',
-    '20': 'Total Organic Matter @ 550 deg C',
-    '22': 'C:N Ratio',
-    '28': 'Total Solids (as received)',
-    '30': 'Bulk Density (As Recieved)',
-    '33': 'Ammonia (NH3/NH4-N)',
-    '34': 'Total Phosphorus (As P205)',
-    '35': 'Total Potassium (as K20)',
-    '36': 'Calcium',
-    '37': 'Magnesium',
-    '38': 'Sulphur',
-    '39': 'Total FM > 2.8 mm*',
-    '40': 'Total plastics > 2.8 mm*'
-}
-
-
 def OntarioPrintDQA(Workbook, CQARef):
     # Sets the color of the highlight/fill to highlight the failed values
     highlight = PatternFill(start_color='F3F315', end_color='F3F315', fill_type='solid')
+    grey_highlight = PatternFill(start_color='E6E6E3', end_color='E6E6E3', fill_type='solid')
     sheet = Workbook.get_sheet_by_name("Ontario CFIA", )
-    # sheet = Workbook.get_sheet_by_name("K:/2022Ontario/Student2022/ANDRE-CQA 2 report system/Templates/Ontario DQA -W")
-    # newDict = Utilities.associate_nums_with_values(finalResult, ENVDict)
-
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
-
-    # print 'new dict demo -------\n'
-    # print ENVDict
-    # print finalResult
-    # print newDict
-    # print 'new dict demo -------\n'
 
     import gettingFeeCodes
 
@@ -204,10 +161,28 @@ def OntarioPrintDQA(Workbook, CQARef):
     # -----------------------------------------------------------------
     # BORDER ALIGNMENT
     from Utilities import FixFormatting
-
-    for i in range(7, 11):
-        border = Border(left=thick, bottom=thick, top=thick, right=thick)
+    #A intro table MADNESS FORMATTING
+    for i in range(7, 8):
+        border = Border(left=thick, top=thick, right=thick)
         FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
+        border = Border(left=thick, right=thick)
+        FixFormatting(sheet, 'B8:I8', border)
+        border = Border(left=thick, right=thick)
+        FixFormatting(sheet, 'B9:I9', border)
+        border = Border(left=thick, right=thick)
+        FixFormatting(sheet, 'B10:I10', border)
+        border = Border(top=thin)
+        FixFormatting(sheet, 'E8:H8', border)
+        border = Border(bottom=thin)
+        FixFormatting(sheet, 'D9:H9', border)
+        border = Border(left=thin)
+        FixFormatting(sheet, 'D8:D8', border)
+        border = Border(left=thin, right=thin)
+        FixFormatting(sheet, 'D9:D9', border)
+        border = Border(left=thin, right=thin)
+        FixFormatting(sheet, 'F9:F9', border)
+        border = Border(left=thin, right=thin)
+        FixFormatting(sheet, 'H9:H9', border)
 
     for i in range(11, 21):
         border = Border(bottom=thin, top=thin)
@@ -233,6 +208,14 @@ def OntarioPrintDQA(Workbook, CQARef):
         FixFormatting(sheet, 'B30:I30', border)
 
     for i in range(34, 39):
+        border = Border(left=thin)
+        FixFormatting(sheet, 'D35:D35', border)
+        border = Border(left=thin)
+        FixFormatting(sheet, 'I35:I35', border)
+
+        border = Border(top=thin)
+        FixFormatting(sheet, 'E35:H35', border)
+
         border = Border(top=thick, right=thick)
         FixFormatting(sheet, 'B34:I34', border)
 
@@ -261,7 +244,18 @@ def OntarioPrintDQA(Workbook, CQARef):
         border = Border(bottom=thick, right=thick)
         FixFormatting(sheet, 'B54:I54', border)
 
+        border = Border(left=thin)
+        FixFormatting(sheet, 'A55:A55', border)
+
     for i in range(56, 60):
+        border = Border(right=thin, left=thin)
+        FixFormatting(sheet, 'D62:D62', border)
+
+        border = Border(top=thin)
+        FixFormatting(sheet, 'F62:I62', border)
+        border = Border(left=thick)
+        FixFormatting(sheet, 'A62:A62', border)
+
         border = Border(top=thick, right=thick, bottom=thick)
         FixFormatting(sheet, 'B56:I56', border)
 
@@ -281,16 +275,24 @@ def OntarioPrintDQA(Workbook, CQARef):
         border = Border(right=thick, bottom=thick)
         FixFormatting(sheet, 'B62:I62', border)
 
+        sheet['F62'].fill = grey_highlight
+
         border = Border(right=thick, top=thick, bottom=thin)
         FixFormatting(sheet, 'B64:I64', border)
 
         border = Border(right=thick, bottom=thick)
         FixFormatting(sheet, 'B68:I68', border)
 
+        border = Border(right=thick)
+        FixFormatting(sheet, 'B63:I63', border)
+
+        border = Border(right=thick)
+        FixFormatting(sheet, 'B69:I69', border)
+
         border = Border(bottom=thin, right=thick)
         FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
 
-    for i in range(71, 88):
+    for i in range(71, 90):
         border = Border(top=thick, right=thick)
         FixFormatting(sheet, 'B70:I70', border)
 
@@ -299,6 +301,68 @@ def OntarioPrintDQA(Workbook, CQARef):
 
         border = Border(bottom=thick, right=thick)
         FixFormatting(sheet, 'B89:I89', border)
+
+    #ROUNDING THINGS
+    print('\nPRINTING Excel values')
+    for i in range(70, 90):
+        print(i, sheet.cell(row=i, column=6).value, sheet.cell(row=i, column=7).value, sheet.cell(row=i, column=8).value, sheet.cell(row=i, column=9).value)
+        column6_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=6).value)
+        column7_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=7).value)
+        column8_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=8).value)
+        column9_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=9).value)
+
+        sheet.cell(row=i, column=6).value = column6_formula
+        sheet.cell(row=i, column=7).value = column7_formula
+        sheet.cell(row=i, column=8).value = column8_formula
+        sheet.cell(row=i, column=9).value = column9_formula
+
+        # sheet.write_formula('F70', new_formula)
+
+    #CENTERING THINGS
+    from openpyxl.styles import Alignment
+    from openpyxl.styles import Font
+    for i in range(1, 100):
+        # print(sheet.cell(row=i, column=4).value)
+        # sheet.cell(row=i, column=4).value.alignment = Alignment(horizontal='center')
+        current_cell = sheet['D%d'%i]
+        current_cell.alignment = Alignment(horizontal='center')
+        current_cell.font = Font(bold=True, name='Franklin Gothic Book')
+
+        if i in range(70, 90):
+            current_cell = sheet['F%d' % i]
+            current_cell.alignment = Alignment(horizontal='center')
+            current_cell = sheet['G%d' % i]
+            current_cell.alignment = Alignment(horizontal='center')
+            current_cell = sheet['H%d' % i]
+            current_cell.alignment = Alignment(horizontal='center')
+            current_cell = sheet['I%d' % i]
+            current_cell.alignment = Alignment(horizontal='center')
+
+
+    if float(sheet['D88'].value) < 1.0: # should proably turn this into a function, way easier and more maliable
+        sheet['D88'] = 'BDL'
+        sheet['F88'] = 'N/A'
+        sheet['G88'] = 'N/A'
+        sheet['H88'] = 'N/A'
+        sheet['I88'] = 'N/A'
+
+
+
+
+
+    # putting in the images------------------------------------
+    from openpyxl.drawing.image import Image
+    os.chdir(r'C:\CQA\FULL CQA - DQA\Photos')
+    img = Image('al.jpg')
+    sheet.add_image(img, 'B2')
+    img = Image('Digestate-logo.png')
+    sheet.add_image(img, 'I2')
+
+    img = Image('al.jpg')
+    sheet.add_image(img, 'A48')
+
+    img = Image('Digestate-logo.png')
+    sheet.add_image(img, 'I48')
 
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",
