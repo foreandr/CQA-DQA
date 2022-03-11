@@ -1,7 +1,13 @@
+import os
 from Tix import Tk
 from Tkinter import Label, Button, StringVar, Entry
-
-
+import Utilities
+import DQAWritingPages
+import DQApdfConnect
+from CoverPageDQA import DQAcoverPageWrite
+import CoverPage
+import WritingPages
+import pdfConnect
 # import main
 # import GUI
 
@@ -33,26 +39,43 @@ class GUI:
         enteredRefno.grid(row=1, column=0)
 
         def execute():
-
-            # print(enteredRefno.get())
+            path_for_saving = r'C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport'
             if enteredRefno.get() == "":  # RUNNING AUTOMATIC EXECUTIONS
-                if self.num == 0:
+                if self.num == 0:  #so I dont run empties multiple times
                     for i in relevant_reference_numbers:
+                        saveLocation = os.path.join(path_for_saving, i )
+                        Utilities.makeDirectory(saveLocation)
                         if 'CQA' in i:
                             print('CQA', 'REFNO-EMPTY', i)
+                            CoverPage.coverPageWrite(i, path_for_saving)
+                            WritingPages.makeSheet(i, path_for_saving)
+                            pdfConnect.pdf(i, saveLocation)
                         else:
                             print('DQA', 'REFNO-EMPTY', i)
+                            DQAcoverPageWrite(str(i), path_for_saving)
+                            DQAWritingPages.makeSheet_DQA(str(i), path_for_saving)
+                            DQApdfConnect.pdf(str(i), saveLocation)
                 self.num+=1
             else:
+                saveLocation = os.path.join(path_for_saving, enteredRefno.get())
+                Utilities.makeDirectory(saveLocation)
                 if 'CQA' in enteredRefno.get():
                     print('CQA', 'REFNO-FULL', enteredRefno.get())
+                    CoverPage.coverPageWrite(enteredRefno.get(), path_for_saving)
+                    WritingPages.makeSheet(enteredRefno.get(), path_for_saving)
+                    pdfConnect.pdf(enteredRefno.get(), saveLocation)
                 else:
                     print('DQA', 'REFNO-FULL', enteredRefno.get())
+                    DQAcoverPageWrite(enteredRefno.get(), path_for_saving)
+                    DQAWritingPages.makeSheet_DQA(enteredRefno.get(), path_for_saving)
+                    DQApdfConnect.pdf(enteredRefno.get(), saveLocation)
+
         execute()
         submitButton = Button(root, text='submit', command=execute)  # NO COMMAND
         submitButton.grid(row=2, column=0)
 
         root.mainloop()
+
 Instance = GUI()
 Instance.main_method()
 

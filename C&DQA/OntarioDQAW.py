@@ -352,7 +352,7 @@ def OntarioPrintDQA(Workbook, CQARef):
 
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image
-    os.chdir(r'C:\CQA\FULL CQA - DQA\Photos')
+    os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
     img = Image('al.jpg')
     sheet.add_image(img, 'B2')
     img = Image('Digestate-logo.png')

@@ -408,8 +408,7 @@ def CCMEPrint(Workbook, finalResult, CQARef):
     img = Image('cp.png')
     sheet.add_image(img, 'H93')
 
-    saveLocation = os.path.join(r"K:\2022Ontario\Student2022\ANDRE-CQA 2 report system\FinishedReport", CQARef)
-
+    saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport", CQARef)
     Workbook.save(saveLocation + "\%sReport.xlsx" % (CQARef))
 
 
