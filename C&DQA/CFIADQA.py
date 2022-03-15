@@ -177,7 +177,6 @@ def CFIAPrintDQA(Workbook, CQARef):
         FixFormatting(sheet, 'D9:D9', border)
         border = Border(right=thin)
         FixFormatting(sheet, 'H9:H9', border)
-
         border = Border(bottom=thick)
         FixFormatting(sheet, 'B10:H10', border)
 

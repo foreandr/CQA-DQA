@@ -2,7 +2,6 @@ import time, os
 import mysql.connector
 from mysql.connector import errorcode
 from openpyxl.styles import Border, Side
-from WritingPages import findCoverCatagory
 from Utilities import FixFormatting
 import shutil, os, sys
 import Colors
@@ -136,6 +135,7 @@ def coverPageWrite(CQARef, workingFolder):
     currentDate = time.localtime()[0:3]
     coverDict['A9'] = r'%d-%d-%d' % (currentDate[0], currentDate[1], currentDate[2])
 
+    '''
     # ---A10 Querry---#
     catagory = findCoverCatagory(CQARef)
     if catagory == 'A' or catagory == 'B' or catagory == 'AA':
@@ -144,6 +144,7 @@ def coverPageWrite(CQARef, workingFolder):
     else:
         print 'the right one'
         coverDict['A10'] = 'Exceeds Guidelines'
+    '''
 
     # ---B18 Query FEEDSTOCK---#
     print 'executing query 18 for feedstock'

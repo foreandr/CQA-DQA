@@ -10,7 +10,8 @@ import Colors
 
 
 def sliceBeginningMaturity(string):
-    if string[0] == '<':
+
+    if str(string[0]) == '<':
         return float(string[1:])
     else:
         return string
@@ -18,7 +19,7 @@ def sliceBeginningMaturity(string):
 def slicePercentOffUnicode(string):
     if string == "BDL":
         return string
-    if type(string) == int:
+    if type(string) == int or type(string) == long:
         return string
     for i in string:
         if i == '%':
@@ -30,8 +31,8 @@ def OntarioPrint(Workbook, finalResult, CQARef):
     print Colors.bcolors.OKCYAN + "\nExecuing Ontario Print" + Colors.bcolors.ENDC
     HOLDING_CATEGORY_STATE = {}
     # Runs the method to check what values have failed standards
-    highlightList = FailStandard(CQARef)
-    print 'HIGHLIGHT LIST [' + str(highlightList) + ']'
+    #highlightList = FailStandard(CQARef)
+    #print 'HIGHLIGHT LIST [' + str(highlightList) + ']'
     # This is the sheet name inside of the template must be exact
     sheet = Workbook.get_sheet_by_name("CCME (Ontario)")
     # Sets the color of the highlight/fill to highlight the failed values
@@ -66,12 +67,13 @@ def OntarioPrint(Workbook, finalResult, CQARef):
         print 'TESTING FOR CATEGORIES: ' + str(sheet.cell(row=i, column=4).value) + " & " + str(
             sheet.cell(row=i, column=6).value)
 
-        if sheet.cell(row=i, column=4).value == 'BDL':
+        print 'WHY CANT THIS BE CASTED' , sheet.cell(row=i, column=4).value
+        if sheet.cell(row=i, column=4).value == 'BDL' or sheet.cell(row=i, column=4).value == 'Error':
             pass
         elif float(sheet.cell(row=i, column=4).value) > sheet.cell(row=i, column=6).value:
             sheet.cell(row=i, column=4).fill = highlight
 
-        if sheet.cell(row=i, column=4).value == 'BDL':
+        if sheet.cell(row=i, column=4).value == 'BDL' or sheet.cell(row=i, column=4).value == 'Error':
             sheet.cell(row=i, column=10).value = 'AA'
         elif float(sheet.cell(row=i, column=4).value) < sheet.cell(row=i, column=6).value:
             sheet.cell(row=i, column=10).value = 'AA'
@@ -89,12 +91,13 @@ def OntarioPrint(Workbook, finalResult, CQARef):
         # print "Current row: " + str(i) + " | " + highlightList[str(value)]  # what is the 0 and nothing representing
 
         # Check if the value fails standards if there is a none value for some reason skip it instead of crashing the program
+        """
         if value == None:
             continue
         elif highlightList[
             str(value)] == '1':  # What does the 1 signify here? What is it checking? if I change it to 0? or != 0?
             sheet.cell(row=i, column=4).fill = highlight
-
+        """
         '''-------------------------------------------------------------'''
 
     print Colors.bcolors.OKCYAN + "Ontario----foreign matter----" + Colors.bcolors.ENDC
@@ -109,11 +112,12 @@ def OntarioPrint(Workbook, finalResult, CQARef):
             sheet.cell(row=i, column=4).fill = highlight
 
         sheet.cell(row=i, column=4).value = valueToFill
+        """
         if value == None:
             continue
         elif highlightList[str(value)] == '1':
             sheet.cell(row=i, column=4).fill = highlight
-
+        """
         value_x = (sheet.cell(row=i, column=4).value)
         print '24-27 Value before slice : ' + str(value_x)
         value_x = slicePercentOffUnicode(value_x)
@@ -142,11 +146,13 @@ def OntarioPrint(Workbook, finalResult, CQARef):
             valueToFill = "Error"
             sheet.cell(row=i, column=4).fill = highlight
 
+        """
         sheet.cell(row=i, column=4).value = valueToFill
         if value == None:
             continue
         elif highlightList[str(value)] == '1':
             sheet.cell(row=i, column=4).fill = highlight
+        """
 
         value_x = (sheet.cell(row=i, column=4).value)
         print '28-29 Value before slice : ' + str(value_x)
@@ -180,10 +186,12 @@ def OntarioPrint(Workbook, finalResult, CQARef):
         sheet.cell(row=i, column=4).fill = highlight
 
     sheet.cell(row=33, column=4).value = valueToFill
+    """
     if value == None:
         print ''
     elif highlightList[str(value)] == '1':
         sheet.cell(row=33, column=4).fill = highlight
+    """
 
     test_value = Utilities.getCO2Resp(CQARef)
     print '33 CO2 VALUE: ' + str(test_value)
@@ -214,13 +222,15 @@ def OntarioPrint(Workbook, finalResult, CQARef):
             sheet.cell(row=i, column=4).fill = highlight
 
         sheet.cell(row=i, column=4).value = valueToFill
+        """
         if value == None:
             continue
         elif highlightList[str(value)] == '1':
             sheet.cell(row=i, column=4).fill = highlight
+        """
 
 
-        print '40-42: ' + valueToFill
+        # print '40-42: ' + valueToFill
 
         # CHECKING 40
         if i == 40:
@@ -777,6 +787,8 @@ def findOntarioCatagory(CQARef):
 
     # Stores the values into valueCatList
     for i in results.keys():
+        if i not in valueCatList:
+            continue
         valueCatList[i] = ENVResult[i]
 
     for key in results.keys():
