@@ -322,7 +322,7 @@ def OntarioResults(CQARef):
         for _key, value in ENVDict.items():
             if key == _key:
                 # print _key, value, finalResult[key]
-                final_array.append([_key, value, finalResult[key]])
+                final_array.append([_key, value, finalResult[key]]) #plS JUST WORK NOW
 
 
     for i in final_array:
