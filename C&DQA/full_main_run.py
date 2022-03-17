@@ -22,18 +22,17 @@ class GUI:
         root.geometry("300x300")
 
         relevant_reference_numbers = []
-        DQAother_demo = u'KELLY1'  # PEI
-        DQAontario_demo = u'KELLY'
-        CQAquebec_demo = u'CQA2100409'  # quebec tester
-        CQAbc_demo = u'CQA2100540'  # bc tester
-
-        # current_test = u'CQA2200061'  #MAKE OR BREAKs
+        DQAother_demo = u'KELLY1'  # WORKS PEI
+        DQAontario_demo = u'KELLY' # WORKS ONT, FORMATTING ERRORS
+        CQAquebec_demo = u'CQA2100409'  # WORKS ONT, NEEDS FORMATTING
+        CQAbc_demo = u'CQA2100540'  # WORKS BC/newbrunswick NEEDS FORMATTING
+        current_test = u'CQA2200061'  #WORKS ONT
 
         #relevant_reference_numbers.append(DQAother_demo)
         #relevant_reference_numbers.append(DQAontario_demo)
-        relevant_reference_numbers.append(CQAquebec_demo)
+        #relevant_reference_numbers.append(CQAquebec_demo)
         #relevant_reference_numbers.append(CQAbc_demo)
-        #relevant_reference_numbers.append(current_test)
+        relevant_reference_numbers.append(current_test) #
 
         textLabel = Label(root, text='Entry a Refno')
         textLabel.grid(row=0, column=0)
@@ -51,9 +50,9 @@ class GUI:
                         Utilities.makeDirectory(saveLocation)
                         if 'CQA' in i:
                             print('CQA', 'REFNO-EMPTY', i)
-                            CoverPage.coverPageWrite(str(i), path_for_saving)
-                            WritingPages.makeSheet(str(i), path_for_saving)
-                            pdfConnect.pdf(str(i), saveLocation)
+                            #CoverPage.coverPageWrite(str(i), path_for_saving)
+                            #WritingPages.makeSheet(str(i), path_for_saving)
+                            #pdfConnect.pdf(str(i), saveLocation)
                         else:
                             print('DQA', 'REFNO-EMPTY', i)
                             DQAcoverPageWrite(str(i), path_for_saving)
@@ -65,9 +64,9 @@ class GUI:
                 Utilities.makeDirectory(saveLocation)
                 if 'CQA' in enteredRefno.get():
                     print('CQA', 'REFNO-FULL', enteredRefno.get())
-                    CoverPage.coverPageWrite(str(enteredRefno.get()), path_for_saving)
-                    WritingPages.makeSheet(str(enteredRefno.get()), path_for_saving)
-                    pdfConnect.pdf(str(enteredRefno.get()), saveLocation)
+                    #CoverPage.coverPageWrite(str(enteredRefno.get()), path_for_saving)
+                    #WritingPages.makeSheet(str(enteredRefno.get()), path_for_saving)
+                    #pdfConnect.pdf(str(enteredRefno.get()), saveLocation)
                 else:
                     print('DQA', 'REFNO-FULL', enteredRefno.get())
                     DQAcoverPageWrite(str(enteredRefno.get()), path_for_saving)

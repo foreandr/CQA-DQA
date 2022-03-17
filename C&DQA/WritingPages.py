@@ -6,7 +6,7 @@ from OntarioPart import findOntarioCatagory, OntarioResults, OntarioPrint
 from CCMEPart import findCCMECatagory, CCMEResults, CCMEPrint
 from QuebecPart import findQuebecCatagory, QuebecResults, QuebecPrint
 from BCPart import findBCCatagory, BCResults, BCPrint
-
+import NONOntarioCQAReport
 def makeSheet(CQARef, workingFolder):
     '''Runs the printing function depending on the location'''
     
@@ -21,7 +21,6 @@ def makeSheet(CQARef, workingFolder):
     else:
         templateFile = r'C:\CQA\FULL CQA - DQA\C&DQA\Templates\TEMPLATE BC WRITTEN.xlsx'
         wb = openpyxl.load_workbook(templateFile)
-        print("WOULD BE BC PRINT", wb)
-
+        NONOntarioCQAReport.BCandOtherReport(wb, CQARef)
 
     

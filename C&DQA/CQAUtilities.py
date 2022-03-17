@@ -3,7 +3,7 @@ import Colors
 import Utilities
 import os, sys
 def OntarioResults(CQARef):
-    print Colors.bcolors.OKCYAN + "\nExecuting Ontario Results" + Colors.bcolors.ENDC
+    print Colors.bcolors.OKCYAN + "\nExecuting ON QCResults" + Colors.bcolors.ENDC
     # ------------------------------------------------------Env Report------------------------------------------------------#
     # Dictionary for the environmental report values
     ENVDict = {
@@ -315,7 +315,7 @@ def OntarioResults(CQARef):
 
     cursor.close()
     cnx.close()
-    print 'Ontario Final Result ' + str(finalResult)
+    # print 'ON QC Final Result ' + str(finalResult)
 
     final_array = []
     for key in sorted(finalResult):
@@ -324,7 +324,17 @@ def OntarioResults(CQARef):
                 # print _key, value, finalResult[key]
                 final_array.append([_key, value, finalResult[key]]) #plS JUST WORK NOW
 
+    def vector2d_sort(array):
+        for i in range(len(array) -1):
+            # print i, array[i]
+            if int(array[i][0]) > int(array[i+1][0]):
+                biggerTemp = array[i]
+                smallerTemp = array[i+1]
+                array[i] = smallerTemp
+                array[i + 1] = biggerTemp
 
+                vector2d_sort(array)
+    vector2d_sort(final_array)
     for i in final_array:
         print(i)
     return final_array
