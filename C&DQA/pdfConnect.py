@@ -6,7 +6,7 @@ import Colors
 import SQL_CONNECTOR
 
 def pdf(CQARef, outputFolder):
-
+    print Colors.bcolors.OKCYAN + "\nExecuting PDF CQA Page Write" + Colors.bcolors.ENDC
     # Connects to sql server and if it doesnt work returns an error
     cnx = SQL_CONNECTOR.test_connection()
 
@@ -36,7 +36,7 @@ def pdf(CQARef, outputFolder):
             if str(item[1]) == "SOIL":
                 soilReport = str(item[0])
             elif str(item[1]) == "ENVI":
-                print 'envi report found'
+                #print 'envi report found'
                 envReport = str(item[0])
 
     if reportNumCount > 2:
@@ -47,7 +47,7 @@ def pdf(CQARef, outputFolder):
             if str(item[1]) == "SOIL":
                 soilReport.append(str(item[0]))
             elif str(item[1]) == "ENVI":
-                print 'envi report found'
+                #print 'envi report found'
                 envReport.append(str(item[0]))
 
     pdfDownload.download_file(outputFolder, soilReport, envReport)

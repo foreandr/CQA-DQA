@@ -57,6 +57,8 @@ formatDict = {
     '40': '2%'
 }
 import math
+
+
 def rpt_name_refno():
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -102,28 +104,29 @@ def miniInterpreter(string):
     get_cell = new_string[:3]
     get_operator = new_string[3]
 
-    string_list = string.split('%s'%get_operator)
+    string_list = string.split('%s' % get_operator)
 
-    #print(string_list)
+    # print(string_list)
     amount = string_list[1]
     ##print(new_string)
-    #print(get_cell)
-    #rint(get_operator)
+    # print(get_cell)
+    # rint(get_operator)
 
     # print(amount)
     return get_cell, amount, get_operator
+
 
 def get_names_and_indexes(sheet):
     list_indexes_names = []
     for row in range(1, 100):
         if sheet.cell(row=row, column=1).value != None:
             text_value = sheet.cell(row=row, column=1).value
-            #print row, text_value, 1
+            # print row, text_value, 1
             temp_list = [row, text_value, 1]
             list_indexes_names.append(temp_list)
         else:
             text_value = sheet.cell(row=row, column=2).value
-            #print row, text_value, 2
+            # print row, text_value, 2
             temp_list = [row, text_value, 1]
             list_indexes_names.append(temp_list)
     newlist = []
@@ -131,12 +134,14 @@ def get_names_and_indexes(sheet):
         if list_indexes_names[i][1] != None:
             newlist.append(list_indexes_names[i])
 
-    #print '\nprinting updated list\n'
+    # print '\nprinting updated list\n'
 
-    #for i in newlist:
+    # for i in newlist:
     #    print i
 
     return newlist
+
+
 def add_round_to_excel_formula(string):
     if string == None or string == '':
         return string
@@ -144,6 +149,7 @@ def add_round_to_excel_formula(string):
     new_string = 'ROUND(' + string_no_equals + ', 2)'
     final_string_with_equals = '=' + new_string
     return (final_string_with_equals)
+
 
 def open_report_csv_INDEXLIST():
     import csv
@@ -154,30 +160,34 @@ def open_report_csv_INDEXLIST():
         index = 0
         for i in my_reader:
             if i[1] == 'Trace Elements':
-                #print i[1], ' GOT TRACE ELEMENTS'
-                index = 4 # increasing to fix numbers
+                # print i[1], ' GOT TRACE ELEMENTS'
+                index = 4  # increasing to fix numbers
             if i[1] != '':
                 templist = [index, i[1], 0]
                 list_indexes_names.append(templist)
-                #print index, i[1]
+                # print index, i[1]
             if i[0] != '':
                 templist = [index, i[0], 1]
                 list_indexes_names.append(templist)
-                #print index, i[0]
+                # print index, i[0]
             index += 1
 
-    #for i in list_indexes_names:
+    # for i in list_indexes_names:
     #    print i
     return list_indexes_names
+
+
 def associate_nums_with_values(valueDict, nameDict):
     newDict = {}
     for i in nameDict:
         if i in valueDict:
             title = nameDict[i]
             value = valueDict[i]
-            temp_dict = {title:value}
+            temp_dict = {title: value}
             newDict.update(temp_dict)
     return newDict
+
+
 def get_until_space(string):
     curr_string = ''
     for i in string:
@@ -186,12 +196,16 @@ def get_until_space(string):
         else:
             return curr_string
     return curr_string
+
+
 def makeDirectory(saveLocation_):
     try:
         os.mkdir(saveLocation_)
     except:
         shutil.rmtree(saveLocation_)
         os.mkdir(saveLocation_)
+
+
 def return_worst(dict):
     stored_worst = ''
     for i in dict:
@@ -204,6 +218,7 @@ def return_worst(dict):
         elif dict[i] == 'AA' and stored_worst != 'B' and stored_worst != 'A':
             stored_worst = 'AA'
     return stored_worst
+
 
 def merge_two_dicts(x, y):
     '''Given two dicts, merge them into a new dict as a shallow copy.'''
@@ -283,6 +298,17 @@ def getAvailableOrganicMatter(CQAREF):
         # print temp
     return temp
 
+def getValuesForAGIndex(CQAREF):
+    '''
+    select na, k, ph,cl, ca
+    from agdata a
+    inner join report r
+    on r.rptno = a.rptno
+    inner join soil s
+    on s.rptno = a.rptno
+    where route_4 = 'CQA2200061'
+    '''
+    pass
 
 def getNitrogen(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
@@ -307,11 +333,12 @@ def getCO2Resp(CQAREF):
     inner join report rep
     on rep.rptno = env.rptno
     where feecode = 'GGCC642' and rep.refno = '%s'
-    """ %CQAREF
+    """ % CQAREF
     cursor.execute(query)
     for item in cursor:
         CO2 = str(item[0])
     return CO2
+
 
 def getPH(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()

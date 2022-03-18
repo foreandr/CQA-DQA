@@ -69,11 +69,11 @@ def coverPageWrite(CQARef, workingFolder):
     coverDict['A111'] = state
 
     # Convert State name ------ Want to change the abbreviated province name to full name
-    print Colors.bcolors.HEADER + Colors.bcolors.UNDERLINE + '-----------------------------PROVINCES------------------------' + Colors.bcolors.ENDC
+    # print Colors.bcolors.HEADER + Colors.bcolors.UNDERLINE + '-----------------------------PROVINCES------------------------' + Colors.bcolors.ENDC
     query = """SELECT name FROM (alms.report INNER JOIN alms.provinces ON report.state = provinces.abbreviation) WHERE refno='%s' and module='SOIL' """ % CQARef
     cursor.execute(query)
     for item in cursor:
-        print Colors.bcolors.OKBLUE + "State: " + str(item)
+        print Colors.bcolors.OKBLUE + "Province: " + str(item)
         state = item[0].encode('utf-8').strip() # VERY IMPORTANT
         coverDict['A111'] = state
 
@@ -147,7 +147,7 @@ def coverPageWrite(CQARef, workingFolder):
     '''
 
     # ---B18 Query FEEDSTOCK---#
-    print 'executing query 18 for feedstock'
+    # print 'executing query 18 for feedstock'
     cursor = cnx.cursor()
     query = """
         SELECT report.refno, feedstock.description
@@ -160,7 +160,7 @@ def coverPageWrite(CQARef, workingFolder):
     cursor.execute(query)
     for item in cursor:
         wanted_description = item[1] #  second item in tuple is description, first is iD
-        print wanted_description
+        # print wanted_description
         print Colors.bcolors.UNDERLINE + Colors.bcolors.OKGREEN + "[REFNO: " + str(CQARef) + "] CURRENT FEEDSTOCK DESC: " + str(item) + Colors.bcolors.ENDC
 
 

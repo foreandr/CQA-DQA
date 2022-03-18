@@ -335,8 +335,13 @@ def OntarioResults(CQARef):
 
                 vector2d_sort(array)
     vector2d_sort(final_array)
+    count = 0
+    for i in final_array:
+        i.append(count)
+        count+=1
+
+    print '\n', Colors.bcolors.OKCYAN, 'CURRENT VALUES', Colors.bcolors.ENDC   # formatting purposes
     for i in final_array:
         print(i)
+    print('\n')  # formatting purposes
     return final_array
-
-OntarioResults('CQA2100100')
