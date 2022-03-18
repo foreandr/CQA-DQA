@@ -77,21 +77,27 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=111, column=4).value = array_values[28][2]
 
 
-    Nitrogen = Utilities.getNitrogen(CQAREF)  # stand in for real value
-    Phosphorus = float(array_values[24][2])
-    Potassium = float(array_values[25][2])
-    Sodium = 10
+    item_dict = Utilities.getValuesForAGIndex(CQAREF)
+
+    Nitrogen = float(Utilities.removePercentSign(Utilities.getNitrogen(CQAREF)))  # stand in for real value
+    Phosphorus = float(Utilities.removePercentSign(array_values[24][2]))
+    Potassium = float(Utilities.removePercentSign(array_values[25][2]))
+    Sodium = float(item_dict['NA'])
     DryMatter = 10
-    Chloride = 10
+    Chloride = float(item_dict['CL'])
+    print('dude wtf', Chloride, type(Chloride), type(float(Chloride)))
 
     print('PHOSPHORUS:', Phosphorus)
     print('Potassium:', Potassium)
     print('Nitrogen:', Nitrogen)
-    print('odium:', Sodium)
+    print('sodium:', Sodium)
     print('DryMatter:', DryMatter)
     print('Chloride:', Chloride)
-
-    ag_index = (Nitrogen + Phosphorus + Potassium) / ((Sodium * (DryMatter / 100)) + (Chloride / 10000))
+    value1 = (Nitrogen + Phosphorus + Potassium)
+    value2 = (Sodium * (DryMatter / 100)) + (Chloride / 10000)
+    print 'LEFTSIDE:', value1
+    print 'RIGHTSIDE:', value2
+    ag_index = value1 / value2
     sheet.cell(row=113, column=4).value = ag_index
 
 

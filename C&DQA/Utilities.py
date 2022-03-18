@@ -298,17 +298,50 @@ def getAvailableOrganicMatter(CQAREF):
         # print temp
     return temp
 
+
+def removePercentSign(string):
+    if string[-1] == '%':
+        new_string = string[:-1]
+        return new_string
+    return string
+
+
 def getValuesForAGIndex(CQAREF):
-    '''
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
     select na, k, ph,cl, ca
     from agdata a
     inner join report r
     on r.rptno = a.rptno
     inner join soil s
     on s.rptno = a.rptno
-    where route_4 = 'CQA2200061'
-    '''
-    pass
+    where route_4 = '%s'
+    ''' % CQAREF
+    cursor.execute(query)
+
+    value_list = []
+    for item in cursor: # some weird data type gets pulled here
+        value_list.append(item[0])
+        value_list.append(item[1])
+        value_list.append(item[2])
+        value_list.append(item[3])
+        value_list.append(item[4])
+
+    item_dict = {}
+    for i in range(len(value_list)):
+        if i == 0:
+            item_dict['NA'] = value_list[i]
+        if i == 1:
+            item_dict['K'] = value_list[i]
+        if i == 2:
+            item_dict['PH'] = value_list[i]
+        if i == 3:
+            item_dict['CL'] = value_list[i]
+        if i == 4:
+            item_dict['CA'] = value_list[i]
+    return item_dict
+
 
 def getNitrogen(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
