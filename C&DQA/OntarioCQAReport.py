@@ -55,7 +55,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
 
     sheet.cell(row=53, column=6).value = array_values[19][2]
     sheet.cell(row=54, column=6).value = array_values[20][2]
-    sheet.cell(row=55, column=6).value = 'N/A'
+    sheet.cell(row=55, column=6).value = CQAUtilities.get_partcile(CQAREF)
     sheet.cell(row=56, column=6).value = pe_m3_dict['salt'] # salt
     sheet.cell(row=57, column=6).value = pe_m3_dict['perna_m3'] #perna
     # Major nutrients

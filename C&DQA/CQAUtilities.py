@@ -400,6 +400,7 @@ def get_dry_matter(CQAREF):
         value = float(item[0])
     return value
 
+
 def get_partcile(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -411,14 +412,31 @@ def get_partcile(CQAREF):
     WHERE rep.refno = '%s' AND env.feecode = 'SQCC023'
     OR rep.refno = 'CQA2200061' AND env.feecode = 'SQBC023'  
     OR rep.refno = 'CQA2200061' AND env.feecode = 'SSCC023' 
-    OR rep.refno = 'CQA2200061' AND env.feecode = 'SSBC023' 
-    ''' %CQAREF
+    OR rep.refno = 'CQA2200061' AND env.feecode = 'SSBC023'
+    OR rep.refno = 'CQA2200061' AND env.feecode = 'SQAC023'  
+    ''' % CQAREF
     cursor.execute(query)
     usingDict = {}
     for item in cursor:
         usingDict[item[0]] = item[1]
 
-    for key,value in usingDict.items():
+    print('\n')
+    for key, value in usingDict.items():
         print(key, value)
+
+    if usingDict['SQCC023'] >= 79.5:
+        return usingDict['SQCC023']
+    elif usingDict['SQBC023'] >= 79.5:
+        return usingDict['SQBC023']
+    elif usingDict['SSCC023'] >= 79.5:
+        return usingDict['SSCC023']
+    elif usingDict['SSBC023'] >= 79.5:
+        return usingDict['SSBC023']
+    else:
+        return usingDict['SQAC023']
+
+
+
+
 
 get_partcile('CQA2200061')
