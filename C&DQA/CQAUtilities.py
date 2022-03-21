@@ -368,8 +368,14 @@ def getOtherResults(CQAREF):
 
     new_list = map(float, item_list[0])
 
+    newDict = {}
+    # perna_m3, perk_m3, permg_m3, perca_m3
+    newDict['salt'] = new_list[0]
+    newDict['perna_m3'] = new_list[0]
+    newDict['perk_m3'] = new_list[0]
+    newDict['permg_m3'] = new_list[0]
+    newDict['perca_m3'] = new_list[0]
 
-    print(b)
 
 
 getOtherResults('CQA2200061')
