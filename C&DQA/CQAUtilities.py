@@ -345,3 +345,31 @@ def OntarioResults(CQARef):
         print(i)
     print('\n')  # formatting purposes
     return final_array
+
+def getOtherResults(CQAREF):
+    print(CQAREF)
+
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
+    select salt, perna_m3, perk_m3, permg_m3, perca_m3
+    from agdata a
+    inner join report r
+    on r.rptno = a.rptno
+    inner join soil s
+    on s.rptno = a.rptno
+    where route_4 = '%s'
+    ''' %CQAREF
+    cursor.execute(query)
+    item_list = []
+    for item in cursor:
+        item_list.append(item)
+    print(item_list)
+
+    new_list = map(float, item_list[0])
+
+
+    print(b)
+
+
+getOtherResults('CQA2200061')

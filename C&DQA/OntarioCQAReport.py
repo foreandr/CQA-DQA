@@ -15,7 +15,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     thin = Side(border_style="thin")
     print('CULMN-NUM, NAME, VALUE, ROW-INDX ')
     array_values = CQAUtilities.OntarioResults(CQAREF)
-
+    item_dict = Utilities.getValuesForAGIndex(CQAREF)
     # I THINK PUTTING THEM IN MANUALLY IS JUST EASIER / SIMPLER TO READ, SORRY FUTURE CODERS
 
     # A.
@@ -63,12 +63,12 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # APENDIX 3
     sheet.cell(row=100, column=4).value = 'ISSUE/BUG'
     sheet.cell(row=101, column=4).value = 'N/A'
-    sheet.cell(row=102, column=4).value = array_values[22][2]
+    sheet.cell(row=102, column=4).value = item_dict['PH']
     sheet.cell(row=103, column=4).value = array_values[20][2]
 
     # FERTILIZER
-
-    sheet.cell(row=105, column=4).value = 'N/A' # Nitrogen
+    Nitrogen = Utilities.getNitrogen(CQAREF)
+    sheet.cell(row=105, column=4).value = Nitrogen # Nitrogen
     sheet.cell(row=106, column=4).value = array_values[23][2]
     sheet.cell(row=107, column=4).value = array_values[24][2]
     sheet.cell(row=108, column=4).value = array_values[25][2]
