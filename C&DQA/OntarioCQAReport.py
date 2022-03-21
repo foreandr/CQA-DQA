@@ -13,7 +13,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet = workbook.get_sheet_by_name("CCME (Ontario)")
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
-    print('CULMN-NUM, NAME, VALUE, ROW-INDX ')
+    # sprint('CULMN-NUM, NAME, VALUE, ROW-INDX ')
     array_values = CQAUtilities.OntarioResults(CQAREF)
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
     # I THINK PUTTING THEM IN MANUALLY IS JUST EASIER / SIMPLER TO READ, SORRY FUTURE CODERS
@@ -50,20 +50,23 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=46, column=6).value = array_values[17][2]
     sheet.cell(row=47, column=6).value = array_values[18][2]
 
+    pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
+
+
     sheet.cell(row=53, column=6).value = array_values[19][2]
     sheet.cell(row=54, column=6).value = array_values[20][2]
     sheet.cell(row=55, column=6).value = 'N/A'
-    sheet.cell(row=56, column=6).value = 'N/A'
-    sheet.cell(row=57, column=6).value = 'N/A'
+    sheet.cell(row=56, column=6).value = pe_m3_dict['salt'] # salt
+    sheet.cell(row=57, column=6).value = pe_m3_dict['perna_m3'] #perna
     # Major nutrients
-    sheet.cell(row=59, column=6).value = 'N/A'
-    sheet.cell(row=60, column=6).value = 'N/A'
-    sheet.cell(row=61, column=6).value = 'N/A'
+    sheet.cell(row=59, column=6).value = pe_m3_dict['perk_m3'] #perk
+    sheet.cell(row=60, column=6).value = pe_m3_dict['permg_m3'] #perma
+    sheet.cell(row=61, column=6).value = pe_m3_dict['perca_m3'] #perca
 
     # APENDIX 3
-    sheet.cell(row=100, column=4).value = 'ISSUE/BUG'
-    sheet.cell(row=101, column=4).value = 'N/A'
-    sheet.cell(row=102, column=4).value = item_dict['PH']
+    sheet.cell(row=100, column=4).value = CQAUtilities.get_dry_matter(CQAREF)
+    sheet.cell(row=101, column=4).value = item_dict['PH']
+    sheet.cell(row=102, column=4).value = array_values[22][2]
     sheet.cell(row=103, column=4).value = array_values[20][2]
 
     # FERTILIZER
@@ -85,7 +88,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     Sodium = float(item_dict['NA'])
     DryMatter = 10
     Chloride = float(item_dict['CL'])
-    print('dude wtf', Chloride, type(Chloride), type(float(Chloride)))
+    # print('dude wtf', Chloride, type(Chloride), type(float(Chloride)))
 
     print('PHOSPHORUS:', Phosphorus)
     print('Potassium:', Potassium)
@@ -95,8 +98,8 @@ def OntarioQuebecCQA(workbook, CQAREF):
     print('Chloride:', Chloride)
     value1 = (Nitrogen + Phosphorus + Potassium)
     value2 = (Sodium * (DryMatter / 100)) + (Chloride / 10000)
-    print 'LEFTSIDE:', value1
-    print 'RIGHTSIDE:', value2
+    # print 'LEFTSIDE:', value1
+    # print 'RIGHTSIDE:', value2
     ag_index = value1 / value2
     sheet.cell(row=113, column=4).value = ag_index
 

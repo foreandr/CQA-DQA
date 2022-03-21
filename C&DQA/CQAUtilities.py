@@ -2,6 +2,8 @@ import SQL_CONNECTOR
 import Colors
 import Utilities
 import os, sys
+
+
 def OntarioResults(CQARef):
     print Colors.bcolors.OKCYAN + "\nExecuting ON QCResults" + Colors.bcolors.ENDC
     # ------------------------------------------------------Env Report------------------------------------------------------#
@@ -105,8 +107,8 @@ def OntarioResults(CQARef):
               "Parameter: " + str(parameter) \
               + "" + Colors.bcolors.ENDC
         '''
-    #print Colors.bcolors.OKCYAN + 'Ontario----salmonella------' + Colors.bcolors.ENDC
-    #print ENVResult['17']
+    # print Colors.bcolors.OKCYAN + 'Ontario----salmonella------' + Colors.bcolors.ENDC
+    # print ENVResult['17']
     ##    print '=-----moisture------'
     ##    print ENVResult['19']
 
@@ -213,14 +215,14 @@ def OntarioResults(CQARef):
     available_matter_for_calc = Utilities.getAvailableOrganicMatter(CQARef)
     totalOrganicCarbon2 = Utilities.organicCarbon(available_matter_for_calc)
     Nitrogen = float(soilResult['32'])
-    #print 'Total Organic            :' + str(soilResult['18'])
-    #print 'AVailable Organic        : ' + str(available_matter_for_calc)
-    #print 'OG CARB * 0.6            : ' + str(totalOrganicCarbon2)
-    #print 'Nitrogen                 :' + str(Nitrogen)
+    # print 'Total Organic            :' + str(soilResult['18'])
+    # print 'AVailable Organic        : ' + str(available_matter_for_calc)
+    # print 'OG CARB * 0.6            : ' + str(totalOrganicCarbon2)
+    # print 'Nitrogen                 :' + str(Nitrogen)
 
     # Divide organic carbon by nitrogen
     CNRatioValue = round((Utilities.organicCarbon(available_matter_for_calc) / 0.9) / Nitrogen)
-    #print 'CNRatioValue             :' + str(CNRatioValue)
+    # print 'CNRatioValue             :' + str(CNRatioValue)
 
     cNRatio = str("%d:1" % (CNRatioValue))
     # print 'Calculated CN Ratio = ' + cNRatio
@@ -322,29 +324,31 @@ def OntarioResults(CQARef):
         for _key, value in ENVDict.items():
             if key == _key:
                 # print _key, value, finalResult[key]
-                final_array.append([_key, value, finalResult[key]]) #plS JUST WORK NOW
+                final_array.append([_key, value, finalResult[key]])  # plS JUST WORK NOW
 
     def vector2d_sort(array):
-        for i in range(len(array) -1):
+        for i in range(len(array) - 1):
             # print i, array[i]
-            if int(array[i][0]) > int(array[i+1][0]):
+            if int(array[i][0]) > int(array[i + 1][0]):
                 biggerTemp = array[i]
-                smallerTemp = array[i+1]
+                smallerTemp = array[i + 1]
                 array[i] = smallerTemp
                 array[i + 1] = biggerTemp
 
                 vector2d_sort(array)
+
     vector2d_sort(final_array)
     count = 0
     for i in final_array:
         i.append(count)
-        count+=1
+        count += 1
 
-    print '\n', Colors.bcolors.OKCYAN, 'CURRENT VALUES', Colors.bcolors.ENDC   # formatting purposes
+    print '\n', Colors.bcolors.OKCYAN, 'CURRENT VALUES', Colors.bcolors.ENDC  # formatting purposes
     for i in final_array:
         print(i)
     print('\n')  # formatting purposes
     return final_array
+
 
 def getOtherResults(CQAREF):
     print(CQAREF)
@@ -359,7 +363,7 @@ def getOtherResults(CQAREF):
     inner join soil s
     on s.rptno = a.rptno
     where route_4 = '%s'
-    ''' %CQAREF
+    ''' % CQAREF
     cursor.execute(query)
     item_list = []
     for item in cursor:
@@ -375,7 +379,46 @@ def getOtherResults(CQAREF):
     newDict['perk_m3'] = new_list[0]
     newDict['permg_m3'] = new_list[0]
     newDict['perca_m3'] = new_list[0]
+    print(newDict)
+    return newDict
 
 
+def get_dry_matter(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
+    SELECT result_str
+    FROM env_data env
+    INNER JOIN report rep
+    ON rep.rptno = env.rptno
+    WHERE env.feecode = 'GTSZ280'
+    AND refno = '%s'
+    ''' % CQAREF
+    cursor.execute(query)
+    value = 0
+    for item in cursor:
+        value = float(item[0])
+    return value
 
-getOtherResults('CQA2200061')
+def get_partcile(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
+    SELECT feecode, result_str
+    FROM env_data env
+    INNER JOIN report rep
+    ON rep.rptno = env.rptno
+    WHERE rep.refno = '%s' AND env.feecode = 'SQCC023'
+    OR rep.refno = 'CQA2200061' AND env.feecode = 'SQBC023'  
+    OR rep.refno = 'CQA2200061' AND env.feecode = 'SSCC023' 
+    OR rep.refno = 'CQA2200061' AND env.feecode = 'SSBC023' 
+    ''' %CQAREF
+    cursor.execute(query)
+    usingDict = {}
+    for item in cursor:
+        usingDict[item[0]] = item[1]
+
+    for key,value in usingDict.items():
+        print(key, value)
+
+get_partcile('CQA2200061')
