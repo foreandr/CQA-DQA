@@ -14,8 +14,11 @@ def OntarioQuebecCQA(workbook, CQAREF):
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
     # sprint('CULMN-NUM, NAME, VALUE, ROW-INDX ')
+
     array_values = CQAUtilities.OntarioResults(CQAREF)
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
+    pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
+
     # I THINK PUTTING THEM IN MANUALLY IS JUST EASIER / SIMPLER TO READ, SORRY FUTURE CODERS
 
     # A.
@@ -50,9 +53,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=46, column=6).value = array_values[17][2]
     sheet.cell(row=47, column=6).value = array_values[18][2]
 
-    pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
-
-
     sheet.cell(row=53, column=6).value = array_values[19][2]
     sheet.cell(row=54, column=6).value = array_values[20][2]
     sheet.cell(row=55, column=6).value = CQAUtilities.get_partcile(CQAREF)
@@ -70,8 +70,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=103, column=4).value = array_values[20][2]
 
     # FERTILIZER
-    Nitrogen = Utilities.getNitrogen(CQAREF)
-    sheet.cell(row=105, column=4).value = Nitrogen # Nitrogen
+    sheet.cell(row=105, column=4).value = Utilities.getNitrogen(CQAREF) # Nitrogen
     sheet.cell(row=106, column=4).value = array_values[23][2]
     sheet.cell(row=107, column=4).value = array_values[24][2]
     sheet.cell(row=108, column=4).value = array_values[25][2]
@@ -80,6 +79,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=111, column=4).value = array_values[28][2]
 
 
+    #AGINDEX ------
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
 
     Nitrogen = float(Utilities.removePercentSign(Utilities.getNitrogen(CQAREF)))  # stand in for real value
