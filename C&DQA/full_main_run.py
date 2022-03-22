@@ -31,11 +31,11 @@ class GUI:
         CQAbc_demo = u'CQA2100540'  # WORKS BC/newbrunswick NEEDS FORMATTING
         current_test = u'CQA2200061'  # WORKS ONT
 
-        # relevant_reference_numbers.append(DQAother_demo)
-        # relevant_reference_numbers.append(DQAontario_demo)
+        #relevant_reference_numbers.append(DQAother_demo)
+        relevant_reference_numbers.append(DQAontario_demo)
         # relevant_reference_numbers.append(CQAquebec_demo)
         # relevant_reference_numbers.append(CQAbc_demo)
-        relevant_reference_numbers.append(current_test)  #
+        # relevant_reference_numbers.append(current_test)  #
 
         textLabel = Label(root, text='Enter a Refno')
         textLabel.grid(row=0, column=0)

@@ -67,7 +67,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=100, column=4).value = CQAUtilities.get_dry_matter(CQAREF)
     sheet.cell(row=101, column=4).value = item_dict['PH']
     sheet.cell(row=102, column=4).value = array_values[22][2]
-    sheet.cell(row=103, column=4).value = array_values[20][2]
+    sheet.cell(row=103, column=4).value = str(array_values[31][2]) +':1'
 
     # FERTILIZER
     sheet.cell(row=105, column=4).value = Utilities.getNitrogen(CQAREF) # Nitrogen
@@ -79,7 +79,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=111, column=4).value = array_values[28][2]
 
 
-    #AGINDEX ------
+    # AGINDEX----------------------------------------------------------
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
 
     Nitrogen = float(Utilities.removePercentSign(Utilities.getNitrogen(CQAREF)))  # stand in for real value
@@ -104,8 +104,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=113, column=4).value = ag_index
 
 
-
-    # AGINDEX----------------------------------------------------------
 
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",

@@ -222,6 +222,8 @@ def OntarioResults(CQARef):
 
     # Divide organic carbon by nitrogen
     CNRatioValue = round((Utilities.organicCarbon(available_matter_for_calc) / 0.9) / Nitrogen)
+    print('CNRATIO: ', CNRatioValue)
+
     # print 'CNRatioValue             :' + str(CNRatioValue)
 
     cNRatio = str("%d:1" % (CNRatioValue))
@@ -342,13 +344,13 @@ def OntarioResults(CQARef):
     for i in final_array:
         i.append(count)
         count += 1
-
+    final_array.append(['29', 'REAL C:N RATIO', int(CNRatioValue), count])
     print '\n', Colors.bcolors.OKCYAN, 'CURRENT VALUES', Colors.bcolors.ENDC  # formatting purposes
     for i in final_array:
         print(i)
     print('\n')  # formatting purposes
     return final_array
-
+OntarioResults('CQA2200061')
 
 def getOtherResults(CQAREF):
     print(CQAREF)
