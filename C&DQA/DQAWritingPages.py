@@ -8,7 +8,7 @@ def makeSheet_DQA(CQARef, workingFolder):
     location = findLocation(CQARef)
     if location == 'ON':
         print ("Location: %s" % location)
-        templateFile = r'C:\CQA\FULL CQA - DQA\C&DQA\Templates\Ontario DQA -W.xlsx'
+        templateFile = r'C:\CQA\FULL CQA - DQA\C&DQA\Templates\Ontario DQA - KO.xlsx'
         wb = openpyxl.load_workbook(templateFile)
         OntarioDQAW.OntarioPrintDQA(wb, CQARef)
     else:

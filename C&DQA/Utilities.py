@@ -1,6 +1,7 @@
 import os
 import shutil
 
+import openpyxl
 from openpyxl.styles import Border
 import mysql.connector
 from mysql.connector import errorcode
@@ -150,7 +151,41 @@ def add_round_to_excel_formula(string):
     final_string_with_equals = '=' + new_string
     return (final_string_with_equals)
 
+def grab_excel_locations():
+    from openpyxl.styles import PatternFill, Border, Side
+    from openpyxl import Workbook
+    import openpyxl
 
+    templateFile = r'C:\CQA\FULL CQA - DQA\C&DQA\Templates\Ontario DQA - KO.xlsx'
+    wb = openpyxl.load_workbook(templateFile)
+    sheet = wb.get_sheet_by_name("Ontario CFIA", )
+
+    value_list = []
+    for i in range(1, 90):
+        column1_value =  sheet.cell(row=i, column=1).value
+        column2_value = sheet.cell(row=i, column=2).value
+
+        if column1_value == '' or column1_value == None:
+            value_list.append([i, column2_value])
+        else:
+            value_list.append([i, column1_value])
+    final_list = []
+    for i in value_list:
+        if i[1] == None:
+            continue
+        else:
+            final_list.append(i)
+
+    for i in final_list:
+        print(i)
+
+    return final_list
+
+
+
+
+
+grab_excel_locations()
 def open_report_csv_INDEXLIST():
     import csv
 
