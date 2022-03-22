@@ -2,7 +2,7 @@ import os
 
 from openpyxl.styles import PatternFill, Border, Side
 from openpyxl import Workbook
-
+import Colors
 import Utilities
 def OntarioPrintDQA(Workbook, CQARef):
     # Sets the color of the highlight/fill to highlight the failed values
@@ -15,14 +15,13 @@ def OntarioPrintDQA(Workbook, CQARef):
     import gettingFeeCodes
 
     feecodeList = gettingFeeCodes.gettingfeeCodes('%s' % CQARef)
-    print '\n'
+    print Colors.bcolors.OKGREEN, '\nFEECODELIST', Colors.bcolors.ENDC
     for i in feecodeList:
         print i
     # Some missing, but actually turned out pretty good
     locations_in_excel = Utilities.grab_excel_locations()
-    print '\n'
     for row in locations_in_excel:
-        print row
+        # print row
         current_index = row[0]
         current_name = row[1]
         for i in feecodeList:
@@ -40,125 +39,127 @@ def OntarioPrintDQA(Workbook, CQARef):
         try:
             typcasted_dict[key] = float(value)
         except:
-            print(value, 'not a float, entering into dict as string')
+            # print(value, 'not a float, entering into dict as string')
             typcasted_dict[key] = value
     # A
-    sheet.cell(row=18, column=4).value = typcasted_dict['Molybdenum (Mb)']
+    sheet.cell(row=17, column=4).value = typcasted_dict['Molybdenum (Mb)']
 
-    # B. Foreign Matter [21, 24]
-    #sheet.cell(row=28, column=4).value = feecodeList[36][3]
-    #sheet.cell(row=29, column=4).value = feecodeList[37][3]
-    #sheet.cell(row=30, column=4).value = feecodeList[35][3]
+    # B.
+    sheet.cell(row=29, column=4).value = feecodeList[35][3]
 
-    # D Pathogens
-    #sheet.cell(row=37, column=4).value = feecodeList[1][3]
-    #sheet.cell(row=38, column=4).value = feecodeList[3][3]
+    #C
+    sheet.cell(row=27, column=4).value = feecodeList[36][3]
+    sheet.cell(row=28, column=4).value = feecodeList[37][3]
+
+    # C Pathogens
+    sheet.cell(row=36, column=4).value = feecodeList[1][3]
+    sheet.cell(row=35, column=4).value = feecodeList[3][3]
 
     # E Physical Parameter
-    #sheet.cell(row=52, column=4).value = feecodeList[7][3]
-    #sheet.cell(row=53, column=4).value = feecodeList[45][3]
-    #sheet.cell(row=54, column=4).value = feecodeList[6][3]
+    #sheet.cell(row=53, column=4).value = feecodeList[7][3]
+    #sheet.cell(row=54, column=4).value = feecodeList[45][3]
+    #sheet.cell(row=55, column=4).value = feecodeList[6][3]
 
     # Minimum Agricultural Values
-    #sheet.cell(row=57, column=4).value = feecodeList[11][3]
-    #sheet.cell(row=58, column=4).value = float(feecodeList[38][3]) * typcasted_dict['Dry Matter'] / 100  # this is total phophate not available
-    #sheet.cell(row=59, column=4).value = float(feecodeList[39][3]) * typcasted_dict['Dry Matter'] / 100
+    sheet.cell(row=53, column=4).value = feecodeList[11][3]
+    sheet.cell(row=54, column=4).value = float(feecodeList[38][3]) * typcasted_dict['Dry Matter'] / 100  # this is total phophate not available
+    sheet.cell(row=55, column=4).value = float(feecodeList[39][3]) * typcasted_dict['Dry Matter'] / 100
 
     # Agricultural End-Use
-    #sheet.cell(row=67, column=4).value = feecodeList[9][3]
-    #sheet.cell(row=68, column=4).value = feecodeList[44][3]  # can't seem to find
+    sheet.cell(row=63, column=4).value = feecodeList[9][3]
+    sheet.cell(row=64, column=4).value = feecodeList[44][3]  # can't seem to find
+    sheet.cell(row=65, column=4).value = Utilities.getTotalOrganicMatter(CQARef)
+    sheet.cell(row=66, column=4).value = feecodeList[45][3]
+    sheet.cell(row=67, column=4).value = feecodeList[6][3]
 
     # Fertilizer Equivalent Materials
-    #sheet.cell(row=76, column=4).value = feecodeList[28][3]
-    #sheet.cell(row=77, column=4).value = feecodeList[40][3]
-    #sheet.cell(row=79, column=4).value = feecodeList[41][3]
-
-    #sheet.cell(row=81, column=4).value = feecodeList[43][3]
-    #sheet.cell(row=82, column=4).value = feecodeList[33][3]
-
-    #sheet.cell(row=83, column=4).value = feecodeList[16][3]
-    #sheet.cell(row=84, column=4).value = feecodeList[12][3]
-    #sheet.cell(row=85, column=4).value = feecodeList[21][3]
-    #sheet.cell(row=86, column=4).value = feecodeList[22][3]
-    #sheet.cell(row=87, column=4).value = feecodeList[26][3]
-    #sheet.cell(row=88, column=4).value = feecodeList[27][3]
-    #sheet.cell(row=89, column=4).value = feecodeList[34][3]
-
-    # ----------------------------------------------------------------
-    print '\n'
-    for key, value in typcasted_dict.iteritems():
-        print key, value
+    sheet.cell(row=76, column=4).value = feecodeList[28][3]  #SODIUM
+    #sheet.cell(row=76, column=4).value = feecodeList[40][3]
+    #sheet.cell(row=78, column=4).value = feecodeList[41][3]
+    #sheet.cell(row=80, column=4).value = feecodeList[43][3]
+    #sheet.cell(row=81, column=4).value = feecodeList[33][3]
+    #sheet.cell(row=82, column=4).value = feecodeList[16][3]
+    #sheet.cell(row=83, column=4).value = feecodeList[12][3]
+    #sheet.cell(row=84, column=4).value = feecodeList[21][3]
+    #sheet.cell(row=85, column=4).value = feecodeList[22][3]
+    #sheet.cell(row=86, column=4).value = feecodeList[26][3]
+    #sheet.cell(row=87, column=4).value = feecodeList[27][3]
+    #sheet.cell(row=88, column=4).value = feecodeList[34][3]
+    # ----------------------------------------------------------------    print '\n'
+    #for key, value in typcasted_dict.iteritems():
+    #   print key, value
 
     '''FOR MULTIPLICATION PURPOSES'''
-    print('\nDRY MATTER : ')
-    print(typcasted_dict['Dry Matter'])
+    #print('\nDRY MATTER : ')
+    #print(typcasted_dict['Dry Matter'])
     calc_value = typcasted_dict['Nitrogen Total (N)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=70, column=4).value = round(calc_value, 1)
+    sheet.cell(row=71, column=4).value = round(calc_value, 1)
 
     calc_value = typcasted_dict['Nitrate Nitrogen NO3-N'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=72, column=4).value = calc_value
+    sheet.cell(row=73, column=4).value = calc_value
 
     calc_value = typcasted_dict['Total Phosphate (P as P2O5)'] * typcasted_dict['Dry Matter'] / 100
     num_x = calc_value / 10000 * 2.29  # LOOKS SAME BUT IS ACTUALLY DIFFERENT
-    #sheet.cell(row=73, column=4).value = num_x
+    sheet.cell(row=74, column=4).value = num_x
 
     calc_value = typcasted_dict['Total Potash (K as K2O)'] * typcasted_dict['Dry Matter'] / 100
     num_x = calc_value / 10000 * 1.21  # LOOKS SAME BUT IS ACTUALLY DIFFERENT
-    #sheet.cell(row=74, column=4).value = num_x
+    sheet.cell(row=75, column=4).value = num_x
 
     calc_value = typcasted_dict['Available Sodium (Na)'] * typcasted_dict['Dry Matter'] / 100 / 10000
     #print('sodium calc value', calc_value)
-    #sheet.cell(row=75, column=4).value = calc_value
+    sheet.cell(row=76, column=4).value = calc_value
 
     calc_value = typcasted_dict['Sodium'] * typcasted_dict['Dry Matter'] / 100 / 10000
-    #sheet.cell(row=76, column=4).value = calc_value
+    sheet.cell(row=77, column=4).value = calc_value
 
     calc_value = typcasted_dict['Total Available (Mg)'] * typcasted_dict['Dry Matter'] / 100 / 10000
-    #sheet.cell(row=77, column=4).value = calc_value
+    sheet.cell(row=78, column=4).value = calc_value
 
     calc_value = typcasted_dict['Total Magnesium (Mg)'] * typcasted_dict[
         'Dry Matter'] / 100  # oNLY WORKS IF I DONT DO THE SECOND DIVISION?
 
-    #sheet.cell(row=78, column=4).value = calc_value
+    sheet.cell(row=79, column=4).value = calc_value
 
     calc_value = typcasted_dict['Total available (Ca)'] * typcasted_dict['Dry Matter'] / 100 / 10000
     #print 'avail calcium value', calc_value
-    #sheet.cell(row=79, column=4).value = calc_value
+    sheet.cell(row=80, column=4).value = calc_value
 
     calc_value = typcasted_dict['Total Calcium (Ca)'] * typcasted_dict['Dry Matter'] / 100  # ONLY WOKRS IF I DONT DO SECOND DIVISON
     #print 'total calc', calc_value
-    #sheet.cell(row=80, column=4).value = calc_value
+    sheet.cell(row=81, column=4).value = calc_value
 
     calc_value = typcasted_dict['Available (S}'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=81, column=4).value = round(calc_value, 1)
+    sheet.cell(row=82, column=4).value = round(calc_value, 1)
 
     calc_value = typcasted_dict['Total Sulfur (S)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=82, column=4).value = calc_value
+    sheet.cell(row=83, column=4).value = calc_value
 
     calc_value = typcasted_dict['Boron (B)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=83, column=4).value = calc_value
+    sheet.cell(row=84, column=4).value = calc_value
 
     calc_value = typcasted_dict['Chloride'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=84, column=4).value = calc_value
+    sheet.cell(row=85, column=4).value = calc_value
 
     calc_value = typcasted_dict['Copper (Cu)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=85, column=4).value = calc_value
+    sheet.cell(row=86, column=4).value = calc_value
 
     calc_value = typcasted_dict['Iron (Fe)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=86, column=4).value = calc_value
+    sheet.cell(row=87, column=4).value = calc_value
 
     calc_value = typcasted_dict['Manganese (Mn)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=87, column=4).value = calc_value
+    sheet.cell(row=88, column=4).value = calc_value
 
     calc_value = typcasted_dict['Molybdenum (Mb)'] * typcasted_dict['Dry Matter'] / 100 / 10000  # small but seems right
     #print('molynum', calc_value)
-    #sheet.cell(row=88, column=4).value = calc_value
+    sheet.cell(row=89, column=4).value = calc_value
 
     calc_value = typcasted_dict['Zinc (Zn)'] * typcasted_dict['Dry Matter'] / 100
-    #sheet.cell(row=89, column=4).value = calc_value
+    sheet.cell(row=90, column=4).value = calc_value
 
     # -----------------------------------------------------------------
     # BORDER ALIGNMENT
+    """
     from Utilities import FixFormatting
     #A intro table MADNESS FORMATTING
     for i in range(7, 8):
@@ -300,8 +301,9 @@ def OntarioPrintDQA(Workbook, CQARef):
 
         border = Border(bottom=thick, right=thick)
         FixFormatting(sheet, 'B89:I89', border)
-
+    """
     #ROUNDING THINGS
+    """
     print('\nPRINTING Excel values')
     for i in range(70, 90):
         print(i, sheet.cell(row=i, column=6).value, sheet.cell(row=i, column=7).value, sheet.cell(row=i, column=8).value, sheet.cell(row=i, column=9).value)
@@ -316,7 +318,7 @@ def OntarioPrintDQA(Workbook, CQARef):
         sheet.cell(row=i, column=9).value = column9_formula
 
         # sheet.write_formula('F70', new_formula)
-
+    """
     #CENTERING THINGS
     from openpyxl.styles import Alignment
     from openpyxl.styles import Font

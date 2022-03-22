@@ -350,7 +350,7 @@ def OntarioResults(CQARef):
         print(i)
     print('\n')  # formatting purposes
     return final_array
-OntarioResults('CQA2200061')
+
 
 def getOtherResults(CQAREF):
     print(CQAREF)
@@ -437,8 +437,3 @@ def get_partcile(CQAREF):
     else:
         return usingDict['SQAC023']
 
-
-
-
-
-get_partcile('CQA2200061')

@@ -151,6 +151,7 @@ def add_round_to_excel_formula(string):
     final_string_with_equals = '=' + new_string
     return (final_string_with_equals)
 
+
 def grab_excel_locations():
     from openpyxl.styles import PatternFill, Border, Side
     from openpyxl import Workbook
@@ -162,7 +163,7 @@ def grab_excel_locations():
 
     value_list = []
     for i in range(1, 90):
-        column1_value =  sheet.cell(row=i, column=1).value
+        column1_value = sheet.cell(row=i, column=1).value
         column2_value = sheet.cell(row=i, column=2).value
 
         if column1_value == '' or column1_value == None:
@@ -182,10 +183,25 @@ def grab_excel_locations():
     return final_list
 
 
+def organic_matter_query(CQAREF):
+    # print(CQAREF)
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
+    select om, refno
+    from soil s
+    INNER JOIN report rep
+    ON rep.rptno = s.rptno
+    where refno = '%s'
+    ''' % CQAREF
+    cursor.execute(query)
+    value = 0
+    for item in cursor:
+        value = float(item[0])
+        print(item)
+    return value
 
 
-
-grab_excel_locations()
 def open_report_csv_INDEXLIST():
     import csv
 
@@ -328,6 +344,7 @@ def getAvailableOrganicMatter(CQAREF):
     on r.rptno=s.rptno 
     where r.refno = '%s'""" % CQAREF
     cursor.execute(query)
+    temp = 0
     for item in cursor:
         temp = float(item[0])
         # print temp
@@ -356,7 +373,7 @@ def getValuesForAGIndex(CQAREF):
     cursor.execute(query)
 
     value_list = []
-    for item in cursor: # some weird data type gets pulled here
+    for item in cursor:  # some weird data type gets pulled here
         value_list.append(item[0])
         value_list.append(item[1])
         value_list.append(item[2])
