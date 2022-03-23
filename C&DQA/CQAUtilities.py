@@ -370,17 +370,17 @@ def getOtherResults(CQAREF):
     item_list = []
     for item in cursor:
         item_list.append(item)
-    print(item_list)
+    print('all items in m3 query ' , item_list)
 
     new_list = map(float, item_list[0])
 
     newDict = {}
     # perna_m3, perk_m3, permg_m3, perca_m3
     newDict['salt'] = new_list[0]
-    newDict['perna_m3'] = new_list[0]
-    newDict['perk_m3'] = new_list[0]
-    newDict['permg_m3'] = new_list[0]
-    newDict['perca_m3'] = new_list[0]
+    newDict['perna_m3'] = new_list[1]
+    newDict['perk_m3'] = new_list[2]
+    newDict['permg_m3'] = new_list[3]
+    newDict['perca_m3'] = new_list[4]
     print(newDict)
     return newDict
 
@@ -427,13 +427,18 @@ def get_partcile(CQAREF):
         print(key, value)
 
     if usingDict['SQCC023'] >= 79.5:
-        return usingDict['SQCC023']
+        return '1/4'
+        # 1/4
     elif usingDict['SQBC023'] >= 79.5:
-        return usingDict['SQBC023']
+        return '3/8'
+        # 3/8
     elif usingDict['SSCC023'] >= 79.5:
-        return usingDict['SSCC023']
+        return '1/2'
+        # 1/2
     elif usingDict['SSBC023'] >= 79.5:
-        return usingDict['SSBC023']
+        return '1'
+        # 1
     else:
-        return usingDict['SQAC023']
+        return '2'
+        #2
 

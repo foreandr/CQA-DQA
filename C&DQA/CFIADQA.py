@@ -73,100 +73,94 @@ def CFIAPrintDQA(Workbook, CQARef):
     # D Pathogens
     sheet.cell(row=33, column=4).value = feecodeList[3][3]
 
-    # E Physical Parameter
-    sheet.cell(row=38, column=4).value = feecodeList[7][3]
-    sheet.cell(row=39, column=4).value = feecodeList[45][3]
-    sheet.cell(row=40, column=4).value = feecodeList[6][3]
+    # E Physical Parameter DOESNT EXIST LOL
+    #sheet.cell(row=38, column=4).value = feecodeList[7][3]
+    #sheet.cell(row=39, column=4).value = feecodeList[45][3]
+    #sheet.cell(row=40, column=4).value = feecodeList[6][3]
 
     # Minimum Agricultural Values
     sheet.cell(row=51, column=4).value = feecodeList[11][3]
     sheet.cell(row=52, column=4).value = float(feecodeList[38][3]) * typcasted_dict['Dry Matter'] / 100# dry matter division and multiplication
     sheet.cell(row=53, column=4).value = float(feecodeList[39][3]) * typcasted_dict['Dry Matter'] / 100# dry matter division
 
-    # Agricultural End-Use
+    # Agricultural End-Use 1
     sheet.cell(row=61, column=4).value = feecodeList[9][3]
-    sheet.cell(row=62, column=4).value = feecodeList[44][3]  # specific gravity?
+    sheet.cell(row=63, column=4).value = feecodeList[7][3]
+    sheet.cell(row=64, column=4).value = feecodeList[45][3]
+    sheet.cell(row=65, column=4).value = feecodeList[6][3]
 
-    sheet.cell(row=68, column=4).value = feecodeList[28][3]
-    sheet.cell(row=70, column=4).value = feecodeList[40][3]
-    sheet.cell(row=71, column=4).value = feecodeList[41][3]
 
-    sheet.cell(row=73, column=4).value = feecodeList[43][3]
-    sheet.cell(row=75, column=4).value = feecodeList[33][3]
 
-    sheet.cell(row=77, column=4).value = feecodeList[16][3]
-    sheet.cell(row=78, column=4).value = feecodeList[12][3]
-    sheet.cell(row=79, column=4).value = feecodeList[21][3]
-    sheet.cell(row=80, column=4).value = feecodeList[22][3]
-    sheet.cell(row=81, column=4).value = feecodeList[26][3]
-    sheet.cell(row=82, column=4).value = feecodeList[27][3]
-    sheet.cell(row=83, column=4).value = feecodeList[34][3]
 
+    # Agricultural End-Use 2
+    #print 'typcasted_dict'
+    #print typcasted_dict
     # ---- calculations
     calc_value = typcasted_dict['Nitrogen Total (N)'] * dry_matter / 100
-    sheet.cell(row=64, column=4).value = round(calc_value, 1)
+    sheet.cell(row=69, column=4).value = round(calc_value, 1)
 
     calc_value = typcasted_dict['Nitrate Nitrogen NO3-N'] * dry_matter / 100
-    sheet.cell(row=66, column=4).value = calc_value
+    sheet.cell(row=71, column=4).value = calc_value
 
     calc_value = typcasted_dict['Total Phosphate (P as P2O5)'] * dry_matter / 100
     num_x = calc_value / 10000 * 2.29  # LOOKS SAME BUT IS ACTUALLY DIFFERENT
-    sheet.cell(row=67, column=4).value = num_x
+    sheet.cell(row=72, column=4).value = num_x
 
     calc_value = typcasted_dict['Total Potash (K as K2O)'] * dry_matter / 100
     num_x = calc_value / 10000 * 1.21  # LOOKS SAME BUT IS ACTUALLY DIFFERENT
-    sheet.cell(row=68, column=4).value = num_x
+    sheet.cell(row=73, column=4).value = num_x
 
     calc_value = typcasted_dict['Available Sodium (Na)'] * dry_matter / 100 / 10000
-    sheet.cell(row=69, column=4).value = calc_value
-
-    calc_value = typcasted_dict['Sodium'] * dry_matter / 100 / 10000
-    sheet.cell(row=70, column=4).value = calc_value
-
-    calc_value = typcasted_dict['Total Available (Mg)'] * typcasted_dict['Dry Matter'] / 100 / 10000
-    sheet.cell(row=71, column=4).value = calc_value
-
-    calc_value = typcasted_dict['Total Magnesium (Mg)'] * typcasted_dict['Dry Matter'] / 100  # oNLY WORKS IF I DONT DO THE SECOND DIVISION?
-    sheet.cell(row=72, column=4).value = calc_value
-
-    calc_value = typcasted_dict['Total available (Ca)'] * typcasted_dict['Dry Matter'] / 100 / 10000
-    sheet.cell(row=73, column=4).value = calc_value
-
-    calc_value = typcasted_dict['Total Calcium (Ca)'] * typcasted_dict['Dry Matter'] / 100  # ONLY WOKRS IF I DONT DO SECOND DIVISON
     sheet.cell(row=74, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Available (S}'] * typcasted_dict['Dry Matter'] / 100
-    sheet.cell(row=75, column=4).value = round(calc_value, 1)
+    calc_value = typcasted_dict['Sodium'] * dry_matter / 100 / 10000
+    sheet.cell(row=75, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Total Sulfur (S)'] * typcasted_dict['Dry Matter'] / 100
+    calc_value = typcasted_dict['Total Available (Mg)'] * typcasted_dict['Dry Matter'] / 100 / 10000
     sheet.cell(row=76, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Boron (B)'] * typcasted_dict['Dry Matter'] / 100
+    calc_value = typcasted_dict['Total Magnesium (Mg)'] * typcasted_dict['Dry Matter'] / 100  # oNLY WORKS IF I DONT DO THE SECOND DIVISION?
     sheet.cell(row=77, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Chloride'] * typcasted_dict['Dry Matter'] / 100
+    calc_value = typcasted_dict['Total available (Ca)'] * typcasted_dict['Dry Matter'] / 100 / 10000
     sheet.cell(row=78, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Copper (Cu)'] * typcasted_dict['Dry Matter'] / 100
+    calc_value = typcasted_dict['Total Calcium (Ca)'] * typcasted_dict['Dry Matter'] / 100  # ONLY WOKRS IF I DONT DO SECOND DIVISON
     sheet.cell(row=79, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Iron (Fe)'] * typcasted_dict['Dry Matter'] / 100
-    sheet.cell(row=80, column=4).value = calc_value
+    calc_value = typcasted_dict['Available (S}'] * typcasted_dict['Dry Matter'] / 100
+    sheet.cell(row=80, column=4).value = round(calc_value, 1)
 
-    calc_value = typcasted_dict['Manganese (Mn)'] * typcasted_dict['Dry Matter'] / 100
+    calc_value = typcasted_dict['Total Sulfur (S)'] * typcasted_dict['Dry Matter'] / 100
     sheet.cell(row=81, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Molybdenum (Mb)'] * typcasted_dict['Dry Matter'] / 100 / 10000  # small but seems right
+    calc_value = typcasted_dict['Boron (B)'] * typcasted_dict['Dry Matter'] / 100
     sheet.cell(row=82, column=4).value = calc_value
 
-    calc_value = typcasted_dict['Zinc (Zn)'] * typcasted_dict['Dry Matter'] / 100
+    calc_value = typcasted_dict['Chloride'] * typcasted_dict['Dry Matter'] / 100
     sheet.cell(row=83, column=4).value = calc_value
+
+    calc_value = typcasted_dict['Copper (Cu)'] * typcasted_dict['Dry Matter'] / 100
+    sheet.cell(row=84, column=4).value = calc_value
+
+    calc_value = typcasted_dict['Iron (Fe)'] * typcasted_dict['Dry Matter'] / 100
+    sheet.cell(row=85, column=4).value = calc_value
+
+    calc_value = typcasted_dict['Manganese (Mn)'] * typcasted_dict['Dry Matter'] / 100
+    sheet.cell(row=86, column=4).value = calc_value
+
+    calc_value = typcasted_dict['Molybdenum (Mb)'] * typcasted_dict['Dry Matter'] / 100 / 10000  # small but seems right
+    sheet.cell(row=87, column=4).value = calc_value
+
+    calc_value = typcasted_dict['Zinc (Zn)'] * typcasted_dict['Dry Matter'] / 100
+    sheet.cell(row=88, column=4).value = calc_value
 
 
     # -----------------------------------------------------------------
-    # BORDER ALIGNMENT
-
     from Utilities import FixFormatting
+    # BORDER ALIGNMENT
+    '''
+    
     for i in range(7, 11):
         border = Border(left=thick, bottom=thick, top=thick, right=thick)
         FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
@@ -279,8 +273,7 @@ def CFIAPrintDQA(Workbook, CQARef):
         sheet['G82'] = 'N/A'
         sheet['H82'] = 'N/A'
         sheet['I82'] = 'N/A'
-
-    #-----
+    '''
     #CENTERING THINGS
     from openpyxl.styles import Alignment
     from openpyxl.styles import Font

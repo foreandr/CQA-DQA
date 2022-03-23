@@ -24,15 +24,15 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # A.
     sheet.cell(row=9, column=4).value = array_values[0][2]  # Arsenic
     sheet.cell(row=10, column=4).value = array_values[1][2]  # Cadmium
-    sheet.cell(row=11, column=4).value = array_values[3][2]  # chromium
-    sheet.cell(row=12, column=4).value = array_values[4][2]  # cobalt
-    sheet.cell(row=13, column=4).value = array_values[5][2]
-    sheet.cell(row=14, column=4).value = array_values[6][2]
-    sheet.cell(row=15, column=4).value = array_values[7][2]
-    sheet.cell(row=16, column=4).value = array_values[8][2]
-    sheet.cell(row=17, column=4).value = array_values[9][2]
-    sheet.cell(row=18, column=4).value = array_values[10][2]
-    sheet.cell(row=19, column=4).value = array_values[11][2]
+    sheet.cell(row=11, column=4).value = array_values[2][2]  # chromium
+    sheet.cell(row=12, column=4).value = array_values[3][2]  # cobalt
+    sheet.cell(row=13, column=4).value = array_values[4][2]
+    sheet.cell(row=14, column=4).value = array_values[5][2]
+    sheet.cell(row=15, column=4).value = array_values[6][2]
+    sheet.cell(row=16, column=4).value = array_values[7][2]
+    sheet.cell(row=17, column=4).value = array_values[8][2]
+    sheet.cell(row=18, column=4).value = array_values[9][2]
+    sheet.cell(row=19, column=4).value = array_values[10][2]
 
     # B.
     sheet.cell(row=24, column=4).value = array_values[29][2]
@@ -54,23 +54,23 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=47, column=6).value = array_values[18][2]
 
     sheet.cell(row=53, column=6).value = array_values[19][2]
-    sheet.cell(row=54, column=6).value = array_values[20][2]
+    sheet.cell(row=54, column=6).value = str(int(array_values[31][2])) + ':1'
     sheet.cell(row=55, column=6).value = CQAUtilities.get_partcile(CQAREF)
     sheet.cell(row=56, column=6).value = pe_m3_dict['salt'] # salt
-    sheet.cell(row=57, column=6).value = pe_m3_dict['perna_m3'] #perna
+    sheet.cell(row=57, column=6).value = str(pe_m3_dict['perna_m3']) + '%' #perna
     # Major nutrients
-    sheet.cell(row=59, column=6).value = pe_m3_dict['perk_m3'] #perk
-    sheet.cell(row=60, column=6).value = pe_m3_dict['permg_m3'] #perma
-    sheet.cell(row=61, column=6).value = pe_m3_dict['perca_m3'] #perca
+    sheet.cell(row=59, column=6).value = str(pe_m3_dict['perk_m3'])  + '%' #perk
+    sheet.cell(row=60, column=6).value = str(pe_m3_dict['permg_m3']) + '%' #perma
+    sheet.cell(row=61, column=6).value = str(pe_m3_dict['perca_m3']) + '%' #perca
 
     # APENDIX 3
-    sheet.cell(row=100, column=4).value = CQAUtilities.get_dry_matter(CQAREF)
+    sheet.cell(row=100, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
     sheet.cell(row=101, column=4).value = item_dict['PH']
     sheet.cell(row=102, column=4).value = array_values[22][2]
     sheet.cell(row=103, column=4).value = str(array_values[31][2]) +':1'
 
     # FERTILIZER
-    sheet.cell(row=105, column=4).value = Utilities.getNitrogen(CQAREF) # Nitrogen
+    sheet.cell(row=105, column=4).value = str(Utilities.getNitrogen(CQAREF)) + '%' # Nitrogen
     sheet.cell(row=106, column=4).value = array_values[23][2]
     sheet.cell(row=107, column=4).value = array_values[24][2]
     sheet.cell(row=108, column=4).value = array_values[25][2]
@@ -104,6 +104,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=113, column=4).value = ag_index
 
 
+    #--- Removing or Adding Percent Signs
 
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",
