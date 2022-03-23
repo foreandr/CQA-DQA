@@ -85,6 +85,7 @@ def CFIAPrintDQA(Workbook, CQARef):
 
     # Agricultural End-Use 1
     sheet.cell(row=61, column=4).value = feecodeList[9][3]
+    sheet.cell(row=62, column=4).value = feecodeList[44][3]
     sheet.cell(row=63, column=4).value = feecodeList[7][3]
     sheet.cell(row=64, column=4).value = feecodeList[45][3]
     sheet.cell(row=65, column=4).value = feecodeList[6][3]
