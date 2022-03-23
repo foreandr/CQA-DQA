@@ -1,3 +1,5 @@
+from openpyxl.styles import Side, Border
+
 import SQL_CONNECTOR
 import Colors
 import Utilities
@@ -442,3 +444,53 @@ def get_partcile(CQAREF):
         return '2'
         #2
 
+
+def DQA_CFIA_FORMATTING(sheet):
+    thick = Side(border_style="medium")
+    thin = Side(border_style="thin")
+    # A. -----------
+    for i in range(6, 22): # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:L%d' % (i, i), border)
+
+    for i in range(11, 21): # ARSENIC TO ZINC
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'B%d:L%d' %(i, i) , border)
+
+    for i in range(7, 10):
+        border = Border(top=thin, left=thin)
+        Utilities.FixFormatting(sheet, 'D%d:L%d' % (i, i), border)
+        Utilities.FixFormatting(sheet, 'E%d:L%d' % (i, i), border)
+        Utilities.FixFormatting(sheet, 'G%d:L%d' % (i, i), border)
+        Utilities.FixFormatting(sheet, 'I%d:L%d' % (i, i), border)
+
+    border = Border(top=thick)
+    Utilities.FixFormatting(sheet, 'B6:L6', border)
+    border = Border(top=thin)
+    Utilities.FixFormatting(sheet, 'D10:L10', border)
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B10:L10', border)
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B21:L21', border)
+
+    # B. -----------
+    for i in range(25, 29): # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
+
+
+    border = Border(bottom=thick) #DOESNT WORK..
+    Utilities.FixFormatting(sheet, 'E25:F25', border)
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'B25:J25', border)
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'B26:J26', border)
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'B27:J27', border)
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B28:J28', border)
+
+
+
+
+#Utilities.FixFormatting(sheet, 'B10:L10' , border)

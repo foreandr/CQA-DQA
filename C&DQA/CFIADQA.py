@@ -159,6 +159,8 @@ def CFIAPrintDQA(Workbook, CQARef):
     # -----------------------------------------------------------------
     from Utilities import FixFormatting
     # BORDER ALIGNMENT
+    from CQAUtilities import DQA_CFIA_FORMATTING
+    DQA_CFIA_FORMATTING(sheet)
     '''
     
     for i in range(7, 11):
