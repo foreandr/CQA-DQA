@@ -481,6 +481,7 @@ def DQA_CFIA_FORMATTING(sheet):
 
     border = Border(bottom=thick) #DOESNT WORK..
     Utilities.FixFormatting(sheet, 'E25:F25', border)
+
     border = Border(top=thick, bottom=thick)
     Utilities.FixFormatting(sheet, 'B25:J25', border)
     border = Border(bottom=thin)
@@ -490,7 +491,64 @@ def DQA_CFIA_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'B28:J28', border)
 
+    # C. -----------
+    for i in range(31, 34): # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
 
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'B31:J31', border)
+    border = Border(bottom=thick,top=thin)
+    Utilities.FixFormatting(sheet, 'B33:J33', border)
+
+    # Minimum Agricultural Values. -----------
+    for i in range(50, 54): # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'A50:L50', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A51:L51', border)
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A52:L52', border)
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A53:L53', border)
+
+    # THE BIG ONE   ----
+    for i in range(56, 88):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
+
+        if (i < 58) or (i > 65 and i < 69) :
+            continue
+        else:
+            border = Border(bottom=thin)
+            Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick, right=thick)
+    Utilities.FixFormatting(sheet, 'A55:L55', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D57:D57', border)
+    border = Border(left=thin, right=thin)
+    Utilities.FixFormatting(sheet, 'E57:E57', border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'A66:L66', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A68:L68', border)
+
+    border = Border(left=thin, right=thin)
+    Utilities.FixFormatting(sheet, 'D68:D68', border)
+
+    border = Border(top=thin)
+    Utilities.FixFormatting(sheet, 'F68:L68', border)
+
+    border = Border(bottom=thick, right=thick)
+    Utilities.FixFormatting(sheet, 'A88:L88', border)
 
 
 #Utilities.FixFormatting(sheet, 'B10:L10' , border)
