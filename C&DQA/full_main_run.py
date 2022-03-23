@@ -25,17 +25,17 @@ class GUI:
         root.geometry("300x300")
 
         relevant_reference_numbers = []
-        DQAother_demo = u'KELLY1'  # WORKS PEI
-        DQAontario_demo = u'KELLY'  # WORKS ONT, FORMATTING ERRORS
-        CQAquebec_demo = u'CQA2100409'  # WORKS ONT, NEEDS FORMATTING
-        CQAbc_demo = u'CQA2100540'  # WORKS BC/newbrunswick NEEDS FORMATTING
-        current_test = u'CQA2200061'  # WORKS ONT
+        DQAother_demo = u'KELLY1'
+        DQAontario_demo = u'KELLY'
+        CQAquebec_demo = u'CQA2100409'
+        CQAbc_demo = u'CQA2100540'
+        CQAONt = u'CQA2200061'
 
-        #relevant_reference_numbers.append(DQAother_demo)
-        relevant_reference_numbers.append(DQAontario_demo)
-        # relevant_reference_numbers.append(CQAquebec_demo)
-        # relevant_reference_numbers.append(CQAbc_demo)
-        # relevant_reference_numbers.append(current_test)  #
+        relevant_reference_numbers.append(DQAother_demo) # WORKING
+        #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
+        #relevant_reference_numbers.append(CQAquebec_demo)
+        #relevant_reference_numbers.append(CQAbc_demo)
+        #relevant_reference_numbers.append(CQAONt)  #
 
         textLabel = Label(root, text='Enter a Refno')
         textLabel.grid(row=0, column=0)
