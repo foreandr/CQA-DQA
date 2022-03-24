@@ -816,12 +816,8 @@ def CQA_ONT_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'A113:I113', border)
 
 
-
-
-
-
-
-
-
+def similar(a, b):
+    from difflib import SequenceMatcher
+    return SequenceMatcher(None, a, b).ratio()
 
 # Utilities.FixFormatting(sheet, 'B10:L10' , border)

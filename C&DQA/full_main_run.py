@@ -31,11 +31,11 @@ class GUI:
         CQAbc_demo = u'CQA2100540'
         CQAONt = u'CQA2200061'
 
-        relevant_reference_numbers.append(DQAother_demo)  # WORKING
-        relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
-        relevant_reference_numbers.append(CQAquebec_demo)
-        # relevant_reference_numbers.append(CQAbc_demo)
-        relevant_reference_numbers.append(CQAONt)  #
+        #relevant_reference_numbers.append(DQAother_demo)  # WORKING
+        #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
+        #relevant_reference_numbers.append(CQAquebec_demo)
+        relevant_reference_numbers.append(CQAbc_demo)
+        #relevant_reference_numbers.append(CQAONt)  #
 
         textLabel = Label(root, text='Enter a Refno')
         textLabel.grid(row=0, column=0)

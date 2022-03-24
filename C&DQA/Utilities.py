@@ -123,12 +123,12 @@ def get_names_and_indexes(sheet):
         if sheet.cell(row=row, column=1).value != None:
             text_value = sheet.cell(row=row, column=1).value
             # print row, text_value, 1
-            temp_list = [row, text_value, 1]
+            temp_list = ['INDEX:', row, text_value]
             list_indexes_names.append(temp_list)
         else:
             text_value = sheet.cell(row=row, column=2).value
             # print row, text_value, 2
-            temp_list = [row, text_value, 1]
+            temp_list = ['INDEX:', row, text_value]
             list_indexes_names.append(temp_list)
     newlist = []
     for i in range(len(list_indexes_names)):
@@ -137,8 +137,8 @@ def get_names_and_indexes(sheet):
 
     # print '\nprinting updated list\n'
 
-    # for i in newlist:
-    #    print i
+    for i in newlist:
+        print i
 
     return newlist
 
