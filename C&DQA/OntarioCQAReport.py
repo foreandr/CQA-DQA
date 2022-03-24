@@ -103,7 +103,8 @@ def OntarioQuebecCQA(workbook, CQAREF):
     ag_index = value1 / value2
     sheet.cell(row=113, column=4).value = ag_index
 
-
+    # -------- FORMATTING
+    CQAUtilities.CQA_ONT_FORMATTING(sheet)
     #--- Removing or Adding Percent Signs
 
     # ----------------------------------------------------------------

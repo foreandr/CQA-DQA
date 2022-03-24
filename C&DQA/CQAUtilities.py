@@ -372,7 +372,7 @@ def getOtherResults(CQAREF):
     item_list = []
     for item in cursor:
         item_list.append(item)
-    print('all items in m3 query ' , item_list)
+    print('all items in m3 query ', item_list)
 
     new_list = map(float, item_list[0])
 
@@ -442,20 +442,20 @@ def get_partcile(CQAREF):
         # 1
     else:
         return '2'
-        #2
+        # 2
 
 
 def DQA_CFIA_FORMATTING(sheet):
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
     # A. -----------
-    for i in range(6, 22): # BOX OUTLINE
+    for i in range(6, 22):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:L%d' % (i, i), border)
 
-    for i in range(11, 21): # ARSENIC TO ZINC
+    for i in range(11, 21):  # ARSENIC TO ZINC
         border = Border(bottom=thin)
-        Utilities.FixFormatting(sheet, 'B%d:L%d' %(i, i) , border)
+        Utilities.FixFormatting(sheet, 'B%d:L%d' % (i, i), border)
 
     for i in range(7, 10):
         border = Border(top=thin, left=thin)
@@ -474,12 +474,11 @@ def DQA_CFIA_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'B21:L21', border)
 
     # B. -----------
-    for i in range(25, 29): # BOX OUTLINE
+    for i in range(25, 29):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
 
-
-    border = Border(bottom=thick) #DOESNT WORK..
+    border = Border(bottom=thick)  # DOESNT WORK..
     Utilities.FixFormatting(sheet, 'E25:F25', border)
 
     border = Border(top=thick, bottom=thick)
@@ -492,17 +491,17 @@ def DQA_CFIA_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'B28:J28', border)
 
     # C. -----------
-    for i in range(31, 34): # BOX OUTLINE
+    for i in range(31, 34):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
 
     border = Border(top=thick, bottom=thick)
     Utilities.FixFormatting(sheet, 'B31:J31', border)
-    border = Border(bottom=thick,top=thin)
+    border = Border(bottom=thick, top=thin)
     Utilities.FixFormatting(sheet, 'B33:J33', border)
 
     # Minimum Agricultural Values. -----------
-    for i in range(50, 54): # BOX OUTLINE
+    for i in range(50, 54):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
 
@@ -521,7 +520,7 @@ def DQA_CFIA_FORMATTING(sheet):
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
 
-        if (i < 58) or (i > 65 and i < 69) :
+        if (i < 58) or (i > 65 and i < 69):
             continue
         else:
             border = Border(bottom=thin)
@@ -551,4 +550,173 @@ def DQA_CFIA_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'A88:L88', border)
 
 
-#Utilities.FixFormatting(sheet, 'B10:L10' , border)
+def DQA_ONT_FORMATTING(sheet):
+    thick = Side(border_style="medium")
+    thin = Side(border_style="thin")
+
+    # A. --------
+
+    for i in range(6, 21):  # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:K%d' % (i, i), border)
+
+    for i in range(10, 20):  # ARSENIC TO ZINC
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'B%d:K%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B5:K5', border)
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'I6:K6', border)
+    border = Border(right=thin, left=thin)
+    Utilities.FixFormatting(sheet, 'D7:D7', border)
+    border = Border(right=thin, left=thin)
+    Utilities.FixFormatting(sheet, 'D8:D8', border)
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'G8:K8', border)
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'F7:F7', border)
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'F8:F8', border)
+    border = Border(right=thin)
+    Utilities.FixFormatting(sheet, 'G8:G8', border)
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B9:K9', border)
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B20:K20', border)
+
+    # B. --------
+    for i in range(26, 30):  # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:K%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'B26:K26', border)
+
+    border = Border(bottom=thin, top=thin)
+    Utilities.FixFormatting(sheet, 'B28:K28', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B29:K29', border)
+
+    # C. --------
+    for i in range(33, 37):  # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:K%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'B33:K33', border)
+
+    border = Border(bottom=thin, top=thin)
+    Utilities.FixFormatting(sheet, 'B35:K35', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B36:K36', border)
+
+    #  Finished Digestate Quality
+    for i in range(52, 55):  # BOX OUTLINE
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:K%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A52:K52', border)
+
+    border = Border(bottom=thin, top=thin)
+    Utilities.FixFormatting(sheet, 'A54:K54', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A55:K55', border)
+
+    # FINAL 2 COLUMNS
+    for i in range(58, 90):  # BOX OUTLINE
+        if i == 68 or i == 67:
+            continue
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:K%d' % (i, i), border)
+
+        if i == 58 or i == 59 or i == 69 or i == 70:
+            continue
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:K%d' % (i, i), border)
+
+    border = Border(top=thick)
+    Utilities.FixFormatting(sheet, 'A58:K58', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A59:K59', border)
+
+    border = Border(left=thin, right=thin)
+    Utilities.FixFormatting(sheet, 'D59:D59', border)
+
+    border = Border(right=thin)
+    Utilities.FixFormatting(sheet, 'E59:E59', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A67:K67', border)
+
+    border = Border(top=thick)
+    Utilities.FixFormatting(sheet, 'A69:K69', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A70:K70', border)
+
+    border = Border(left=thin, right=thin)
+    Utilities.FixFormatting(sheet, 'D70:D70', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'F69:K69', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D72:D72', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A90:K90', border)
+
+
+def CQA_ONT_FORMATTING(sheet):
+    thick = Side(border_style="medium")
+    thin = Side(border_style="thin")
+
+    # A. --------
+    for i in range(6, 19):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:H%d' % (i, i), border)
+
+    for i in range(9, 19):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'B%d:H%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'B6:H6', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B8:H8', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B19:H19', border)
+
+    # B. --------
+    for i in range(22, 30):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A22:I22', border)
+
+    for i in range(23, 29):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+        border = Border(right=thin)
+        Utilities.FixFormatting(sheet, 'G%d:G%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A29:I29', border)
+
+    border = Border(right=thin)
+    Utilities.FixFormatting(sheet, 'G29:G29', border)
+
+    border = Border(right=thin)
+    Utilities.FixFormatting(sheet, 'E27:E27', border)
+
+# Utilities.FixFormatting(sheet, 'B10:L10' , border)
