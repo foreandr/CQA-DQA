@@ -716,7 +716,112 @@ def CQA_ONT_FORMATTING(sheet):
     border = Border(right=thin)
     Utilities.FixFormatting(sheet, 'G29:G29', border)
 
-    border = Border(right=thin)
+    border = Border(left=thin)
     Utilities.FixFormatting(sheet, 'E27:E27', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'E23:E23', border)
+
+    # C. ----
+    for i in range(32, 37):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+        border = Border(right=thin, left=thin)
+        Utilities.FixFormatting(sheet, 'D%d:D%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A32:I32', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A34:I34', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A36:I36', border)
+
+    # D. ----
+    for i in range(39, 42):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'A39:I39', border)
+
+    border = Border(bottom=thin, top=thin)
+    Utilities.FixFormatting(sheet, 'A40:I40', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A41:I41', border)
+
+    # E. -----
+    for i in range(45, 48):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'C%d:G%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'C45:G45', border)
+
+    border = Border(bottom=thin, top=thin)
+    Utilities.FixFormatting(sheet, 'C46:G46', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'C47:G47', border)
+
+    # Appendix II
+    for i in range(52, 62):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'C%d:G%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'C52:G52', border)
+
+    for i in range(53, 61):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'C%d:G%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'C61:G61', border)
+
+    # Reference Compost Quality Parameters for CQA
+    for i in range(72, 82):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    for i in range(73, 82):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A72:I72', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A82:I82', border)
+
+    # Appendix III
+    for i in range(98, 114):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    for i in range(99, 112):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(top=thin)
+    Utilities.FixFormatting(sheet, 'A103:I103', border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A98:I98', border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A113:I113', border)
+
+
+
+
+
+
+
+
+
 
 # Utilities.FixFormatting(sheet, 'B10:L10' , border)
