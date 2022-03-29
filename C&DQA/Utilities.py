@@ -1,6 +1,7 @@
+import collections
 import os
 import shutil
-
+from collections import Counter
 import openpyxl
 from openpyxl.styles import Border
 import mysql.connector
@@ -330,7 +331,11 @@ def getTotalOrganicMatter(CQAREF):
         where env.feecode = 'GOMZ405' and rep.refno = '%s'""" % CQAREF
     cursor.execute(query)
     for item in cursor:
-        temp = float(item[0])
+        print('printing temp', item)
+        if item == None:
+            return 'ERROR'
+        else:
+            temp = item[0]
         # print temp
     return temp
 
@@ -352,10 +357,12 @@ def getAvailableOrganicMatter(CQAREF):
 
 
 def removePercentSign(string):
-    if string[-1] == '%':
-        new_string = string[:-1]
-        return new_string
-    return string
+    try:
+        if string[-1] == '%':
+            new_string = string[:-1]
+            return new_string
+    except:
+        return string
 
 
 def getValuesForAGIndex(CQAREF):
@@ -407,6 +414,16 @@ def getNitrogen(CQAREF):
     for item in cursor:
         nitrogen = str(item[0])
     return nitrogen
+
+def round_all_array_values(array):
+    for row in array:
+        try:
+            row[2] = float(row[2])
+            row[2] = round(row[2], 2)
+        except:
+            print('cant cast to float')
+            row[2] = row[2]
+
 
 
 def getCO2Resp(CQAREF):
@@ -490,3 +507,40 @@ def findLocation(CQARef):
     cursor.close()
     cnx.close()
     return location
+
+import Colors
+
+def get_reference_numbers():
+    connection = SQL_CONNECTOR.test_connection()
+    print Colors.bcolors.UNDERLINE + Colors.bcolors.HEADER + "Executing Kelly's Queries" + Colors.bcolors.ENDC
+    reference_number_index = 6
+    cursor = connection.cursor()
+    query = '''
+    SELECT report.rpt_name, report.custno, report.module, report.rptno, report.company, report.grow_1, report.refno, report.rpt_status, report.create_date, report.state
+    FROM alms.report report
+    WHERE (report.rpt_name = 'SQA_COMP'
+    OR report.rpt_name ='STP'
+    OR report.rpt_name = 'AL_STP'
+    OR report.rpt_name='AL_CQA-O'
+    OR report.rpt_name = "AL-ON-CQ"
+    OR report.rpt_name = "AL_CQA")
+    AND ((rpt_status ="5" OR rpt_status ="6") AND refno !=  "")
+    ORDER BY report.refno
+    
+    '''
+    cursor.execute(query)
+    returned_values = []
+    for i in cursor:
+        #print(i)
+        returned_values.append(i[6])
+
+    final_dict = Counter(returned_values)
+    print(Colors.bcolors.OKGREEN + str(final_dict) + Colors.bcolors.ENDC)
+
+    final_array = []
+    for key, value in final_dict.items():
+        if value == 2:
+            final_array.append(key)
+
+    print(str(final_array) +  '\n')
+    return final_array

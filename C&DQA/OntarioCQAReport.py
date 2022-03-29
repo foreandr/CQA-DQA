@@ -16,6 +16,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # sprint('CULMN-NUM, NAME, VALUE, ROW-INDX ')
 
     array_values = CQAUtilities.OntarioResults(CQAREF)
+
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
     pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
 
@@ -54,7 +55,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=47, column=6).value = array_values[18][2]
 
     sheet.cell(row=53, column=6).value = array_values[19][2]
-    sheet.cell(row=54, column=6).value = str(int(array_values[31][2])) + ':1'
+    sheet.cell(row=54, column=6).value = array_values[20][2]
     sheet.cell(row=55, column=6).value = CQAUtilities.get_partcile(CQAREF)
     sheet.cell(row=56, column=6).value = pe_m3_dict['salt'] # salt
     sheet.cell(row=57, column=6).value = str(pe_m3_dict['perna_m3']) + '%' #perna
@@ -67,7 +68,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=100, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
     sheet.cell(row=101, column=4).value = item_dict['PH']
     sheet.cell(row=102, column=4).value = array_values[22][2]
-    sheet.cell(row=103, column=4).value = str(array_values[31][2]) +':1'
+    sheet.cell(row=54, column=6).value = array_values[20][2]
 
     # FERTILIZER
     sheet.cell(row=105, column=4).value = str(Utilities.getNitrogen(CQAREF)) + '%' # Nitrogen

@@ -4,8 +4,8 @@ import Colors
 import shutil, os, sys
 def DQAcoverPageWrite(CQARef, workingFolder):
     print Colors.bcolors.OKCYAN + "\nExecuting DQACover Page Write %s"%CQARef + Colors.bcolors.ENDC
-    template_file = 'K:/2022Ontario/Student2022/ANDRE-CQA 2 report system/Templates/coverDQA.xlsx'
-    saveLocation = os.path.join(r"K:/2022Ontario/Student2022/ANDRE-CQA 2 report system/DQA-Script/FinishedReport-DQA", CQARef)
+    template_file = 'C:\CQA\FULL CQA - DQA\C&DQA/Templates/coverDQA.xlsx'
+    saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA/FinishedReport-DQA", CQARef)
     dqaFile = saveLocation + r'/%sCoverDQA.xlsx' % (CQARef)
 
     import openpyxl

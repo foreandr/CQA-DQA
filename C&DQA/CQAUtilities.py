@@ -6,6 +6,11 @@ import Utilities
 import os, sys
 
 
+def print_dict(my_dict):
+    for key, value in my_dict.items():
+        print(Colors.bcolors.HEADER + str(key) + ' : ' + str(value) + Colors.bcolors.ENDC)
+
+
 def OntarioResults(CQARef):
     print Colors.bcolors.OKCYAN + "\nExecuting ON QCResults" + Colors.bcolors.ENDC
     # ------------------------------------------------------Env Report------------------------------------------------------#
@@ -31,7 +36,7 @@ def OntarioResults(CQARef):
         '18': 'Total Organic Matter',
         '19': 'Moisture',
         '20': 'Total Organic Matter @ 550 deg C',
-        '22': 'C:N Ratio',
+        '21': 'C:N Ratio',
         '28': 'Total Solids (as received)',
         '30': 'Bulk Density (As Recieved)',
         '33': 'Ammonia (NH3/NH4-N)',
@@ -129,6 +134,7 @@ def OntarioResults(CQARef):
     cursor.execute(envQuery)
     # Store the querried information
     for item in cursor:
+        print(Colors.bcolors.WARNING + 'PRINTING ITEM FROM CURSOR)' + str(item) + Colors.bcolors.ENDC)
         moisture = item[0]
         ENVResult['19'] = moisture
 
@@ -217,10 +223,7 @@ def OntarioResults(CQARef):
     available_matter_for_calc = Utilities.getAvailableOrganicMatter(CQARef)
     totalOrganicCarbon2 = Utilities.organicCarbon(available_matter_for_calc)
     Nitrogen = float(soilResult['32'])
-    # print 'Total Organic            :' + str(soilResult['18'])
-    # print 'AVailable Organic        : ' + str(available_matter_for_calc)
-    # print 'OG CARB * 0.6            : ' + str(totalOrganicCarbon2)
-    # print 'Nitrogen                 :' + str(Nitrogen)
+
 
     # Divide organic carbon by nitrogen
     CNRatioValue = round((Utilities.organicCarbon(available_matter_for_calc) / 0.9) / Nitrogen)
@@ -263,10 +266,6 @@ def OntarioResults(CQARef):
             else:
                 CECDict[key].append(float(value[0]))
 
-    # perk - k_m3, 390, E28
-    # perMG - _mg_m3, 121.6, E29
-    # perCa - ca_m3, 200.0, E30
-    # perNa - na, 230.0., E26
 
     # Call the cakculateCEC function
     cec = Utilities.calculateCEC(CECDict)
@@ -286,11 +285,16 @@ def OntarioResults(CQARef):
         soilResult[key] = result
 
         # ----------------------------Merging and Formatting--------------------------------------------#
-
+    print(Colors.bcolors.OKGREEN + 'ENV DICT' + Colors.bcolors.ENDC)
+    print_dict(ENVResult)
+    print(Colors.bcolors.OKGREEN + 'SOIL DICT' + Colors.bcolors.ENDC)
+    print_dict(soilResult)
     # Runs function that merges the two dict's
     tempResult = Utilities.merge_two_dicts(ENVResult, soilResult)
 
     finalResult = {}
+
+    '''
     # Goes through all the results
     for key in tempResult.keys():
         # Stores results into lists
@@ -317,19 +321,22 @@ def OntarioResults(CQARef):
 
         # If there's a value error then don't change it
         except ValueError:
-            finalResult[key] = value
+            finalResult[key] = value 
+    '''
+
+    # print('TEMP RESULT', tempResult)
 
     cursor.close()
     cnx.close()
-    # print 'ON QC Final Result ' + str(finalResult)
-
+    # print '\n', Colors.bcolors.OKCYAN, 'CURRENT VALUES', Colors.bcolors.ENDC  # formatting purposes
     final_array = []
-    for key in sorted(finalResult):
+    for key in sorted(tempResult):
         for _key, value in ENVDict.items():
             if key == _key:
                 # print _key, value, finalResult[key]
-                final_array.append([_key, value, finalResult[key]])  # plS JUST WORK NOW
+                final_array.append([_key, value, tempResult[key]])  # plS JUST WORK NOW
 
+    # print(final_array)
     def vector2d_sort(array):
         for i in range(len(array) - 1):
             # print i, array[i]
@@ -342,16 +349,13 @@ def OntarioResults(CQARef):
                 vector2d_sort(array)
 
     vector2d_sort(final_array)
-    count = 0
+    # print(final_array)  # formatting purposes
+    # exit(1)
+    index_count = 0
     for i in final_array:
-        i.append(count)
-        count += 1
-    final_array.append(['29', 'REAL C:N RATIO', int(CNRatioValue), count])
-    print '\n', Colors.bcolors.OKCYAN, 'CURRENT VALUES', Colors.bcolors.ENDC  # formatting purposes
-    for i in final_array:
-        print(i)
-    print('\n')  # formatting purposes
-    return final_array
+        i.append(index_count)
+        index_count+=1
+    return final_array, soilResult, ENVResult
 
 
 def getOtherResults(CQAREF):
