@@ -15,8 +15,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     thin = Side(border_style="thin")
     # sprint('CULMN-NUM, NAME, VALUE, ROW-INDX ')
 
-    array_values = CQAUtilities.OntarioResults(CQAREF)
-
+    array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
     pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
 
@@ -83,11 +82,13 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # AGINDEX----------------------------------------------------------
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
 
-    Nitrogen = float(Utilities.removePercentSign(Utilities.getNitrogen(CQAREF)))  # stand in for real value
-    Phosphorus = float(Utilities.removePercentSign(array_values[24][2]))
-    Potassium = float(Utilities.removePercentSign(array_values[25][2]))
+    print(item_dict)
+
+    Nitrogen = float(Utilities.getNitrogen(CQAREF))  # stand in for real value
+    Phosphorus = float(item_dict['PH'])
+    Potassium = float(item_dict['K'])
     Sodium = float(item_dict['NA'])
-    DryMatter = 10
+    DryMatter = float(CQAUtilities.get_dry_matter(CQAREF))
     Chloride = float(item_dict['CL'])
     # print('dude wtf', Chloride, type(Chloride), type(float(Chloride)))
 
