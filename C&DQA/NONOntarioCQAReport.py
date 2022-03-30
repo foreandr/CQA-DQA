@@ -110,7 +110,7 @@ def BCandOtherReport(workbook, CQAREF):
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
     ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
     ag_index_png = Image('C:/CQA\FULL CQA - DQA/C&DQA/Photos/agindex.png')
-    sheet.add_image(ag_index_png, 'A112')
+    sheet.add_image(ag_index_png, 'A113')
 
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport", CQAREF)
     filename = saveLocation + "\%sReport.xlsx" % CQAREF

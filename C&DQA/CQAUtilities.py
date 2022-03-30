@@ -224,7 +224,6 @@ def OntarioResults(CQARef):
     totalOrganicCarbon2 = Utilities.organicCarbon(available_matter_for_calc)
     Nitrogen = float(soilResult['32'])
 
-
     # Divide organic carbon by nitrogen
     CNRatioValue = round((Utilities.organicCarbon(available_matter_for_calc) / 0.9) / Nitrogen)
     print('CNRATIO: ', CNRatioValue)
@@ -265,7 +264,6 @@ def OntarioResults(CQARef):
                 sys.exit()
             else:
                 CECDict[key].append(float(value[0]))
-
 
     # Call the cakculateCEC function
     cec = Utilities.calculateCEC(CECDict)
@@ -354,7 +352,7 @@ def OntarioResults(CQARef):
     index_count = 0
     for i in final_array:
         i.append(index_count)
-        index_count+=1
+        index_count += 1
     return final_array, soilResult, ENVResult
 
 
@@ -819,6 +817,7 @@ def CQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'A113:I113', border)
 
+
 def CQA_OTHER_FORMATTING(sheet):
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
@@ -900,11 +899,71 @@ def CQA_OTHER_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'A42:I42', border)
 
+    # ROW 46
+    for i in range(46, 64):
+        if i == 50 or i == 51 or i == 52 or i == 53:
+            pass
+        else:
+            border = Border(left=thick, right=thick)
+            Utilities.FixFormatting(sheet, 'C%d:G%d' % (i, i), border)
+
+    for i in range(47, 63):
+        if i == 48 or i == 50 or i == 51 or i == 52 or i == 53 or i == 54:
+            pass
+        else:
+            border = Border(bottom=thin)
+            Utilities.FixFormatting(sheet, 'C%d:G%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'C48:G48', border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'C54:G54', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'C63:G63', border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'C46:G46', border)
+
+    # row 72
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A72:I72', border)
+
+    for i in range(73, 82):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'C82:G82', border)
+
+    # apendix 3
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A96:I96', border)
+
+    for i in range(97, 110):
+        if i == 97 or i == 102 or i == 109:
+            pass
+        else:
+            border = Border(bottom=thin)
+            Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A97:I97', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A102:I102', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A109:I109', border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'A111:I111', border)
+
+
 
 
 
 def similar(a, b):
     from difflib import SequenceMatcher
     return SequenceMatcher(None, a, b).ratio()
-
-
