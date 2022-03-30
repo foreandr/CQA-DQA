@@ -100,7 +100,16 @@ def BCandOtherReport(workbook, CQAREF):
     value1 = (Nitrogen + Phosphorus + Potassium)
     value2 = (Sodium * (DryMatter / 100)) + (Chloride / 10000)
     ag_index = value1 / value2
+    print('VALUE1', value1)
+    print('VALUE2', value2)
     sheet.cell(row=111, column=4).value = ag_index
+
+
+    from openpyxl.drawing.image import Image
+    os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
+    ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
+    ag_index_png = Image('C:/CQA\FULL CQA - DQA/C&DQA/Photos/agindex.png')
+    sheet.add_image(ag_index_png, 'A112')
 
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport", CQAREF)
     filename = saveLocation + "\%sReport.xlsx" % CQAREF
