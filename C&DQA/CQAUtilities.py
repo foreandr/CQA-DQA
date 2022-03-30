@@ -819,9 +819,92 @@ def CQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'A113:I113', border)
 
+def CQA_OTHER_FORMATTING(sheet):
+    thick = Side(border_style="medium")
+    thin = Side(border_style="thin")
+    # A --
+    for i in range(7, 21):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:H%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'B7:H7', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B9:H9', border)
+
+    for i in range(10, 20):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'B%d:H%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B20:H20', border)
+
+    # B --
+    for i in range(24, 31):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A24:I24', border)
+
+    for i in range(25, 30):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A30:I30', border)
+
+    border = Border(left=thin, right=thin)
+    Utilities.FixFormatting(sheet, 'E27:F27', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D27:D27', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'G26:G26', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'G29:G29', border)
+
+    # C --
+    for i in range(33, 38):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A33:I33', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A37:I37', border)
+
+    for i in range(34, 37):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    for i in range(34, 38):
+        border = Border(right=thin, left=thin)
+        Utilities.FixFormatting(sheet, 'D%d:D%d' % (i, i), border)
+
+    # D --
+    for i in range(40, 43):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A40:I40', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A41:I41', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A42:I42', border)
+
+
+
 
 def similar(a, b):
     from difflib import SequenceMatcher
     return SequenceMatcher(None, a, b).ratio()
 
-# Utilities.FixFormatting(sheet, 'B10:L10' , border)
+

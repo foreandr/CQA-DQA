@@ -104,6 +104,7 @@ def BCandOtherReport(workbook, CQAREF):
     print('VALUE2', value2)
     sheet.cell(row=111, column=4).value = ag_index
 
+    CQAUtilities.CQA_OTHER_FORMATTING(sheet)
 
     from openpyxl.drawing.image import Image
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
