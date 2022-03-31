@@ -121,6 +121,11 @@ def OntarioQuebecCQA(workbook, CQAREF):
     ag_index_png = Image('C:/CQA\FULL CQA - DQA/C&DQA/Photos/agindex.png')
     sheet.add_image(ag_index_png, 'A115')
 
+    # HIGHLIGHTING
+    import HighlighterChecker
+    HighlighterChecker.get_ontario_cqa_constraints_A(sheet)
+
+
     #------
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image

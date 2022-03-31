@@ -44,7 +44,7 @@ class GUI:
         #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
         #relevant_reference_numbers.append(CQAquebec_demo) # WORKING
         #relevant_reference_numbers.append(CQAbc_demo)
-        #relevant_reference_numbers.append(CQAONt)  #
+        relevant_reference_numbers.append(CQAONt)  #
         #relevant_reference_numbers.append(another_test)
 
         import Colors
