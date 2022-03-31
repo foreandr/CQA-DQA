@@ -2,10 +2,10 @@ import openpyxl
 
 import Colors
 from Utilities import findLocation
-from OntarioPart import findOntarioCatagory, OntarioResults, OntarioPrint
-from CCMEPart import findCCMECatagory, CCMEResults, CCMEPrint
-from QuebecPart import findQuebecCatagory, QuebecResults, QuebecPrint
-from BCPart import findBCCatagory, BCResults, BCPrint
+#from OntarioPart import findOntarioCatagory, OntarioResults, OntarioPrint
+#from CCMEPart import findCCMECatagory, CCMEResults, CCMEPrint
+#from QuebecPart import findQuebecCatagory, QuebecResults, QuebecPrint
+#from BCPart import findBCCatagory, BCResults, BCPrint
 import NONOntarioCQAReport
 def makeSheet(CQARef, workingFolder):
     '''Runs the printing function depending on the location'''

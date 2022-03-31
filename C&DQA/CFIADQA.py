@@ -1,7 +1,5 @@
 import os
-
 from openpyxl.styles import Side, Border
-
 import Colors
 import Utilities
 
