@@ -16,9 +16,13 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # sprint('CULMN-NUM, NAME, VALUE, ROW-INDX ')
 
     array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
+    Utilities.round_all_array_values(array_values)
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
     pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
 
+
+    for i in array_values:
+        print(i)
     # I THINK PUTTING THEM IN MANUALLY IS JUST EASIER / SIMPLER TO READ, SORRY FUTURE CODERS
 
     # A.
@@ -67,10 +71,11 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=100, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
     sheet.cell(row=101, column=4).value = item_dict['PH']
     sheet.cell(row=102, column=4).value = array_values[22][2]
-    sheet.cell(row=54, column=6).value = array_values[20][2]
+    sheet.cell(row=103, column=4).value = array_values[20][2]
 
     # FERTILIZER
-    sheet.cell(row=105, column=4).value = str(Utilities.getNitrogen(CQAREF)) + '%' # Nitrogen
+
+    sheet.cell(row=105, column=4).value = round(float(Utilities.getNitrogen(CQAREF)), 2)
     sheet.cell(row=106, column=4).value = array_values[23][2]
     sheet.cell(row=107, column=4).value = array_values[24][2]
     sheet.cell(row=108, column=4).value = array_values[25][2]
@@ -103,11 +108,32 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # print 'LEFTSIDE:', value1
     # print 'RIGHTSIDE:', value2
     ag_index = value1 / value2
-    sheet.cell(row=113, column=4).value = ag_index
+    sheet.cell(row=113, column=4).value = round(ag_index, 2)
 
     # -------- FORMATTING
     CQAUtilities.CQA_ONT_FORMATTING(sheet)
     #--- Removing or Adding Percent Signs
+
+    #-- Agindex
+    from openpyxl.drawing.image import Image
+    os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
+    # ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
+    ag_index_png = Image('C:/CQA\FULL CQA - DQA/C&DQA/Photos/agindex.png')
+    sheet.add_image(ag_index_png, 'A115')
+
+    #------
+    # putting in the images------------------------------------
+    from openpyxl.drawing.image import Image
+    os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
+    img = Image('al.jpg')
+    sheet.add_image(img, 'A1')
+    img = Image('Digestate-logo.png')
+    sheet.add_image(img, 'H1')
+
+    img = Image('al.jpg')
+    sheet.add_image(img, 'A94')
+    img = Image('Digestate-logo.png')
+    sheet.add_image(img, 'H94')
 
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",

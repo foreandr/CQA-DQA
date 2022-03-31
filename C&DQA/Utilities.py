@@ -8,6 +8,7 @@ import mysql.connector
 from mysql.connector import errorcode
 import SQL_CONNECTOR
 
+import Colors
 config = {
     'user': 'lmsuser',
     'password': 'readonly',
@@ -424,8 +425,6 @@ def round_all_array_values(array):
             print('cant cast to float')
             row[2] = row[2]
 
-
-
 def getCO2Resp(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -508,7 +507,6 @@ def findLocation(CQARef):
     cnx.close()
     return location
 
-import Colors
 
 def get_reference_numbers():
     connection = SQL_CONNECTOR.test_connection()

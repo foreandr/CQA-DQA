@@ -291,37 +291,6 @@ def OntarioResults(CQARef):
     tempResult = Utilities.merge_two_dicts(ENVResult, soilResult)
 
     finalResult = {}
-
-    '''
-    # Goes through all the results
-    for key in tempResult.keys():
-        # Stores results into lists
-        value = tempResult[key]
-        digits = Utilities.formatDict[key]
-
-        # Sees what format the number needs and modifies the value to fit the format
-        try:
-            float(value)
-            if digits == 2:
-                finalValue = "%.2f" % (float(value))
-                # print key, value, finalValue
-                finalResult[key] = finalValue
-            elif digits == 1:
-                finalValue = "%.1f" % (float(value))
-                # print key, value, finalValue
-                finalResult[key] = finalValue
-            elif digits == 0:
-                finalValue = int(value)
-                finalResult[key] = finalValue
-            elif digits == '2%':
-                finalValue = "%.2f" % (float(value)) + '%'
-                finalResult[key] = finalValue
-
-        # If there's a value error then don't change it
-        except ValueError:
-            finalResult[key] = value 
-    '''
-
     # print('TEMP RESULT', tempResult)
 
     cursor.close()
@@ -960,8 +929,9 @@ def CQA_OTHER_FORMATTING(sheet):
     border = Border(top=thick, bottom=thick)
     Utilities.FixFormatting(sheet, 'A111:I111', border)
 
-
-
+    for i in range(96, 112):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
 
 
 def similar(a, b):

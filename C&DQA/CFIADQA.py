@@ -13,20 +13,7 @@ def CFIAPrintDQA(Workbook, CQARef):
     import gettingFeeCodes
 
     feecodeList = gettingFeeCodes.gettingfeeCodes('%s' % CQARef)
-    print '\n'
 
-    # for i in feecodeList:
-    #    print i
-
-    locations_in_excel = Utilities.get_names_and_indexes(sheet)
-    list_for_entering = []
-    for i in locations_in_excel:
-        print Colors.bcolors.HEADER + str(i) + Colors.bcolors.ENDC
-        for j in feecodeList:
-            if i[1] == j[1]:
-                # print i[0], i[1], j[1], j[3]
-                temp_list = [i[0], j[1], j[3]]
-                list_for_entering.append(temp_list)
             # else:
             #    print(i[1])
     # print('printing list for entering')
@@ -35,13 +22,6 @@ def CFIAPrintDQA(Workbook, CQARef):
 
     for i in feecodeList:
         print Colors.bcolors.OKGREEN + str(i) + Colors.bcolors.ENDC
-
-    for i in range(1, 100):
-        for j in list_for_entering:
-            if i == j[0]:
-                # print i, j
-                sheet.cell(row=i, column=4).value = j[2]
-
     # ---------- CREATING CALC DICT
     dict_names_values = {}
     for i in feecodeList:
@@ -61,7 +41,17 @@ def CFIAPrintDQA(Workbook, CQARef):
     # print dry_matter
     # ---------
     # A
+    sheet.cell(row=11, column=4).value = feecodeList[15][3]
+    sheet.cell(row=12, column=4).value = feecodeList[18][3]
+    sheet.cell(row=13, column=4).value = feecodeList[19][3]
+    sheet.cell(row=14, column=4).value = feecodeList[20][3]
+    sheet.cell(row=15, column=4).value = feecodeList[21][3]
+    sheet.cell(row=16, column=4).value = feecodeList[30][3]
+    sheet.cell(row=17, column=4).value = feecodeList[23][3]
     sheet.cell(row=18, column=4).value = feecodeList[27][3]
+    sheet.cell(row=19, column=4).value = feecodeList[29][3]
+    sheet.cell(row=20, column=4).value = feecodeList[32][3]
+    sheet.cell(row=21, column=4).value = feecodeList[34][3]
 
     # B. Foreign Matter
     sheet.cell(row=26, column=4).value = feecodeList[36][3]
@@ -69,12 +59,8 @@ def CFIAPrintDQA(Workbook, CQARef):
     sheet.cell(row=28, column=4).value = feecodeList[35][3]
 
     # D Pathogens
+    sheet.cell(row=32, column=4).value = feecodeList[2][3]
     sheet.cell(row=33, column=4).value = feecodeList[3][3]
-
-    # E Physical Parameter DOESNT EXIST LOL
-    # sheet.cell(row=38, column=4).value = feecodeList[7][3]
-    # sheet.cell(row=39, column=4).value = feecodeList[45][3]
-    # sheet.cell(row=40, column=4).value = feecodeList[6][3]
 
     # Minimum Agricultural Values
     sheet.cell(row=51, column=4).value = feecodeList[11][3]
@@ -84,18 +70,20 @@ def CFIAPrintDQA(Workbook, CQARef):
         'Dry Matter'] / 100  # dry matter division
 
     # Agricultural End-Use 1
+    sheet.cell(row=58, column=4).value = feecodeList[10][3]
+    sheet.cell(row=59, column=4).value = feecodeList[8][3]
+    sheet.cell(row=60, column=4).value = feecodeList[5][3]
     sheet.cell(row=61, column=4).value = feecodeList[9][3]
     sheet.cell(row=62, column=4).value = feecodeList[44][3]
     sheet.cell(row=63, column=4).value = feecodeList[7][3]
     sheet.cell(row=64, column=4).value = feecodeList[45][3]
     sheet.cell(row=65, column=4).value = feecodeList[6][3]
 
-    # Agricultural End-Use 2
-    # print 'typcasted_dict'
-    # print typcasted_dict
-    # ---- calculations
+
     calc_value = typcasted_dict['Nitrogen Total (N)'] * dry_matter / 100
     sheet.cell(row=69, column=4).value = round(calc_value, 1)
+
+    sheet.cell(row=70, column=4).value = feecodeList[11][3]
 
     calc_value = typcasted_dict['Nitrate Nitrogen NO3-N'] * dry_matter / 100
     sheet.cell(row=71, column=4).value = calc_value

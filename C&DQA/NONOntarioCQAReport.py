@@ -106,11 +106,26 @@ def BCandOtherReport(workbook, CQAREF):
 
     CQAUtilities.CQA_OTHER_FORMATTING(sheet)
 
+    # -- Agindex
     from openpyxl.drawing.image import Image
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
-    ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
+    # ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
     ag_index_png = Image('C:/CQA\FULL CQA - DQA/C&DQA/Photos/agindex.png')
     sheet.add_image(ag_index_png, 'A113')
+
+
+    # putting in the images------------------------------------
+    from openpyxl.drawing.image import Image
+    os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
+    img = Image('al.jpg')
+    sheet.add_image(img, 'A1')
+    img = Image('Digestate-logo.png')
+    sheet.add_image(img, 'H1')
+
+    img = Image('al.jpg')
+    sheet.add_image(img, 'A93')
+    img = Image('Digestate-logo.png')
+    sheet.add_image(img, 'H93')
 
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport", CQAREF)
     filename = saveLocation + "\%sReport.xlsx" % CQAREF
