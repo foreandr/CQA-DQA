@@ -112,7 +112,10 @@ def BCandOtherReport(workbook, CQAREF):
     # ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
     ag_index_png = Image('C:/CQA\FULL CQA - DQA/C&DQA/Photos/agindex.png')
     sheet.add_image(ag_index_png, 'A113')
-
+    # ---------------------------------------
+    # HIGHLIGHTING
+    import HighlighterChecker
+    HighlighterChecker.get_non_ontario_cqa_constraints(sheet)
 
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image
