@@ -20,7 +20,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
     pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
 
-
     for i in array_values:
         print(i)
     # I THINK PUTTING THEM IN MANUALLY IS JUST EASIER / SIMPLER TO READ, SORRY FUTURE CODERS
@@ -47,7 +46,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
 
     # C.
     sheet.cell(row=33, column=4).value = array_values[14][2]
-    #sheet.cell(row=34, column=4).value = array_values[][]
+    # sheet.cell(row=34, column=4).value = array_values[][]
 
     # D.
     sheet.cell(row=40, column=4).value = array_values[15][2]
@@ -60,12 +59,12 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=53, column=6).value = array_values[19][2]
     sheet.cell(row=54, column=6).value = array_values[20][2]
     sheet.cell(row=55, column=6).value = CQAUtilities.get_partcile(CQAREF)
-    sheet.cell(row=56, column=6).value = pe_m3_dict['salt'] # salt
-    sheet.cell(row=57, column=6).value = str(pe_m3_dict['perna_m3']) + '%' #perna
+    sheet.cell(row=56, column=6).value = pe_m3_dict['salt']  # salt
+    sheet.cell(row=57, column=6).value = str(pe_m3_dict['perna_m3']) + '%'  # perna
     # Major nutrients
-    sheet.cell(row=59, column=6).value = str(pe_m3_dict['perk_m3'])  + '%' #perk
-    sheet.cell(row=60, column=6).value = str(pe_m3_dict['permg_m3']) + '%' #perma
-    sheet.cell(row=61, column=6).value = str(pe_m3_dict['perca_m3']) + '%' #perca
+    sheet.cell(row=59, column=6).value = str(pe_m3_dict['perk_m3']) + '%'  # perk
+    sheet.cell(row=60, column=6).value = str(pe_m3_dict['permg_m3']) + '%'  # perma
+    sheet.cell(row=61, column=6).value = str(pe_m3_dict['perca_m3']) + '%'  # perca
 
     # APENDIX 3
     sheet.cell(row=100, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
@@ -83,23 +82,22 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=110, column=4).value = array_values[27][2]
     sheet.cell(row=111, column=4).value = array_values[28][2]
 
-
     # AGINDEX----------------------------------------------------------
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
 
     print('getting agindex values')
     DryMatter = float(CQAUtilities.get_dry_matter(CQAREF))
     Nitrogen = float(Utilities.getNitrogen(CQAREF))  # stand in for real value
-    Phosphorus =  (float(CQAUtilities.get_Agindex_Phosphorus(CQAREF) * (DryMatter/ 100) / 10000)) * 2.2914
-    Potassium = (float(CQAUtilities.get_Agindex_Potassium(CQAREF) * (DryMatter/ 100) / 10000)) * 1.2046
-    Sodium = float(CQAUtilities.get_Agindex_Sodium(CQAREF) * (DryMatter/ 100))
-    Chloride = float(item_dict['CL']) /10000
+    Phosphorus = (float(CQAUtilities.get_Agindex_Phosphorus(CQAREF) * (DryMatter / 100) / 10000)) * 2.2914
+    Potassium = (float(CQAUtilities.get_Agindex_Potassium(CQAREF) * (DryMatter / 100) / 10000)) * 1.2046
+    Sodium = float(CQAUtilities.get_Agindex_Sodium(CQAREF) * (DryMatter / 100))
+    Chloride = float(item_dict['CL']) / 10000
     # print('dude wtf', Chloride, type(Chloride), type(float(Chloride)))
 
-    print('PHOSPHORUS:', Phosphorus) #*
-    print('Potassium:', Potassium) #*
+    print('PHOSPHORUS:', Phosphorus)  # *
+    print('Potassium:', Potassium)  # *
     print('Nitrogen:', Nitrogen)
-    print('sodium:', Sodium)#*
+    print('sodium:', Sodium)  # *
     print('DryMatter:', DryMatter)
     print('Chloride:', Chloride)
     value1 = (Nitrogen + Phosphorus + Potassium)
@@ -112,9 +110,9 @@ def OntarioQuebecCQA(workbook, CQAREF):
 
     # -------- FORMATTING
     CQAUtilities.CQA_ONT_FORMATTING(sheet)
-    #--- Removing or Adding Percent Signs
+    # --- Removing or Adding Percent Signs
 
-    #-- Agindex
+    # -- Agindex
     from openpyxl.drawing.image import Image
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
     # ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
@@ -125,7 +123,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     import HighlighterChecker
     HighlighterChecker.get_ontario_cqa_constraints_A(sheet)
 
-    #------
+    # ------
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
