@@ -134,7 +134,7 @@ def OntarioResults(CQARef):
     cursor.execute(envQuery)
     # Store the querried information
     for item in cursor:
-        print(Colors.bcolors.WARNING + 'PRINTING ITEM FROM CURSOR)' + str(item) + Colors.bcolors.ENDC)
+        #print(Colors.bcolors.WARNING + 'PRINTING ITEM FROM CURSOR)' + str(item) + Colors.bcolors.ENDC)
         moisture = item[0]
         ENVResult['19'] = moisture
 
@@ -226,7 +226,7 @@ def OntarioResults(CQARef):
 
     # Divide organic carbon by nitrogen
     CNRatioValue = round((Utilities.organicCarbon(available_matter_for_calc) / 0.9) / Nitrogen)
-    print('CNRATIO: ', CNRatioValue)
+    #print('CNRATIO: ', CNRatioValue)
 
     # print 'CNRatioValue             :' + str(CNRatioValue)
 
@@ -283,10 +283,10 @@ def OntarioResults(CQARef):
         soilResult[key] = result
 
         # ----------------------------Merging and Formatting--------------------------------------------#
-    print(Colors.bcolors.OKGREEN + 'ENV DICT' + Colors.bcolors.ENDC)
-    print_dict(ENVResult)
-    print(Colors.bcolors.OKGREEN + 'SOIL DICT' + Colors.bcolors.ENDC)
-    print_dict(soilResult)
+    #print(Colors.bcolors.OKGREEN + 'ENV DICT' + Colors.bcolors.ENDC)
+    #print_dict(ENVResult)
+    #print(Colors.bcolors.OKGREEN + 'SOIL DICT' + Colors.bcolors.ENDC)
+    #print_dict(soilResult)
     # Runs function that merges the two dict's
     tempResult = Utilities.merge_two_dicts(ENVResult, soilResult)
 

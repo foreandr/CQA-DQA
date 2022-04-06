@@ -333,7 +333,7 @@ def getTotalOrganicMatter(CQAREF):
         where env.feecode = 'GOMZ405' and rep.refno = '%s'""" % CQAREF
     cursor.execute(query)
     for item in cursor:
-        print('printing temp', item)
+        # print('printing temp', item)
         if item == None:
             return 'ERROR'
         else:
@@ -424,7 +424,7 @@ def round_all_array_values(array):
             row[2] = float(row[2])
             row[2] = round(row[2], 2)
         except:
-            print('cant cast to float')
+            # print('cant cast to float')
             row[2] = row[2]
 
 
@@ -454,7 +454,7 @@ def getPH(CQAREF):
             where r.refno='%s'""" % (CQAREF)
     cursor.execute(query)
     for i in cursor:
-        print 'current ph' + str(i)
+        #print 'current ph' + str(i)
         ph = i[0]
     return ph
 
@@ -548,15 +548,28 @@ def get_reference_numbers():
 
 
 CQA_ON_DATA_CATEGORY = [
-    ['Arsenic (As)', 13, 13, 75],
-    ['Cadmium (Cd)', 3, 3, 20],
-    ['Chromium (Cr)', 210, 210, 1060],
-    ['Cobalt (Co)', 34, 34, 150],
-    ['Copper (Cu)', 100, 400, 760],
-    ['Lead (Pb)', 150, 150, 500],
-    ['Mercury (Hg)	', 0.8, 0.8, 5],
-    ['Molybdenum (Mo)', 5, 5, 20],
-    ['Nickel (Ni)', 62, 62, 180],
-    ['Selenium (Se)', 2, 2, 14],
-    ['Zinc (Zn)	', 500, 700, 1850],
+    ['Arsenic', 13, 13, 75],
+    ['Cadmium', 3, 3, 20],
+    ['Chromium', 210, 210, 1060],
+    ['Cobalt', 34, 34, 150],
+    ['Copper', 100, 400, 760],
+    ['Lead', 150, 150, 500],
+    ['Mercury', 0.8, 0.8, 5],
+    ['Molybdenum', 5, 5, 20],
+    ['Nickel', 62, 62, 180],
+    ['Selenium', 2, 2, 14],
+    ['Zinc', 500, 700, 1850],
+]
+CQA_NON_ON_DATA_CATEGORY = [
+    ['Arsenic', 13, 75],
+    ['Cadmium', 3, 20],
+    ['Chromium', 210, '**'],
+    ['Cobalt', 34, 150],
+    ['Copper', 400, '**'],
+    ['Lead', 150, 500],
+    ['Mercury', 0.8, 5],
+    ['Molybdenum', 5, 20],
+    ['Nickel', 62, 180],
+    ['Selenium', 2, 14],
+    ['Zinc', 700, 1850],
 ]

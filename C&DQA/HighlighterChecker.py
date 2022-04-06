@@ -2,6 +2,8 @@ import openpyxl
 from openpyxl.styles import PatternFill
 import CQAUtilities
 import Utilities
+
+
 def try_cast_to_num(value):
     if value == '' or len(str(value)) == 0:
         return ''
@@ -94,6 +96,7 @@ def get_ontario_cqa_constraints_A(sheet):
     else:
         print'NOT A NUMBER', (casted_value)
 
+
 def get_non_ontario_cqa_constraints(sheet):
     highlight = PatternFill(start_color='F3F315', end_color='F3F315', fill_type='solid')
     for i in range(10, 21):
@@ -161,13 +164,46 @@ def get_non_ontario_cqa_constraints(sheet):
     else:
         print'NOT A NUMBER', (casted_value)
 
-def get_ontario_category(CQAREF='CQA2200061'):
+
+def get_ontario_category(CQAREF='CQA2200094'):
     array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
     Utilities.round_all_array_values(array_values)
     print('\nRESULTS FROM EXECUTION\n')
+    new_2d_array = array_values[0:11]
+    check_array = Utilities.CQA_ON_DATA_CATEGORY
 
-    for i in array_values:
-        print(i)
-    # print(array_values)
+    for i in range(2):
+        print('CHECK ARRAY', check_array[i])
+        print('2D ARRAY', new_2d_array[i])
+
+    print('checking values\n')
+    CAT_AA = False
+    CAT_A = False
+    CAT_B = False
+    CAT_FAIL = False
+
+    for i in new_2d_array:
+        # print(i[2])
+        for j in check_array:
+            if j[0] == i[1]:  # FIND THE INSTANCES IN THE ARRAYS WHEN THEY ARE THE SAME
+                # print(i, j)
+                if i[2] > j[3] and i[2] != 'BDL':  # check cat B
+                    print(i, j, 'FAIL')
+                    CAT_FAIL = True
+                elif i[2] > j[2] and i[2] != 'BDL':  # check cat A
+                    print(i, j, 'B')
+                    CAT_B = True
+                elif i[2] > j[1] and i[2] != 'BDL':  # check cat AA
+                    print(i, j, 'A')
+                    CAT_A = True
+                else:
+                    print(i, j, 'AA')
+                    CAT_AA = True
+
+    print('\nCAT_AA:    ' + str(CAT_AA))
+    print('CAT_A:     ' + str(CAT_A))
+    print('CAT_B:     ' + str(CAT_B))
+    print('CAT_FAIL:  ' + str(CAT_FAIL))
+
 
 get_ontario_category()
