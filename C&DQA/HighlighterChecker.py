@@ -202,11 +202,18 @@ def get_ontario_category(CQAREF='CQA2200061'):
                     CAT_AA = True
 
         for k in check_array_second_part:
-            if k[1] == i[1]:
-                print('THESE ARE THE SAME', i, k)
-                if i[2] > k[2]:
-                    pass
-
+            if k[1] == i[1] and i[2] != 'NEGATIVE':
+                # print(i, k)
+                if i[2] > k[3]:
+                    print(i, k, 'FAIL')
+                    CAT_FAIL = True
+                elif i[2] > k[2] and i[2] != 'BDL':  # check cat A
+                    print(i, k, 'B')
+                    CAT_B = True
+                else:  # check cat A
+                    print(i, k, 'A/AA')
+                    CAT_A = True
+                    CAT_AA = True
 
 
     # --
