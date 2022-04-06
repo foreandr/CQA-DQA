@@ -9,6 +9,7 @@ from mysql.connector import errorcode
 import SQL_CONNECTOR
 
 import Colors
+
 config = {
     'user': 'lmsuser',
     'password': 'readonly',
@@ -416,6 +417,7 @@ def getNitrogen(CQAREF):
         nitrogen = str(item[0])
     return nitrogen
 
+
 def round_all_array_values(array):
     for row in array:
         try:
@@ -424,6 +426,7 @@ def round_all_array_values(array):
         except:
             print('cant cast to float')
             row[2] = row[2]
+
 
 def getCO2Resp(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
@@ -529,7 +532,7 @@ def get_reference_numbers():
     cursor.execute(query)
     returned_values = []
     for i in cursor:
-        #print(i)
+        # print(i)
         returned_values.append(i[6])
 
     final_dict = Counter(returned_values)
@@ -540,5 +543,20 @@ def get_reference_numbers():
         if value == 2:
             final_array.append(key)
 
-    print(str(final_array) +  '\n')
+    print(str(final_array) + '\n')
     return final_array
+
+
+CQA_ON_DATA_CATEGORY = [
+    ['Arsenic (As)', 13, 13, 75],
+    ['Cadmium (Cd)', 3, 3, 20],
+    ['Chromium (Cr)', 210, 210, 1060],
+    ['Cobalt (Co)', 34, 34, 150],
+    ['Copper (Cu)', 100, 400, 760],
+    ['Lead (Pb)', 150, 150, 500],
+    ['Mercury (Hg)	', 0.8, 0.8, 5],
+    ['Molybdenum (Mo)', 5, 5, 20],
+    ['Nickel (Ni)', 62, 62, 180],
+    ['Selenium (Se)', 2, 2, 14],
+    ['Zinc (Zn)	', 500, 700, 1850],
+]

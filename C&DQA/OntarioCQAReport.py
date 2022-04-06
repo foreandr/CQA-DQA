@@ -125,7 +125,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     import HighlighterChecker
     HighlighterChecker.get_ontario_cqa_constraints_A(sheet)
 
-
     #------
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image

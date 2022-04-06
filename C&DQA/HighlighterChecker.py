@@ -1,7 +1,7 @@
 import openpyxl
 from openpyxl.styles import PatternFill
-
-
+import CQAUtilities
+import Utilities
 def try_cast_to_num(value):
     if value == '' or len(str(value)) == 0:
         return ''
@@ -160,3 +160,14 @@ def get_non_ontario_cqa_constraints(sheet):
             sheet.cell(row=42, column=4).fill = highlight
     else:
         print'NOT A NUMBER', (casted_value)
+
+def get_ontario_category(CQAREF='CQA2200061'):
+    array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
+    Utilities.round_all_array_values(array_values)
+    print('\nRESULTS FROM EXECUTION\n')
+
+    for i in array_values:
+        print(i)
+    # print(array_values)
+
+get_ontario_category()

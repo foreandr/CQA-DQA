@@ -261,6 +261,9 @@ def coverPageWrite(CQARef, workingFolder):
     img = Image('cpLogCover.png')
     sheet.add_image(img, 'G40')
 
+    # GETTING CATEGORY
+
+
     # save file
     wb.save(cqaFile)
     wb = None
