@@ -87,27 +87,27 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # AGINDEX----------------------------------------------------------
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
 
-    print(item_dict)
-
-    Nitrogen = float(Utilities.getNitrogen(CQAREF))  # stand in for real value
-    Phosphorus = float(item_dict['PH'])
-    Potassium = float(item_dict['K'])
-    Sodium = float(item_dict['NA'])
+    print('getting agindex values')
     DryMatter = float(CQAUtilities.get_dry_matter(CQAREF))
-    Chloride = float(item_dict['CL'])
+    Nitrogen = float(Utilities.getNitrogen(CQAREF))  # stand in for real value
+    Phosphorus =  (float(CQAUtilities.get_Agindex_Phosphorus(CQAREF) * (DryMatter/ 100) / 10000)) * 2.2914
+    Potassium = (float(CQAUtilities.get_Agindex_Potassium(CQAREF) * (DryMatter/ 100) / 10000)) * 1.2046
+    Sodium = float(CQAUtilities.get_Agindex_Sodium(CQAREF) * (DryMatter/ 100))
+    Chloride = float(item_dict['CL']) /10000
     # print('dude wtf', Chloride, type(Chloride), type(float(Chloride)))
 
-    print('PHOSPHORUS:', Phosphorus)
-    print('Potassium:', Potassium)
+    print('PHOSPHORUS:', Phosphorus) #*
+    print('Potassium:', Potassium) #*
     print('Nitrogen:', Nitrogen)
-    print('sodium:', Sodium)
+    print('sodium:', Sodium)#*
     print('DryMatter:', DryMatter)
     print('Chloride:', Chloride)
     value1 = (Nitrogen + Phosphorus + Potassium)
-    value2 = (Sodium * (DryMatter / 100)) + (Chloride / 10000)
-    # print 'LEFTSIDE:', value1
-    # print 'RIGHTSIDE:', value2
+    value2 = Sodium + (Chloride)
+    print 'LEFTSIDE:', value1
+    print 'RIGHTSIDE:', value2
     ag_index = value1 / value2
+    print('AGINDEX = ', ag_index)
     sheet.cell(row=113, column=4).value = round(ag_index, 2)
 
     # -------- FORMATTING

@@ -933,6 +933,53 @@ def CQA_OTHER_FORMATTING(sheet):
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
 
+def get_Agindex_Phosphorus(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''SELECT result_str
+    FROM env_data env
+    INNER JOIN report rep
+    ON rep.rptno = env.rptno
+    WHERE env.feecode = 'MPPC380'
+    AND refno = '%s'
+    '''%CQAREF
+    cursor.execute(query)
+    value = 0
+    for item in cursor:
+        value = float(item[0])
+    return value
+
+def get_Agindex_Potassium(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''SELECT result_str
+    FROM env_data env
+    INNER JOIN report rep
+    ON rep.rptno = env.rptno
+    WHERE env.feecode = 'MKKC380'
+    AND refno = '%s'
+    '''%CQAREF
+    cursor.execute(query)
+    value = 0
+    for item in cursor:
+        value = float(item[0])
+    return value
+
+def get_Agindex_Sodium(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''SELECT result_str
+    FROM env_data env
+    INNER JOIN report rep
+    ON rep.rptno = env.rptno
+    WHERE env.feecode = 'MNAC380'
+    AND refno = '%s'
+    '''%CQAREF
+    cursor.execute(query)
+    value = 0
+    for item in cursor:
+        value = float(item[0])
+    return value
 
 def similar(a, b):
     from difflib import SequenceMatcher

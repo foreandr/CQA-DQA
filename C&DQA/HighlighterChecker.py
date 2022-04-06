@@ -165,16 +165,16 @@ def get_non_ontario_cqa_constraints(sheet):
         print'NOT A NUMBER', (casted_value)
 
 
-def get_ontario_category(CQAREF='CQA2200094'):
+def get_ontario_category(CQAREF='CQA2200061'):
     array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
     Utilities.round_all_array_values(array_values)
     print('\nRESULTS FROM EXECUTION\n')
     new_2d_array = array_values[0:11]
     check_array = Utilities.CQA_ON_DATA_CATEGORY
+    check_array_second_part = Utilities.CQA_ON_SECOND_PART_CHECK
 
-    for i in range(2):
-        print('CHECK ARRAY', check_array[i])
-        print('2D ARRAY', new_2d_array[i])
+    for i in array_values:
+        print(i)
 
     print('checking values\n')
     CAT_AA = False
@@ -182,7 +182,8 @@ def get_ontario_category(CQAREF='CQA2200094'):
     CAT_B = False
     CAT_FAIL = False
 
-    for i in new_2d_array:
+    # --FIRST SERIES OF CHECKS
+    for i in array_values:
         # print(i[2])
         for j in check_array:
             if j[0] == i[1]:  # FIND THE INSTANCES IN THE ARRAYS WHEN THEY ARE THE SAME
@@ -200,10 +201,66 @@ def get_ontario_category(CQAREF='CQA2200094'):
                     print(i, j, 'AA')
                     CAT_AA = True
 
+        for k in check_array_second_part:
+            if k[1] == i[1]:
+                print('THESE ARE THE SAME', i, k)
+                if i[2] > k[2]:
+                    pass
+
+
+
+    # --
     print('\nCAT_AA:    ' + str(CAT_AA))
     print('CAT_A:     ' + str(CAT_A))
     print('CAT_B:     ' + str(CAT_B))
     print('CAT_FAIL:  ' + str(CAT_FAIL))
+
+    if CAT_FAIL:
+        return 'EXCEEDS GUIDELINES'
+    if CAT_B:
+        return 'CATEGORY B'
+    if CAT_A:
+        return 'CATEGORY A'
+    if CAT_AA:
+        return 'CATEGORY AA'
+
+
+def get_non_ontario_category(CQAREF='CQA2100409'):
+    array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
+    Utilities.round_all_array_values(array_values)
+    new_2d_array = array_values[0:11]
+    check_array = Utilities.CQA_NON_ON_DATA_CATEGORY
+    print('\nRESULTS FROM EXECUTION\n')
+
+    # for i in new_2d_array:
+    #    print(i)
+    print('checking values\n')
+    CAT_A = False
+    CAT_B = False
+    CAT_FAIL = False
+
+    'Percent (%) FM > 3mm/500mL'
+
+    for i in new_2d_array:
+        # print(i[2])
+        for j in check_array:
+            if j[0] == i[1]:
+                # print(i, j)
+                if i[2] > j[2] and i[2] != 'BDL':  # check cat B
+                    print(i, j, 'FAIL')
+                    CAT_FAIL = True
+                elif i[2] > j[1] and i[2] != 'BDL':  # check cat A
+                    print(i, j, 'B')
+                    CAT_B = True
+                else:
+                    print(i, j, 'A')
+                    CAT_A = True
+
+    print('\nCAT_A:     ' + str(CAT_A))
+    print('CAT_B:     ' + str(CAT_B))
+    print('CAT_FAIL:  ' + str(CAT_FAIL))
+
+    return 'hehe xd'
 
 
 get_ontario_category()

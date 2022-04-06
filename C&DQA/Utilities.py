@@ -454,7 +454,7 @@ def getPH(CQAREF):
             where r.refno='%s'""" % (CQAREF)
     cursor.execute(query)
     for i in cursor:
-        #print 'current ph' + str(i)
+        # print 'current ph' + str(i)
         ph = i[0]
     return ph
 
@@ -563,13 +563,25 @@ CQA_ON_DATA_CATEGORY = [
 CQA_NON_ON_DATA_CATEGORY = [
     ['Arsenic', 13, 75],
     ['Cadmium', 3, 20],
-    ['Chromium', 210, '**'],
+    ['Chromium', 210, 210],  # AMBIGUOUS
     ['Cobalt', 34, 150],
-    ['Copper', 400, '**'],
+    ['Copper', 400, 400],  # AMBIGUOUS
     ['Lead', 150, 500],
     ['Mercury', 0.8, 5],
     ['Molybdenum', 5, 20],
     ['Nickel', 62, 180],
     ['Selenium', 2, 14],
     ['Zinc', 700, 1850],
+]
+
+#IF YOU EDIT THIS OR THE TITLES IN THE EXCELS OTHER PARTS HAVE TO CHANGE TOO
+CQA_ON_SECOND_PART_CHECK = [
+    [0, 'Total FM > 2.8 mm*', 1, 2], #DONE
+    [1, 'Total plastics > 2.8 mm*', 0.5, 0.5], #
+    [2, 'Total FM > 25 mm', 0.0, 3],
+    [3, 'Total sharps > 2.8 mm*', 0.0, 0.0],
+    [4, 'Total sharps > 12.5 mm', 0.0, 12.5],
+    [5, 'Respiration-mgCO2-C/g OM/day', 4, 4],
+    [6, 'E. coli', 1000, 1000],
+    [7, 'Salmonella spp.', 1000, 1000],
 ]
