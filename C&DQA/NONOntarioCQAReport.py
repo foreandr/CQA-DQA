@@ -49,12 +49,12 @@ def BCandOtherReport(workbook, CQAREF):
     sheet.cell(row=36, column=4).value = ""
 
     # D. Pathogens
-    sheet.cell(row=41, column=4).value = ""
+    sheet.cell(row=41, column=4).value = Utilities.get_fecal(CQAREF)
     sheet.cell(row=42, column=4).value = array_values[16][2]
 
     # E. CFIA
-    sheet.cell(row=47, column=6).value = array_values[17][2]
-    sheet.cell(row=48, column=6).value = array_values[18][2]
+    sheet.cell(row=47, column=6).value = str(array_values[17][2]) + '%'
+    sheet.cell(row=48, column=6).value = str(array_values[18][2]) + '%'
     sheet.cell(row=55, column=6).value = env_resut['20']
     sheet.cell(row=56, column=6).value = array_values[20][2]
     sheet.cell(row=57, column=6).value = CQAUtilities.get_partcile(CQAREF)
@@ -64,20 +64,21 @@ def BCandOtherReport(workbook, CQAREF):
     sheet.cell(row=62, column=6).value = str(pe_m3_dict['permg_m3']) + '%' #perma
     sheet.cell(row=63, column=6).value = str(pe_m3_dict['perca_m3']) + '%' #perca
 
+
     # Appendix III
     Nitrogen = float(Utilities.getNitrogen(CQAREF))
     print('NITROGEN' ,Nitrogen)
     print('rOUNDED NITROGEN', round(Nitrogen, 2))
     sheet.cell(row= 98, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
-    sheet.cell(row= 99, column=4).value = env_resut['20'] # TENTATIVE, MAY BE WRONG
+    sheet.cell(row= 99, column=4).value = str(env_resut['20']) + '%' # TENTATIVE, MAY BE WRONG
     sheet.cell(row=100, column=4).value = env_resut['30']
     sheet.cell(row=101, column=4).value = array_values[20][2]
-    sheet.cell(row=103, column=4).value = round(Nitrogen, 2)
+    sheet.cell(row=103, column=4).value = str(round(Nitrogen, 2)) + '%'
     sheet.cell(row=104, column=4).value = array_values[23][2]
-    sheet.cell(row=105, column=4).value = array_values[24][2]
-    sheet.cell(row=106, column=4).value = array_values[25][2]
-    sheet.cell(row=107, column=4).value = array_values[26][2]
-    sheet.cell(row=108, column=4).value = array_values[27][2]
+    sheet.cell(row=105, column=4).value = str(array_values[24][2]) + '%'
+    sheet.cell(row=106, column=4).value = str(array_values[25][2]) + '%'
+    sheet.cell(row=107, column=4).value = str(array_values[26][2]) + '%'
+    sheet.cell(row=108, column=4).value = str(array_values[27][2]) + '%'
     sheet.cell(row=109, column=4).value = array_values[28][2]
 
     # AGINDEX----------------------------------------------------------
@@ -105,7 +106,7 @@ def BCandOtherReport(workbook, CQAREF):
     ag_index = value1 / value2
     print('AGINDEX = ', ag_index)
     sheet.cell(row=111, column=4).value = round(ag_index, 2)
-
+    sheet.cell(row=111, column=6).value = CQAUtilities.agindex_text(ag_index)
 
     CQAUtilities.CQA_OTHER_FORMATTING(sheet)
 

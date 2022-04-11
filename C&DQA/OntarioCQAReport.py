@@ -1,7 +1,7 @@
 import os
 
 from openpyxl import Workbook
-from openpyxl.styles import PatternFill, Side
+from openpyxl.styles import PatternFill, Side, Font
 import gettingFeeCodes
 import CQAUtilities
 import Utilities
@@ -38,7 +38,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=19, column=4).value = array_values[10][2]
 
     # B.
-    sheet.cell(row=24, column=4).value = array_values[29][2]
+    sheet.cell(row=24, column=4).value = array_values[29][2] # put later in file
     sheet.cell(row=25, column=4).value = array_values[30][2]
     sheet.cell(row=26, column=4).value = array_values[11][2]
     sheet.cell(row=28, column=4).value = array_values[12][2]
@@ -53,8 +53,8 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=41, column=4).value = array_values[16][2]
 
     # E.
-    sheet.cell(row=46, column=6).value = array_values[17][2]
-    sheet.cell(row=47, column=6).value = array_values[18][2]
+    sheet.cell(row=46, column=6).value = str(array_values[17][2]) + '%'
+    sheet.cell(row=47, column=6).value = str(array_values[18][2]) + '%'
 
     sheet.cell(row=53, column=6).value = array_values[19][2]
     sheet.cell(row=54, column=6).value = array_values[20][2]
@@ -74,12 +74,12 @@ def OntarioQuebecCQA(workbook, CQAREF):
 
     # FERTILIZER
 
-    sheet.cell(row=105, column=4).value = round(float(Utilities.getNitrogen(CQAREF)), 2)
+    sheet.cell(row=105, column=4).value = str(round(float(Utilities.getNitrogen(CQAREF)), 2)) + '%'
     sheet.cell(row=106, column=4).value = array_values[23][2]
-    sheet.cell(row=107, column=4).value = array_values[24][2]
-    sheet.cell(row=108, column=4).value = array_values[25][2]
-    sheet.cell(row=109, column=4).value = array_values[26][2]
-    sheet.cell(row=110, column=4).value = array_values[27][2]
+    sheet.cell(row=107, column=4).value = str(array_values[24][2]) + '%'
+    sheet.cell(row=108, column=4).value = str(array_values[25][2]) + '%'
+    sheet.cell(row=109, column=4).value = str(array_values[26][2]) + '%'
+    sheet.cell(row=110, column=4).value = str(array_values[27][2]) + '%'
     sheet.cell(row=111, column=4).value = array_values[28][2]
 
     # AGINDEX----------------------------------------------------------
@@ -108,6 +108,10 @@ def OntarioQuebecCQA(workbook, CQAREF):
     print('AGINDEX = ', ag_index)
     sheet.cell(row=113, column=4).value = round(ag_index, 2)
 
+
+    sheet.cell(row=113, column=6).value = CQAUtilities.agindex_text(ag_index)
+    font_black = Font(color='000000', size=10)
+    sheet.cell(row=113, column=6).font = font_black
     # -------- FORMATTING
     CQAUtilities.CQA_ONT_FORMATTING(sheet)
     # --- Removing or Adding Percent Signs
@@ -122,6 +126,9 @@ def OntarioQuebecCQA(workbook, CQAREF):
     # HIGHLIGHTING
     import HighlighterChecker
     HighlighterChecker.get_ontario_cqa_constraints_A(sheet)
+
+    sheet.cell(row=24, column=4).value = str(array_values[29][2]) + '%' # put later in file
+    sheet.cell(row=25, column=4).value = str(array_values[30][2]) + '%'
 
     # ------
     # putting in the images------------------------------------

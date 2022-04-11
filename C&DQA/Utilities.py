@@ -546,6 +546,20 @@ def get_reference_numbers():
     print(str(final_array) + '\n')
     return final_array
 
+def get_fecal(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """
+    SELECT result_str
+    FROM env_data env
+    inner join report rep
+    on rep.rptno = env.rptno
+    where feecode = 'BMPZ484' and rep.refno = '%s'
+    """ % CQAREF
+    cursor.execute(query)
+    for item in cursor:
+        fecal = str(item[0])
+    return fecal
 
 CQA_ON_DATA_CATEGORY = [
     ['Arsenic', 13, 13, 75],

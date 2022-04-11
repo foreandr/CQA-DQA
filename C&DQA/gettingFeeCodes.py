@@ -5,7 +5,7 @@ def gettingfeeCodes(refno):
     listOfCodes = []
     listOfNames = []
     full_usable_list = []
-    with open('C:\CQA\FULL CQA - DQA/feecodescv.csv') as file:
+    with open('C:/CQA/FULL CQA - DQA/feecodescv.csv') as file:
         my_reader = csv.reader(file, delimiter=',')
         for row in my_reader:
             #print row[0], row[1]
@@ -31,7 +31,7 @@ def gettingfeeCodes(refno):
         templist = [i, listOfNames[i], listOfCodes[i], feecode]
         full_usable_list.append(templist)
     return  full_usable_list
-#
-#feecodes_and_values = gettingfeeCodes()
-#for i in feecodes_and_values:
-#    print i
+
+#gettingfeeCodes('KELLY')
+
+
