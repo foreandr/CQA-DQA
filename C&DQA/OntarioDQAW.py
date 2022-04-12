@@ -69,25 +69,27 @@ def OntarioPrintDQA(Workbook, CQARef):
     sheet.cell(row=55, column=4).value = float(feecodeList[39][3]) * typcasted_dict['Dry Matter'] / 100
 
     # Agricultural End-Use
+    sheet.cell(row=60, column=4).value = str(sheet.cell(row=60, column=4).value) + '%'
     sheet.cell(row=63, column=4).value = feecodeList[9][3]
     sheet.cell(row=64, column=4).value = feecodeList[44][3]  # can't seem to find
     sheet.cell(row=65, column=4).value = Utilities.getTotalOrganicMatter(CQARef)
-    sheet.cell(row=66, column=4).value = feecodeList[45][3]
-    sheet.cell(row=67, column=4).value = feecodeList[6][3]
+    sheet.cell(row=66, column=4).value = round(float(feecodeList[45][3]), 2)
+    sheet.cell(row=67, column=4).value = str(feecodeList[6][3]) + '%'
 
     # Fertilizer Equivalent Materials
+    """ MEant to add % to the end, isnt working
+    sheet.cell(row=71, column=4).value = str(sheet.cell(row=71, column=4).value) + '%'
+    sheet.cell(row=74, column=4).value = str(sheet.cell(row=74, column=4).value) + '%'
+    sheet.cell(row=75, column=4).value = str(sheet.cell(row=75, column=4).value) + '%'
+    sheet.cell(row=76, column=4).value = str(sheet.cell(row=76, column=4).value) + '%'
+    sheet.cell(row=77, column=4).value = str(sheet.cell(row=77, column=4).value) + '%'
+    sheet.cell(row=78, column=4).value = str(sheet.cell(row=78, column=4).value) + '%'
+    sheet.cell(row=79, column=4).value = str(sheet.cell(row=79, column=4).value) + '%'
+    sheet.cell(row=80, column=4).value = str(sheet.cell(row=80, column=4).value) + '%'
+    sheet.cell(row=81, column=4).value = str(sheet.cell(row=81, column=4).value) + '%'
+    """
     sheet.cell(row=76, column=4).value = feecodeList[28][3]  # SODIUM
-    # sheet.cell(row=76, column=4).value = feecodeList[40][3]
-    # sheet.cell(row=78, column=4).value = feecodeList[41][3]
-    # sheet.cell(row=80, column=4).value = feecodeList[43][3]
-    # sheet.cell(row=81, column=4).value = feecodeList[33][3]
-    # sheet.cell(row=82, column=4).value = feecodeList[16][3]
-    # sheet.cell(row=83, column=4).value = feecodeList[12][3]
-    # sheet.cell(row=84, column=4).value = feecodeList[21][3]
-    # sheet.cell(row=85, column=4).value = feecodeList[22][3]
-    # sheet.cell(row=86, column=4).value = feecodeList[26][3]
-    # sheet.cell(row=87, column=4).value = feecodeList[27][3]
-    # sheet.cell(row=88, column=4).value = feecodeList[34][3]
+
     # ----------------------------------------------------------------    print '\n'
     # for key, value in typcasted_dict.iteritems():
     #   print key, value
@@ -154,172 +156,22 @@ def OntarioPrintDQA(Workbook, CQARef):
 
     calc_value = typcasted_dict['Zinc (Zn)'] * typcasted_dict['Dry Matter'] / 100
     sheet.cell(row=90, column=4).value = calc_value
-
+    #-------
+    sheet.cell(row=71, column=4).value = str(round(float(sheet.cell(row=71, column=4).value), 2)) + '%'
+    sheet.cell(row=74, column=4).value = str(round(float(sheet.cell(row=74, column=4).value), 2)) + '%'
+    sheet.cell(row=75, column=4).value = str(round(float(sheet.cell(row=75, column=4).value), 2)) + '%'
+    sheet.cell(row=76, column=4).value = str(round(float(sheet.cell(row=76, column=4).value), 2)) + '%'
+    sheet.cell(row=77, column=4).value = str(round(float(sheet.cell(row=77, column=4).value), 2)) + '%'
+    sheet.cell(row=78, column=4).value = str(round(float(sheet.cell(row=78, column=4).value), 2)) + '%'
+    sheet.cell(row=79, column=4).value = str(round(float(sheet.cell(row=79, column=4).value), 2)) + '%'
+    sheet.cell(row=80, column=4).value = str(round(float(sheet.cell(row=80, column=4).value), 2)) + '%'
+    sheet.cell(row=81, column=4).value = str(round(float(sheet.cell(row=81, column=4).value), 2)) + '%'
     # --------------------------------------------
     from CQAUtilities import DQA_ONT_FORMATTING
     DQA_ONT_FORMATTING(sheet)
     # -----------------------------------------------------------------
     # BORDER ALIGNMENT
-    """
-    from Utilities import FixFormatting
-    #A intro table MADNESS FORMATTING
-    for i in range(7, 8):
-        border = Border(left=thick, top=thick, right=thick)
-        FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
-        border = Border(left=thick, right=thick)
-        FixFormatting(sheet, 'B8:I8', border)
-        border = Border(left=thick, right=thick)
-        FixFormatting(sheet, 'B9:I9', border)
-        border = Border(left=thick, right=thick)
-        FixFormatting(sheet, 'B10:I10', border)
-        border = Border(top=thin)
-        FixFormatting(sheet, 'E8:H8', border)
-        border = Border(bottom=thin)
-        FixFormatting(sheet, 'D9:H9', border)
-        border = Border(left=thin)
-        FixFormatting(sheet, 'D8:D8', border)
-        border = Border(left=thin, right=thin)
-        FixFormatting(sheet, 'D9:D9', border)
-        border = Border(left=thin, right=thin)
-        FixFormatting(sheet, 'F9:F9', border)
-        border = Border(left=thin, right=thin)
-        FixFormatting(sheet, 'H9:H9', border)
 
-    for i in range(11, 21):
-        border = Border(bottom=thin, top=thin)
-        FixFormatting(sheet, 'B%d:H%d' % (i, i), border)
-
-        border = Border(bottom=thin, top=thick)
-        FixFormatting(sheet, 'B11:H11', border)
-
-        border = Border(bottom=thick, top=thin)
-        FixFormatting(sheet, 'B21:H21', border)
-
-    for i in range(28, 31):
-        border = Border(bottom=thick, top=thick, right=thick)
-        FixFormatting(sheet, 'B27:I27', border)
-
-        border = Border(bottom=thin, top=thick, right=thick)
-        FixFormatting(sheet, 'B28:I28', border)
-
-        border = Border(bottom=thin, top=thin, right=thick)
-        FixFormatting(sheet, 'B29:I29', border)
-
-        border = Border(bottom=thick, top=thin, right=thick)
-        FixFormatting(sheet, 'B30:I30', border)
-
-    for i in range(34, 39):
-        border = Border(left=thin)
-        FixFormatting(sheet, 'D35:D35', border)
-        border = Border(left=thin)
-        FixFormatting(sheet, 'I35:I35', border)
-
-        border = Border(top=thin)
-        FixFormatting(sheet, 'E35:H35', border)
-
-        border = Border(top=thick, right=thick)
-        FixFormatting(sheet, 'B34:I34', border)
-
-        border = Border(left=thick, right=thick)
-        FixFormatting(sheet, 'B35:I35', border)
-
-        border = Border(left=thick, bottom=thin, top=thick, right=thick)
-        FixFormatting(sheet, 'B36:I36', border)
-
-        border = Border(bottom=thin, top=thin, right=thick)
-        FixFormatting(sheet, 'B37:I37', border)
-
-        border = Border(bottom=thick, top=thin, right=thick)
-        FixFormatting(sheet, 'B38:I38', border)
-
-    for i in range(51, 55):
-        border = Border(top=thick, right=thick, bottom=thick)
-        FixFormatting(sheet, 'B51:I51', border)
-
-        border = Border(right=thick, bottom=thin)
-        FixFormatting(sheet, 'B52:I52', border)
-
-        border = Border(bottom=thin, right=thick)
-        FixFormatting(sheet, 'B53:I53', border)
-
-        border = Border(bottom=thick, right=thick)
-        FixFormatting(sheet, 'B54:I54', border)
-
-        border = Border(left=thin)
-        FixFormatting(sheet, 'A55:A55', border)
-
-    for i in range(56, 60):
-        border = Border(right=thin, left=thin)
-        FixFormatting(sheet, 'D62:D62', border)
-
-        border = Border(top=thin)
-        FixFormatting(sheet, 'F62:I62', border)
-        border = Border(left=thick)
-        FixFormatting(sheet, 'A62:A62', border)
-
-        border = Border(top=thick, right=thick, bottom=thick)
-        FixFormatting(sheet, 'B56:I56', border)
-
-        border = Border(right=thick, bottom=thin)
-        FixFormatting(sheet, 'B57:I57', border)
-
-        border = Border(bottom=thin, right=thick)
-        FixFormatting(sheet, 'B58:I58', border)
-
-        border = Border(bottom=thick, right=thick)
-        FixFormatting(sheet, 'B59:I59', border)
-
-    for i in range(65, 68):
-        border = Border(top=thick, right=thick)
-        FixFormatting(sheet, 'B61:I61', border)
-
-        border = Border(right=thick, bottom=thick)
-        FixFormatting(sheet, 'B62:I62', border)
-
-        sheet['F62'].fill = grey_highlight
-
-        border = Border(right=thick, top=thick, bottom=thin)
-        FixFormatting(sheet, 'B64:I64', border)
-
-        border = Border(right=thick, bottom=thick)
-        FixFormatting(sheet, 'B68:I68', border)
-
-        border = Border(right=thick)
-        FixFormatting(sheet, 'B63:I63', border)
-
-        border = Border(right=thick)
-        FixFormatting(sheet, 'B69:I69', border)
-
-        border = Border(bottom=thin, right=thick)
-        FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
-
-    for i in range(71, 90):
-        border = Border(top=thick, right=thick)
-        FixFormatting(sheet, 'B70:I70', border)
-
-        border = Border(top=thin, right=thick)
-        FixFormatting(sheet, 'B%d:I%d' % (i, i), border)
-
-        border = Border(bottom=thick, right=thick)
-        FixFormatting(sheet, 'B89:I89', border)
-    """
-    # ROUNDING THINGS
-    """
-    print('\nPRINTING Excel values')
-    for i in range(70, 90):
-        print(i, sheet.cell(row=i, column=6).value, sheet.cell(row=i, column=7).value, sheet.cell(row=i, column=8).value, sheet.cell(row=i, column=9).value)
-        column6_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=6).value)
-        column7_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=7).value)
-        column8_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=8).value)
-        column9_formula = Utilities.add_round_to_excel_formula(sheet.cell(row=i, column=9).value)
-
-        sheet.cell(row=i, column=6).value = column6_formula
-        sheet.cell(row=i, column=7).value = column7_formula
-        sheet.cell(row=i, column=8).value = column8_formula
-        sheet.cell(row=i, column=9).value = column9_formula
-
-        # sheet.write_formula('F70', new_formula)
-    """
     # CENTERING THINGS
 
     from openpyxl.styles import Alignment

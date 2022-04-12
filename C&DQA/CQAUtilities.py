@@ -592,10 +592,13 @@ def DQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'A52:K52', border)
 
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D53:D53', border)
+
     border = Border(bottom=thin, top=thin)
     Utilities.FixFormatting(sheet, 'A54:K54', border)
 
-    border = Border(bottom=thick)
+    border = Border(bottom=thick, right=thick)
     Utilities.FixFormatting(sheet, 'A55:K55', border)
 
     # FINAL 2 COLUMNS

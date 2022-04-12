@@ -147,7 +147,7 @@ def get_non_ontario_cqa_constraints(sheet):
     column6_value = 400  # COMPARISON VALUE
     print('c4', column4_value, type(column4_value))
     print('c6', column6_value, type(column6_value))
-    if column4_value == 'BDL':
+    if column4_value == 'BDL' or column4_value == '<3':
         pass
     elif float(column4_value) > float(column6_value):
         sheet.cell(row=41, column=4).fill = highlight
