@@ -265,11 +265,13 @@ def get_non_ontario_category(CQAREF='CQA2100409'):
                     print(i, j, 'A')
                     CAT_A = True
 
-    print('\nCAT_A:     ' + str(CAT_A))
-    print('CAT_B:     ' + str(CAT_B))
-    print('CAT_FAIL:  ' + str(CAT_FAIL))
+    if CAT_FAIL:
+        return 'EXCEEDS GUIDELINES'
+    if CAT_B:
+        return 'CATEGORY B'
+    if CAT_A:
+        return 'CATEGORY A/AA'
 
-    return 'hehe xd'
 
 
 get_ontario_category()

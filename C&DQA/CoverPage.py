@@ -8,7 +8,7 @@ import Colors
 import SQL_CONNECTOR
 
 def coverPageWrite(CQARef, workingFolder):
-    print Colors.bcolors.OKCYAN + "\nExecuting Cover Page Write" + Colors.bcolors.ENDC
+    print Colors.bcolors.OKCYAN + "\nExecuting CQA Cover Page Write" + Colors.bcolors.ENDC
 
     # Its the template file and where the file will be saved (The working folder + the name of the file it will spit out
     templateFile = r'C:\CQA\FULL CQA - DQA\C&DQA\Templates\cover.xlsx'
@@ -268,3 +268,5 @@ def coverPageWrite(CQARef, workingFolder):
     # close the cursor
     cursor.close()
     cnx.close()
+
+

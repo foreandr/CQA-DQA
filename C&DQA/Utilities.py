@@ -587,7 +587,6 @@ CQA_NON_ON_DATA_CATEGORY = [
     ['Selenium', 2, 14],
     ['Zinc', 700, 1850],
 ]
-
 #IF YOU EDIT THIS OR THE TITLES IN THE EXCELS OTHER PARTS HAVE TO CHANGE TOO
 CQA_ON_SECOND_PART_CHECK = [
     [0, 'Total FM > 2.8 mm*', 1, 2], #DONE
@@ -599,3 +598,74 @@ CQA_ON_SECOND_PART_CHECK = [
     [6, 'E. coli', 0, 1000], # ANYTHING LOWER 1000 'fix for symbols'
     [7, 'Salmonella spp.', 0, 1000],# IF NOT NEG FAIL
 ]
+
+def get_company_name(CQAref):
+    # Finds the company name
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT company FROM alms.report WHERE refno='%s' """ % CQAref
+    cursor.execute(query)
+    company = ''
+    for item in cursor:
+        company = str(item[0])
+    return company
+
+def get_company_address(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT address1 FROM alms.report WHERE refno='%s' """ % CQAref
+    cursor.execute(query)
+    address = ''
+    for item in cursor:
+        address = str(item[0])
+    return address
+
+def get_company_city(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT city FROM alms.report WHERE refno='%s' and module='SOIL' """ % CQAref
+    cursor.execute(query)
+    city = ''
+    for item in cursor:
+        city = str(item[0])
+    return city
+
+def get_company_state(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT state FROM alms.report WHERE refno='%s'""" % CQAref
+    cursor.execute(query)
+    state = ''
+    for item in cursor:
+        state = str(item[0])
+    return state
+
+def get_company_state_v2(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT name FROM (alms.report INNER JOIN alms.provinces ON report.state = provinces.abbreviation) WHERE refno='%s' """ % CQAref
+    cursor.execute(query)
+    state = ''
+    for item in cursor:
+        # print Colors.bcolors.OKBLUE + "Province: " + str(item)
+        state = item[0].encode('utf-8').strip() # VERY IMPORTANT
+    return state
+
+def get_company_zipcode(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT zip FROM alms.report WHERE refno='%s' """ % CQAref
+    cursor.execute(query)
+    zipC = ''
+    for item in cursor:
+        zipC = str(item[0])
+    return zipC
+
+def get_FULL_ADDRESS(CQAref):
+    zip = get_company_zipcode(CQAref)
+    state = get_company_state(CQAref)
+    city = get_company_city(CQAref)
+
+    address = city + ', ' + state + ' ' + zip
+    return address
+print(get_FULL_ADDRESS('KELLY'))

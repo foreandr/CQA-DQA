@@ -24,6 +24,9 @@ def BCandOtherReport(workbook, CQAREF):
         print(i)
     # locations_in_excel = Utilities.get_names_and_indexes(sheet)
 
+    # PHOSPHORUS
+    PH = Utilities.getPH(CQAREF)
+
     # A. ---
     sheet.cell(row=10, column=4).value = array_values[0][2]  # Arsenic
     sheet.cell(row=11, column=4).value = array_values[1][2]  # Cadmium
@@ -55,7 +58,7 @@ def BCandOtherReport(workbook, CQAREF):
     # E. CFIA
     sheet.cell(row=47, column=6).value = str(array_values[17][2]) + '%'
     sheet.cell(row=48, column=6).value = str(array_values[18][2]) + '%'
-    sheet.cell(row=55, column=6).value = env_resut['20']
+    sheet.cell(row=55, column=6).value = PH
     sheet.cell(row=56, column=6).value = array_values[20][2]
     sheet.cell(row=57, column=6).value = CQAUtilities.get_partcile(CQAREF)
     sheet.cell(row=58, column=6).value = pe_m3_dict['salt'] # salt
@@ -70,7 +73,7 @@ def BCandOtherReport(workbook, CQAREF):
     print('NITROGEN' ,Nitrogen)
     print('rOUNDED NITROGEN', round(Nitrogen, 2))
     sheet.cell(row= 98, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
-    sheet.cell(row= 99, column=4).value = str(env_resut['20']) + '%' # TENTATIVE, MAY BE WRONG
+    sheet.cell(row= 99, column=4).value = PH  # TENTATIVE, MAY BE WRONG
     sheet.cell(row=100, column=4).value = env_resut['30']
     sheet.cell(row=101, column=4).value = array_values[20][2]
     sheet.cell(row=103, column=4).value = str(round(Nitrogen, 2)) + '%'
