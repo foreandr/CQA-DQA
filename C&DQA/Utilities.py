@@ -2,6 +2,8 @@ import collections
 import os
 import shutil
 from collections import Counter
+from datetime import time
+
 import openpyxl
 from openpyxl.styles import Border
 import mysql.connector
@@ -546,6 +548,7 @@ def get_reference_numbers():
     print(str(final_array) + '\n')
     return final_array
 
+
 def get_fecal(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -560,6 +563,7 @@ def get_fecal(CQAREF):
     for item in cursor:
         fecal = str(item[0])
     return fecal
+
 
 CQA_ON_DATA_CATEGORY = [
     ['Arsenic', 13, 13, 75],
@@ -587,16 +591,16 @@ CQA_NON_ON_DATA_CATEGORY = [
     ['Selenium', 2, 14],
     ['Zinc', 700, 1850],
 ]
-#IF YOU EDIT THIS OR THE TITLES IN THE EXCELS OTHER PARTS HAVE TO CHANGE TOO
+# IF YOU EDIT THIS OR THE TITLES IN THE EXCELS OTHER PARTS HAVE TO CHANGE TOO
 CQA_ON_SECOND_PART_CHECK = [
-    [0, 'Total FM > 2.8 mm*', 1, 2], #DONE
-    [1, 'Total plastics > 2.8 mm*', 0.5, 0.5], #
+    [0, 'Total FM > 2.8 mm*', 1, 2],  # DONE
+    [1, 'Total plastics > 2.8 mm*', 0.5, 0.5],  #
     [2, 'Total FM > 25 mm', 0.0, 0.0],
     [3, 'Total sharps > 2.8 mm*', 0.0, 3],
     [4, 'Total sharps > 12.5 mm', 0.0, 0],
-    [5, 'Respiration-mgCO2-C/g OM/day', 0, 4], # ABOVE 4 IS FAIL
-    [6, 'E. coli', 0, 1000], # ANYTHING LOWER 1000 'fix for symbols'
-    [7, 'Salmonella spp.', 0, 1000],# IF NOT NEG FAIL
+    [5, 'Respiration-mgCO2-C/g OM/day', 0, 4],  # ABOVE 4 IS FAIL
+    [6, 'E. coli', 0, 1000],  # ANYTHING LOWER 1000 'fix for symbols'
+    [7, 'Salmonella spp.', 0, 1000],  # IF NOT NEG FAIL
 ]
 
 def get_company_name(CQAref):
@@ -610,6 +614,7 @@ def get_company_name(CQAref):
         company = str(item[0])
     return company
 
+
 def get_company_address(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -620,15 +625,17 @@ def get_company_address(CQAref):
         address = str(item[0])
     return address
 
+
 def get_company_city(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
-    query = """SELECT city FROM alms.report WHERE refno='%s' and module='SOIL' """ % CQAref
+    query = """SELECT city FROM alms.report WHERE refno='%s' """ % CQAref
     cursor.execute(query)
     city = ''
     for item in cursor:
         city = str(item[0])
     return city
+
 
 def get_company_state(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
@@ -640,6 +647,7 @@ def get_company_state(CQAref):
         state = str(item[0])
     return state
 
+
 def get_company_state_v2(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -648,8 +656,9 @@ def get_company_state_v2(CQAref):
     state = ''
     for item in cursor:
         # print Colors.bcolors.OKBLUE + "Province: " + str(item)
-        state = item[0].encode('utf-8').strip() # VERY IMPORTANT
+        state = item[0].encode('utf-8').strip()  # VERY IMPORTANT
     return state
+
 
 def get_company_zipcode(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
@@ -661,6 +670,7 @@ def get_company_zipcode(CQAref):
         zipC = str(item[0])
     return zipC
 
+
 def get_FULL_ADDRESS(CQAref):
     zip = get_company_zipcode(CQAref)
     state = get_company_state(CQAref)
@@ -668,4 +678,37 @@ def get_FULL_ADDRESS(CQAref):
 
     address = city + ', ' + state + ' ' + zip
     return address
-print(get_FULL_ADDRESS('KELLY'))
+
+
+def get_sample_ID(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """SELECT grow_1 FROM alms.report WHERE refno='%s' """ % CQAref
+    cursor.execute(query)
+    for item in cursor:
+        sampleID = str(item[0])
+    return sampleID
+
+
+def get_current_Date(CQAref):
+    currentDate = time.localtime()[0:3]
+    return currentDate
+
+
+def get_feecode(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """
+        SELECT report.refno, feedstock.description
+        FROM (alms.env_samp env_samp
+        INNER JOIN alms.feedstock feedstock
+        ON (env_samp.feedstock_code = feedstock.code))
+        INNER JOIN alms.report report ON (env_samp.rptno = report.rptno)
+        WHERE (report.refno = '%s')""" % CQAref
+
+    wanted_description = "Not Specified"
+    cursor.execute(query)
+    for item in cursor:
+        wanted_description = item[1] #  second item in tuple is description, first is iD
+    return wanted_description
+
