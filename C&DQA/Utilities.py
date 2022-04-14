@@ -512,6 +512,28 @@ def findLocation(CQARef):
     cnx.close()
     return location
 
+def full_location(CQAref):
+    location = findLocation(CQAref)
+    if location == 'ON':
+        return 'Ontario'
+    elif location == 'NB':
+        return 'New Brunswick'
+    elif location == 'QC' or location == 'QB':
+        return 'Quebec'
+    elif location == 'BC':
+        return 'British Columbia'
+    elif location == 'AB':
+        return 'Alberta'
+    elif location == 'SK':
+        return 'Saskatchewan'
+    elif location == 'NS':
+        return 'Nova Scotia'
+    elif location == 'PE':
+        return 'Prince Edward Island'
+    else:
+        return location
+
+
 
 def get_reference_numbers():
     connection = SQL_CONNECTOR.test_connection()
@@ -712,3 +734,17 @@ def get_feecode(CQAref):
         wanted_description = item[1] #  second item in tuple is description, first is iD
     return wanted_description
 
+def get_rptno(CQAref):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = """
+        select rep.rptno
+        from env_data env
+        inner join report rep
+        on rep.rptno = env.rptno
+        where rep.refno = '%s'
+        """ % CQAref
+    cursor.execute(query)
+    for item in cursor:
+        RPTNO = item[0]
+    return RPTNO
