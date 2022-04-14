@@ -22,7 +22,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
 
     for i in array_values:
         print(i)
-    # I THINK PUTTING THEM IN MANUALLY IS JUST EASIER / SIMPLER TO READ, SORRY FUTURE CODERS
 
     # A.
     sheet.cell(row=9, column=4).value = array_values[0][2]  # Arsenic
@@ -38,7 +37,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=19, column=4).value = array_values[10][2]
 
     # B.
-    sheet.cell(row=24, column=4).value = array_values[29][2] # put later in file
+    sheet.cell(row=24, column=4).value = array_values[29][2]
     sheet.cell(row=25, column=4).value = array_values[30][2]
     sheet.cell(row=26, column=4).value = array_values[11][2]
     sheet.cell(row=28, column=4).value = array_values[12][2]
