@@ -567,8 +567,19 @@ def get_reference_numbers():
         if value == 2:
             final_array.append(key)
 
-    print(str(final_array) + '\n')
-    return final_array
+    REALLY_FINAL = []
+    for i in final_array:
+        if i.startswith('STP'):
+            pass
+        else:
+            REALLY_FINAL.append(i)
+
+    print('Printing the 2 arrays')
+    print('OG   ' + str(final_array) + '\n')
+    print('FINAL' + str(REALLY_FINAL) + '\n')
+
+
+    return REALLY_FINAL
 
 
 def get_fecal(CQAREF):
