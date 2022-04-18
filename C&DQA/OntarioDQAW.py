@@ -46,12 +46,10 @@ def OntarioPrintDQA(Workbook, CQARef):
     # A
     sheet.cell(row=17, column=4).value = typcasted_dict['Molybdenum (Mb)']
 
-    # B.
-    sheet.cell(row=29, column=4).value = feecodeList[35][3]
-
-    # C
-    sheet.cell(row=27, column=4).value = feecodeList[36][3]
-    sheet.cell(row=28, column=4).value = feecodeList[37][3]
+    # B
+    sheet.cell(row=28, column=4).value = feecodeList[36][3]
+    sheet.cell(row=29, column=4).value = feecodeList[37][3]
+    sheet.cell(row=30, column=4).value = feecodeList[35][3]
 
     # C Pathogens
     sheet.cell(row=36, column=4).value = feecodeList[1][3]
@@ -73,21 +71,11 @@ def OntarioPrintDQA(Workbook, CQARef):
     sheet.cell(row=63, column=4).value = feecodeList[9][3]
     sheet.cell(row=64, column=4).value = feecodeList[44][3]  # can't seem to find
     sheet.cell(row=65, column=4).value = Utilities.getTotalOrganicMatter(CQARef)
-    sheet.cell(row=66, column=4).value = round(float(feecodeList[45][3]), 2)
+    sheet.cell(row=66, column=4).value = float(feecodeList[45][3])
     sheet.cell(row=67, column=4).value = str(feecodeList[6][3]) + '%'
 
     # Fertilizer Equivalent Materials
-    """ MEant to add % to the end, isnt working
-    sheet.cell(row=71, column=4).value = str(sheet.cell(row=71, column=4).value) + '%'
-    sheet.cell(row=74, column=4).value = str(sheet.cell(row=74, column=4).value) + '%'
-    sheet.cell(row=75, column=4).value = str(sheet.cell(row=75, column=4).value) + '%'
-    sheet.cell(row=76, column=4).value = str(sheet.cell(row=76, column=4).value) + '%'
-    sheet.cell(row=77, column=4).value = str(sheet.cell(row=77, column=4).value) + '%'
-    sheet.cell(row=78, column=4).value = str(sheet.cell(row=78, column=4).value) + '%'
-    sheet.cell(row=79, column=4).value = str(sheet.cell(row=79, column=4).value) + '%'
-    sheet.cell(row=80, column=4).value = str(sheet.cell(row=80, column=4).value) + '%'
-    sheet.cell(row=81, column=4).value = str(sheet.cell(row=81, column=4).value) + '%'
-    """
+
     sheet.cell(row=76, column=4).value = feecodeList[28][3]  # SODIUM
 
     # ----------------------------------------------------------------    print '\n'
@@ -169,6 +157,8 @@ def OntarioPrintDQA(Workbook, CQARef):
     # --------------------------------------------
     from CQAUtilities import DQA_ONT_FORMATTING
     DQA_ONT_FORMATTING(sheet)
+
+    Utilities.number_formatting(sheet)
     # -----------------------------------------------------------------
     # BORDER ALIGNMENT
 

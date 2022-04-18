@@ -557,40 +557,43 @@ def DQA_ONT_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'B20:K20', border)
 
     # B. --------
-    for i in range(26, 30):  # BOX OUTLINE
+    for i in range(27, 31):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:K%d' % (i, i), border)
 
     border = Border(bottom=thick, top=thick)
-    Utilities.FixFormatting(sheet, 'B26:K26', border)
+    Utilities.FixFormatting(sheet, 'B27:K27', border)
 
     border = Border(bottom=thin, top=thin)
-    Utilities.FixFormatting(sheet, 'B28:K28', border)
-
-    border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'B29:K29', border)
 
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B30:K30', border)
+
     # C. --------
-    for i in range(33, 37):  # BOX OUTLINE
+    for i in range(34, 38):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:K%d' % (i, i), border)
 
     border = Border(bottom=thick, top=thick)
-    Utilities.FixFormatting(sheet, 'B33:K33', border)
+    Utilities.FixFormatting(sheet, 'B34:K34', border)
 
     border = Border(bottom=thin, top=thin)
-    Utilities.FixFormatting(sheet, 'B35:K35', border)
+    Utilities.FixFormatting(sheet, 'B36:K36', border)
 
     border = Border(bottom=thick)
-    Utilities.FixFormatting(sheet, 'B36:K36', border)
+    Utilities.FixFormatting(sheet, 'B37:K37', border)
 
     #  Finished Digestate Quality
     for i in range(52, 55):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:K%d' % (i, i), border)
 
-    border = Border(bottom=thick, top=thick)
+    border = Border(top=thick)
     Utilities.FixFormatting(sheet, 'A52:K52', border)
+
+    border = Border(top=thick)
+    Utilities.FixFormatting(sheet, 'A53:K53', border)
 
     border = Border(left=thin)
     Utilities.FixFormatting(sheet, 'D53:D53', border)
@@ -646,6 +649,10 @@ def DQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'A90:K90', border)
 
+    #fixing the left line
+    for i in range(71, 91):
+        border = Border(left=thin)
+        Utilities.FixFormatting(sheet, 'K%d:K%d'% (i, i), border)
 
 def CQA_ONT_FORMATTING(sheet):
     thick = Side(border_style="medium")

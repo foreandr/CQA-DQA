@@ -512,6 +512,7 @@ def findLocation(CQARef):
     cnx.close()
     return location
 
+
 def full_location(CQAref):
     location = findLocation(CQAref)
     if location == 'ON':
@@ -532,7 +533,6 @@ def full_location(CQAref):
         return 'Prince Edward Island'
     else:
         return location
-
 
 
 def get_reference_numbers():
@@ -577,7 +577,6 @@ def get_reference_numbers():
     print('Printing the 2 arrays')
     print('OG   ' + str(final_array) + '\n')
     print('FINAL' + str(REALLY_FINAL) + '\n')
-
 
     return REALLY_FINAL
 
@@ -635,6 +634,7 @@ CQA_ON_SECOND_PART_CHECK = [
     [6, 'E. coli', 0, 1000],  # ANYTHING LOWER 1000 'fix for symbols'
     [7, 'Salmonella spp.', 0, 1000],  # IF NOT NEG FAIL
 ]
+
 
 def get_company_name(CQAref):
     # Finds the company name
@@ -742,8 +742,9 @@ def get_feecode(CQAref):
     wanted_description = "Not Specified"
     cursor.execute(query)
     for item in cursor:
-        wanted_description = item[1] #  second item in tuple is description, first is iD
+        wanted_description = item[1]  # second item in tuple is description, first is iD
     return wanted_description
+
 
 def get_rptno(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
@@ -759,3 +760,43 @@ def get_rptno(CQAref):
     for item in cursor:
         RPTNO = item[0]
     return RPTNO
+
+
+def number_formatting(sheet):
+    print(Colors.bcolors.OKBLUE + 'EXECUTION DQA PART A' + Colors.bcolors.ENDC)
+    for i in range(10, 21):
+        test_value = sheet.cell(row=i, column=4).value
+        # print(test_value, type(test_value))
+        if test_value == 'BDL':
+            print(test_value, 'GOT IT')
+            sheet.cell(row=i, column=10).value = 'N/A'
+
+    print(Colors.bcolors.OKBLUE + '\nPRINTING DQA EXECUTION' + Colors.bcolors.ENDC)
+    array_of_values = []
+
+    # print(sheet.cell(row=78, column=6).value)
+
+    # GET VALUES IN A 2D ARRAY FOR CHECKING PURPOSES
+    for i in range(71, 91):
+        current_value = removePercentSign(sheet.cell(row=i, column=4).value)
+        if current_value == None:
+            new_value = float(sheet.cell(row=i, column=4).value)
+            array_of_values.append([i, new_value])
+        else:
+            array_of_values.append([i, current_value])
+        # print(removePercentSign(sheet.cell(row=i, column=4).value), sheet.cell(row=i, column=4).value)
+
+    for i in array_of_values:
+        print(i)
+        if i[1] == 0.0 or i[1] == '0.0' or i[1] < 0.001:
+            print('YES')
+            sheet.cell(row=i[0], column=6).value = '0.0'
+            sheet.cell(row=i[0], column=8).value = '0.0'
+            sheet.cell(row=i[0], column=9).value = '0.0'
+            sheet.cell(row=i[0], column=11).value = '0.0'
+
+    AVAILABLE_S = sheet.cell(row=82, column=4).value
+    sheet.cell(row=82, column=6).value = AVAILABLE_S / 0.1
+    sheet.cell(row=82, column=8).value = AVAILABLE_S * 20
+    sheet.cell(row=82, column=9).value = AVAILABLE_S * 0.01
+    sheet.cell(row=82, column=11).value = AVAILABLE_S * 100
