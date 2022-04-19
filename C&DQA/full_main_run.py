@@ -42,7 +42,7 @@ class GUI:
         CQA_ONT_FAIL = u'CQA2200094'
 
         relevant_reference_numbers.append(DQAother_demo)  # WORKING
-        relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
+        #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
         #relevant_reference_numbers.append(CQAquebec_demo) # WORKING
         #relevant_reference_numbers.append(CQAbc_demo)
         #relevant_reference_numbers.append(CQAONt)  #

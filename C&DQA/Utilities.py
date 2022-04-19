@@ -768,7 +768,7 @@ def number_formatting(sheet):
         test_value = sheet.cell(row=i, column=4).value
         # print(test_value, type(test_value))
         if test_value == 'BDL':
-            print(test_value, 'GOT IT')
+            #print(test_value, 'GOT IT')
             sheet.cell(row=i, column=10).value = 'N/A'
 
     print(Colors.bcolors.OKBLUE + '\nPRINTING DQA EXECUTION' + Colors.bcolors.ENDC)
@@ -787,9 +787,9 @@ def number_formatting(sheet):
         # print(removePercentSign(sheet.cell(row=i, column=4).value), sheet.cell(row=i, column=4).value)
 
     for i in array_of_values:
-        print(i)
+        #print(i)
         if i[1] == 0.0 or i[1] == '0.0' or i[1] < 0.001:
-            print('YES')
+            #print('YES')
             sheet.cell(row=i[0], column=6).value = '0.0'
             sheet.cell(row=i[0], column=8).value = '0.0'
             sheet.cell(row=i[0], column=9).value = '0.0'

@@ -415,8 +415,14 @@ def get_partcile(CQAREF):
         return '2'
         # 2
 
+def DQA_CFIA_ADDING_NA(sheet):
+    for i in range(11, 22):
+        if sheet.cell(row=i, column=4).value == 'BDL':
+            sheet.cell(row=i, column=11).value = 'N/A'
+
 
 def DQA_CFIA_FORMATTING(sheet):
+
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
     # A. -----------
@@ -444,81 +450,41 @@ def DQA_CFIA_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'B21:L21', border)
 
-    # B. -----------
-    for i in range(25, 29):  # BOX OUTLINE
+    # B --
+    for i in range(27, 31):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
-
-    border = Border(bottom=thick)  # DOESNT WORK..
-    Utilities.FixFormatting(sheet, 'E25:F25', border)
-
-    border = Border(top=thick, bottom=thick)
-    Utilities.FixFormatting(sheet, 'B25:J25', border)
-    border = Border(bottom=thin)
-    Utilities.FixFormatting(sheet, 'B26:J26', border)
-    border = Border(bottom=thin)
-    Utilities.FixFormatting(sheet, 'B27:J27', border)
-    border = Border(bottom=thick)
-    Utilities.FixFormatting(sheet, 'B28:J28', border)
-
-    # C. -----------
-    for i in range(31, 34):  # BOX OUTLINE
+    # C --
+    for i in range(33, 36):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
-
-    border = Border(top=thick, bottom=thick)
-    Utilities.FixFormatting(sheet, 'B31:J31', border)
-    border = Border(bottom=thick, top=thin)
-    Utilities.FixFormatting(sheet, 'B33:J33', border)
-
-    # Minimum Agricultural Values. -----------
-    for i in range(50, 54):  # BOX OUTLINE
+    # D --
+    for i in range(51, 55):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
 
-    border = Border(top=thick, bottom=thick)
-    Utilities.FixFormatting(sheet, 'A50:L50', border)
-
-    border = Border(bottom=thin)
-    Utilities.FixFormatting(sheet, 'A51:L51', border)
-    border = Border(bottom=thin)
-    Utilities.FixFormatting(sheet, 'A52:L52', border)
-    border = Border(bottom=thick)
-    Utilities.FixFormatting(sheet, 'A53:L53', border)
-
-    # THE BIG ONE   ----
-    for i in range(56, 88):
+        border = Border(left=thick, right=thick)
+        Utilities.FixFormatting(sheet, 'A56:L56', border)
+    # E --
+    for i in range(57, 90):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
 
-        if (i < 58) or (i > 65 and i < 69):
-            continue
-        else:
-            border = Border(bottom=thin)
-            Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
 
-    border = Border(bottom=thick, top=thick, right=thick)
-    Utilities.FixFormatting(sheet, 'A55:L55', border)
-
-    border = Border(left=thin)
-    Utilities.FixFormatting(sheet, 'D57:D57', border)
-    border = Border(left=thin, right=thin)
-    Utilities.FixFormatting(sheet, 'E57:E57', border)
-
-    border = Border(top=thick, bottom=thick)
-    Utilities.FixFormatting(sheet, 'A66:L66', border)
-
-    border = Border(bottom=thick)
-    Utilities.FixFormatting(sheet, 'A68:L68', border)
-
-    border = Border(left=thin, right=thin)
-    Utilities.FixFormatting(sheet, 'D68:D68', border)
-
-    border = Border(top=thin)
-    Utilities.FixFormatting(sheet, 'F68:L68', border)
-
-    border = Border(bottom=thick, right=thick)
-    Utilities.FixFormatting(sheet, 'A88:L88', border)
+def DQA_CFIA_PERCENT_ADDITION(sheet):
+    print(Colors.bcolors.OKBLUE + '\n\nEXECUTING CFIA PERCENT ADDITION' + Colors.bcolors.ENDC)
+    for i in range(1, 100):
+        if sheet.cell(row=i, column=5).value == '%':
+            print(i, 'PERCENT HERE', sheet.cell(row=i, column=5).value)
+            if sheet.cell(row=i, column=4).value != 'BDL':
+                value = sheet.cell(row=i, column=4).value
+                try:
+                    new_value = round(float(value), 2)
+                    #print(new_value, type(new_value))
+                    new_value = str(new_value) + '%'
+                    sheet.cell(row=i, column=4).value = new_value
+                except:
+                    pass
 
 
 def DQA_ONT_FORMATTING(sheet):
@@ -649,10 +615,11 @@ def DQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'A90:K90', border)
 
-    #fixing the left line
+    # fixing the left line
     for i in range(71, 91):
         border = Border(left=thin)
-        Utilities.FixFormatting(sheet, 'K%d:K%d'% (i, i), border)
+        Utilities.FixFormatting(sheet, 'K%d:K%d' % (i, i), border)
+
 
 def CQA_ONT_FORMATTING(sheet):
     thick = Side(border_style="medium")
