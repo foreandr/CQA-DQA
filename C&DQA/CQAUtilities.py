@@ -454,10 +454,28 @@ def DQA_CFIA_FORMATTING(sheet):
     for i in range(27, 31):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'B27:J27', border)
+
+    border = Border(top=thin, bottom=thin)
+    Utilities.FixFormatting(sheet, 'B29:J29', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'B30:J30', border)
+
     # C --
     for i in range(33, 36):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'B%d:J%d' % (i, i), border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'B33:J33', border)
+
+    border = Border(top=thin, bottom=thick)
+    Utilities.FixFormatting(sheet, 'B35:J35', border)
+
+
     # D --
     for i in range(51, 55):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
@@ -465,10 +483,62 @@ def DQA_CFIA_FORMATTING(sheet):
 
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A56:L56', border)
+
+    border = Border(top=thick, bottom=thick)
+    Utilities.FixFormatting(sheet, 'A51:L51', border)
+
+    border = Border(top=thin, bottom=thin)
+    Utilities.FixFormatting(sheet, 'A53:L53', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A54:L54', border)
+
+    border = Border(left=thick, right=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A56:L56', border)
+
+    border = Border(top=thick)
+    Utilities.FixFormatting(sheet, 'A57:L57', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A58:L58', border)
+
+    border = Border(right=thin, left=thin)
+    Utilities.FixFormatting(sheet, 'E58:E58', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D58:D58', border)
+
+    for i in range(59, 66):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
+
+    border = Border(bottom=thick, top=thick)
+    Utilities.FixFormatting(sheet, 'A67:L67', border)
+
+    border = Border(right=thin, left=thin)
+    Utilities.FixFormatting(sheet, 'E69:E69', border)
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D69:D69', border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A69:L69', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'F68:L68', border)
+
     # E --
     for i in range(57, 90):  # BOX OUTLINE
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
+
+    for i in range(70, 89):
+        border = Border(bottom=thin)
+        Utilities.FixFormatting(sheet, 'A%d:L%d' % (i, i), border)
+
+    border = Border(bottom=thick)
+    Utilities.FixFormatting(sheet, 'A89:L89', border)
+
 
 
 def DQA_CFIA_PERCENT_ADDITION(sheet):

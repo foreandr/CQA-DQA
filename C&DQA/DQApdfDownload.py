@@ -7,7 +7,7 @@ def download_file(outputFolder, soil_number = None, env_number = None):
         print env_number, 'got this value'
         temp_value = env_number.split("'")
         print temp_value[1]
-        env_url = r"https://services.alcanada.com/report-center/envTestReport.rpt?_rptnos=%s,&_tests=A&L-WETDRY,&_hideLogo=false" %(temp_value[1])
+        env_url = r"https://services.alcanada.com/report-center/envTestReport.rpt?_rptnos=%s,&_tests=A&L-DQA,&_hideLogo=false" %(temp_value[1])
         print(env_url)
         print('https://services.alcanada.com/almsrpt/inquiry/printInquiry.do?module=ENVI&rptno=%s' %(temp_value[1]))
         response = urllib2.urlopen(env_url)

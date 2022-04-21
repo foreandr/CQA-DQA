@@ -24,7 +24,7 @@ def DQAcoverPageWrite(CQARef, workingFolder):
     sheet = wb.get_sheet_by_name('CoverPage')
 
     # --
-    sheet.cell(row=7, column=8).value = str(CQARef)
+    #sheet.cell(row=7, column=8).value = str(CQARef)
     sheet.cell(row=7, column=2).value = Utilities.get_company_name(CQARef)
     sheet.cell(row=8, column=2).value = Utilities.get_company_address(CQARef)
     sheet.cell(row=9, column=2).value = Utilities.get_FULL_ADDRESS(CQARef)
