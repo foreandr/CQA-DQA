@@ -1,4 +1,4 @@
-from openpyxl.styles import Side, Border
+from openpyxl.styles import Side, Border, Font, Alignment
 
 import SQL_CONNECTOR
 import Colors
@@ -614,6 +614,7 @@ def DQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'B34:K34', border)
 
+
     border = Border(bottom=thin, top=thin)
     Utilities.FixFormatting(sheet, 'B36:K36', border)
 
@@ -689,6 +690,32 @@ def DQA_ONT_FORMATTING(sheet):
     for i in range(71, 91):
         border = Border(left=thin)
         Utilities.FixFormatting(sheet, 'K%d:K%d' % (i, i), border)
+
+    # EXTRA THINGS
+    sheet.cell(row=27, column=4).value = 'Test Result'
+    sheet.cell(row=34, column=4).value = 'Test Result'
+
+    #font_size = Font(size='9')
+    #sheet.cell(row=27, column=4).font = font_size
+    #sheet.cell(row=34, column=4).font = font_size
+
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D27:D27', border)
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'D34:D34', border)
+
+    current_cell = sheet['D58']
+    current_cell.alignment = Alignment(horizontal='center', vertical='center')
+
+    current_cell = sheet['D52']
+    current_cell.alignment = Alignment(horizontal='center', vertical='center')
+
+    current_cell = sheet['D69']
+    current_cell.alignment = Alignment(horizontal='center', vertical='center')
+
+    current_cell = sheet['D6']
+    current_cell.alignment = Alignment(horizontal='center', vertical='center')
+
 
 
 def CQA_ONT_FORMATTING(sheet):
@@ -1041,6 +1068,11 @@ def agindex_text(number):
         return "Can be used on soils with poor drainage or high salt content"
     else:
         return "Can be used on all soils"
+
+def remove_BDL_percent(sheet):
+    for i in range(23, 27):
+        if sheet.cell(row=i, column=4).value == 'BDL%':
+            sheet.cell(row=i, column=4).value = 'BDL'
 
 
 def similar(a, b):

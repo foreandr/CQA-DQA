@@ -106,8 +106,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     ag_index = value1 / value2
     print('AGINDEX = ', ag_index)
     sheet.cell(row=113, column=4).value = round(ag_index, 2)
-
-
     sheet.cell(row=113, column=6).value = CQAUtilities.agindex_text(ag_index)
     font_black = Font(color='000000', size=10)
     sheet.cell(row=113, column=6).font = font_black
@@ -115,7 +113,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     CQAUtilities.CQA_ONT_FORMATTING(sheet)
     # --- Removing or Adding Percent Signs
 
-    # -- Agindex
+
     from openpyxl.drawing.image import Image
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
     # ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')
@@ -128,6 +126,9 @@ def OntarioQuebecCQA(workbook, CQAREF):
 
     sheet.cell(row=24, column=4).value = str(array_values[29][2]) + '%' # put later in file
     sheet.cell(row=25, column=4).value = str(array_values[30][2]) + '%'
+
+    # REMOVING THE PLACES WHERE BDL HAS PERCENT
+    CQAUtilities.remove_BDL_percent(sheet)
 
     # ------
     # putting in the images------------------------------------
@@ -142,6 +143,11 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.add_image(img, 'A94')
     img = Image('Digestate-logo.png')
     sheet.add_image(img, 'H94')
+
+    # changing agindex font
+    # 111
+    font_size = Font(size='7')
+    sheet.cell(row=113, column=6).font = font_size
 
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",

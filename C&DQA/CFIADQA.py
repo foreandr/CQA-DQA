@@ -14,8 +14,8 @@ def CFIAPrintDQA(Workbook, CQARef):
 
     feecodeList = gettingFeeCodes.gettingfeeCodes('%s' % CQARef)
 
-            # else:
-            #    print(i[1])
+    # else:
+    #    print(i[1])
     # print('printing list for entering')
     # for i in list_for_entering:
     #    print i
@@ -78,7 +78,6 @@ def CFIAPrintDQA(Workbook, CQARef):
     sheet.cell(row=64, column=4).value = feecodeList[7][3]
     sheet.cell(row=65, column=4).value = feecodeList[45][3]
     sheet.cell(row=66, column=4).value = feecodeList[6][3]
-
 
     calc_value = typcasted_dict['Nitrogen Total (N)'] * dry_matter / 100
     sheet.cell(row=70, column=4).value = round(calc_value, 1)
@@ -158,8 +157,9 @@ def CFIAPrintDQA(Workbook, CQARef):
         # print(sheet.cell(row=i, column=4).value)
         # sheet.cell(row=i, column=4).value.alignment = Alignment(horizontal='center')
         current_cell = sheet['D%d' % i]
-        current_cell.alignment = Alignment(horizontal='center')
+        current_cell.alignment = Alignment(horizontal='center',vertical='center')
         current_cell.font = Font(bold=True, name='Franklin Gothic Book')
+
 
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image

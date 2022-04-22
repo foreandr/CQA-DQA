@@ -1,7 +1,7 @@
 import os
 
 from openpyxl import Workbook
-from openpyxl.styles import PatternFill, Side
+from openpyxl.styles import PatternFill, Side, Font
 import gettingFeeCodes
 import CQAUtilities
 import Utilities
@@ -123,6 +123,10 @@ def BCandOtherReport(workbook, CQAREF):
     # HIGHLIGHTING
     import HighlighterChecker
     HighlighterChecker.get_non_ontario_cqa_constraints(sheet)
+
+    #
+    font_size = Font(size='7')
+    sheet.cell(row=111, column=6).font = font_size
 
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image

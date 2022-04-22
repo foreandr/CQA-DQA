@@ -154,14 +154,8 @@ def OntarioPrintDQA(Workbook, CQARef):
     sheet.cell(row=79, column=4).value = str(round(float(sheet.cell(row=79, column=4).value), 2)) + '%'
     sheet.cell(row=80, column=4).value = str(round(float(sheet.cell(row=80, column=4).value), 2)) + '%'
     sheet.cell(row=81, column=4).value = str(round(float(sheet.cell(row=81, column=4).value), 2)) + '%'
-    # --------------------------------------------
-    from CQAUtilities import DQA_ONT_FORMATTING
-    DQA_ONT_FORMATTING(sheet)
 
-    Utilities.number_formatting(sheet)
-    # -----------------------------------------------------------------
-    # BORDER ALIGNMENT
-
+    #---
     # CENTERING THINGS
 
     from openpyxl.styles import Alignment
@@ -182,6 +176,16 @@ def OntarioPrintDQA(Workbook, CQARef):
             current_cell.alignment = Alignment(horizontal='center')
             current_cell = sheet['I%d' % i]
             current_cell.alignment = Alignment(horizontal='center')
+
+    # --------------------------------------------
+    from CQAUtilities import DQA_ONT_FORMATTING
+    DQA_ONT_FORMATTING(sheet)
+
+    Utilities.number_formatting(sheet)
+    # -----------------------------------------------------------------
+    # BORDER ALIGNMENT
+
+
 
     if float(sheet['D88'].value) < 1.0:  # should proably turn this into a function, way easier and more maliable
         sheet['D88'] = 'BDL'
