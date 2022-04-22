@@ -171,8 +171,13 @@ def OntarioResults(CQARef):
         # Goes through all sieve sizes
         for item in cursor:
             a = str(item[0])
-            item = float(item[0])
+            try:
+                item = float(item[0])
+            except:
+                item = item[0]
             # Check to see if the current sieve size is below the target size and if it is then sets the value too 999
+            if item == 'N/A' or item == 'n/a':
+                continue
             if item - targetPercent <= 0:
                 sieveDict[parameter] = 999
                 sieveResult[parameter] = a
@@ -186,7 +191,10 @@ def OntarioResults(CQARef):
         smallestParameter = key
         break
 
-    tempSieve = smallestParameter.replace('Sieve', '').replace('(% Passing)', '')[1:-1]
+    try:
+        tempSieve = smallestParameter.replace('Sieve', '').replace('(% Passing)', '')[1:-1]
+    except:
+        tempSieve = 'N/A'
 
     # sets the sieve size
     ENVResult['22'] = tempSieve
@@ -1071,8 +1079,13 @@ def agindex_text(number):
 
 def remove_BDL_percent(sheet):
     for i in range(23, 27):
-        if sheet.cell(row=i, column=4).value == 'BDL%':
+        # should just use .upper
+        if sheet.cell(row=i, column=4).value == 'BDL%' or sheet.cell(row=i, column=4).value == 'bdl%' :
             sheet.cell(row=i, column=4).value = 'BDL'
+        elif sheet.cell(row=i, column=4).value == 'N/A%' or sheet.cell(row=i, column=4).value == 'n/a%':
+            sheet.cell(row=i, column=4).value = 'N/A'
+
+
 
 
 def similar(a, b):

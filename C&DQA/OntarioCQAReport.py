@@ -109,11 +109,11 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=113, column=6).value = CQAUtilities.agindex_text(ag_index)
     font_black = Font(color='000000', size=10)
     sheet.cell(row=113, column=6).font = font_black
+
     # -------- FORMATTING
     CQAUtilities.CQA_ONT_FORMATTING(sheet)
+
     # --- Removing or Adding Percent Signs
-
-
     from openpyxl.drawing.image import Image
     os.chdir(r'C:\CQA\FULL CQA - DQA\C&DQA\Photos')
     # ag_index_jpg = Image('C:\CQA\FULL CQA - DQA\C&DQA\Photos\Agindex.jpg')

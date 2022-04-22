@@ -21,15 +21,15 @@ class GUI:
 
     def main_method(self):
         root = Tk()
-        root.title("CqA/DQA Generator")
+        root.title("CQA/DQA Generator")
         root.geometry("300x300")
 
 
         nums = Utilities.get_reference_numbers()
         relevant_reference_numbers = []
 
-        #for i in nums:
-        #    relevant_reference_numbers.append(i)
+        for i in nums:
+            relevant_reference_numbers.append(i)
 
         print()
 
@@ -40,14 +40,16 @@ class GUI:
         CQAONt = u'CQA2200061'
         another_test = u'CQA2200104'
         CQA_ONT_FAIL = u'CQA2200094'
+        N_A_TEST = u'CQA2200119'
 
-        relevant_reference_numbers.append(DQAother_demo)  # WORKING
-        relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
+        #relevant_reference_numbers.append(DQAother_demo)  # WORKING
+        #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
         #relevant_reference_numbers.append(CQAquebec_demo) # WORKING
         #relevant_reference_numbers.append(CQAbc_demo)
         #relevant_reference_numbers.append(CQAONt)  #
         #relevant_reference_numbers.append(another_test)
         #relevant_reference_numbers.append(CQA_ONT_FAIL)
+        #relevant_reference_numbers.append(N_A_TEST)
 
         import Colors
         print(Colors.bcolors.OKBLUE + '\n\nBEGINNING RUNNING CODE\n\n' + Colors.bcolors.ENDC)
