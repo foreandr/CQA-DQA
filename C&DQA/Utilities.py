@@ -681,6 +681,15 @@ def get_company_state(CQAref):
     return state
 
 
+def BDL_PERCENT_check(value):
+    if value == 'BDL' or value == 'bdl':
+        return 'BDL'
+    elif value == 'N/A' or value == 'n/a':
+        return 'N/A'
+    else:
+        return float("{:.2f}".format(float(value)))
+
+
 def get_company_state_v2(CQAref):
     cnx = SQL_CONNECTOR.test_connection()
     cursor = cnx.cursor()
@@ -768,7 +777,7 @@ def number_formatting(sheet):
         test_value = sheet.cell(row=i, column=4).value
         # print(test_value, type(test_value))
         if test_value == 'BDL':
-            #print(test_value, 'GOT IT')
+            # print(test_value, 'GOT IT')
             sheet.cell(row=i, column=10).value = 'N/A'
 
     print(Colors.bcolors.OKBLUE + '\nPRINTING DQA EXECUTION' + Colors.bcolors.ENDC)
@@ -787,9 +796,9 @@ def number_formatting(sheet):
         # print(removePercentSign(sheet.cell(row=i, column=4).value), sheet.cell(row=i, column=4).value)
 
     for i in array_of_values:
-        #print(i)
+        # print(i)
         if i[1] == 0.0 or i[1] == '0.0' or i[1] < 0.001:
-            #print('YES')
+            # print('YES')
             sheet.cell(row=i[0], column=6).value = '0.0'
             sheet.cell(row=i[0], column=8).value = '0.0'
             sheet.cell(row=i[0], column=9).value = '0.0'
@@ -800,3 +809,43 @@ def number_formatting(sheet):
     sheet.cell(row=82, column=8).value = AVAILABLE_S * 20
     sheet.cell(row=82, column=9).value = AVAILABLE_S * 0.01
     sheet.cell(row=82, column=11).value = AVAILABLE_S * 100
+
+
+def get_cec_values(CQAREF):
+    cnx = SQL_CONNECTOR.test_connection()
+    cursor = cnx.cursor()
+    query = '''
+    select s.k_m3, s.mg_m3, s.ca_m3, s.na, s.buffer
+    from agdata a
+    inner join report r
+    on r.rptno = a.rptno
+    inner join soil s
+    on s.rptno = a.rptno
+    where route_4 = '%s' 
+    ''' % CQAREF
+    cursor.execute(query)
+
+    list_of_items = []
+    for row in cursor:
+        for item in row:
+            list_of_items.append(float(item))
+
+    return list_of_items
+
+def andres_cec_calc(cec_array):
+    value = (cec_array[0] / 390) + (cec_array[1] / 121.6) + (cec_array[2] / 200) + (cec_array[3] / 230.0)
+    buffer = cec_array[4]
+
+    if 6.6 > buffer and value > 0:
+        cec = value + 4 * (6.6 - buffer)
+        return cec
+    else:
+        return value
+def andres_percent_calc(cec_value,  array ):
+    k_m3_value = round((array[0] / 390 / cec_value * 100), 2)
+    mg_m3_value = round((array[1] / 121.6 / cec_value * 100), 2)
+    ca_m3_value = round((array[2] / 200 / cec_value * 100), 2)
+    na = round((array[3] / 230  / cec_value * 100), 2)
+    return (k_m3_value, mg_m3_value,  ca_m3_value, na)
+
+#print(andres_percent_calc(andres_cec_calc(get_cec_values('CQA2200119')), get_cec_values('CQA2200119')))

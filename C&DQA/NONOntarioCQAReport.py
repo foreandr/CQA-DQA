@@ -5,6 +5,7 @@ from openpyxl.styles import PatternFill, Side, Font
 import gettingFeeCodes
 import CQAUtilities
 import Utilities
+from Utilities import *
 
 def BCandOtherReport(workbook, CQAREF):
     print 'BCandOtherReport', workbook, CQAREF
@@ -15,10 +16,10 @@ def BCandOtherReport(workbook, CQAREF):
 
     pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
     array_values, soil_result, env_resut = CQAUtilities.OntarioResults(CQAREF)
-
+    k_m3_value, mg_m3_value, ca_m3_value, na = andres_percent_calc(andres_cec_calc(get_cec_values(CQAREF)), get_cec_values(CQAREF))
     Utilities.round_all_array_values(array_values)
-    #print('soil result', soil_result)
-    #print('env_resut', env_resut)
+    # print('soil result', soil_result)
+    # print('env_resut', env_resut)
     print('GOT ALL VALUES\n')
     for i in array_values:
         print(i)
@@ -48,7 +49,7 @@ def BCandOtherReport(workbook, CQAREF):
     sheet.cell(row=30, column=4).value = array_values[13][2]
 
     # D. MATURITY
-    sheet.cell(row=34, column=4).value = array_values[14][2]
+    sheet.cell(row=34, column=4).value = Utilities.BDL_PERCENT_check(array_values[14][2])
     sheet.cell(row=36, column=4).value = ""
 
     # D. Pathogens
@@ -61,20 +62,19 @@ def BCandOtherReport(workbook, CQAREF):
     sheet.cell(row=55, column=6).value = PH
     sheet.cell(row=56, column=6).value = array_values[20][2]
     sheet.cell(row=57, column=6).value = CQAUtilities.get_partcile(CQAREF)
-    sheet.cell(row=58, column=6).value = pe_m3_dict['salt'] # salt
-    sheet.cell(row=59, column=6).value = str(pe_m3_dict['perna_m3']) + '%' #perna
-    sheet.cell(row=61, column=6).value = str(pe_m3_dict['perk_m3'])  + '%' #perk
-    sheet.cell(row=62, column=6).value = str(pe_m3_dict['permg_m3']) + '%' #perma
-    sheet.cell(row=63, column=6).value = str(pe_m3_dict['perca_m3']) + '%' #perca
-
+    sheet.cell(row=58, column=6).value = "{:.1f}".format(round(float(pe_m3_dict['salt']), 1)) # salt
+    sheet.cell(row=59, column=6).value = "{:.2f}%".format(na)  # perna
+    sheet.cell(row=61, column=6).value = str(k_m3_value) + '%'  # perk
+    sheet.cell(row=62, column=6).value = str(mg_m3_value) + '%' # perma
+    sheet.cell(row=63, column=6).value =  str(ca_m3_value) + '%'  # # perca
 
     # Appendix III
     Nitrogen = float(Utilities.getNitrogen(CQAREF))
-    print('NITROGEN' ,Nitrogen)
+    print('NITROGEN', Nitrogen)
     print('rOUNDED NITROGEN', round(Nitrogen, 2))
-    sheet.cell(row= 98, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
-    sheet.cell(row= 99, column=4).value = PH  # TENTATIVE, MAY BE WRONG
-    sheet.cell(row=100, column=4).value = env_resut['30']
+    sheet.cell(row=98, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
+    sheet.cell(row=99, column=4).value = PH  # TENTATIVE, MAY BE WRONG
+    sheet.cell(row=100, column=4).value = "{:.0f}".format(float(env_resut['30']))
     sheet.cell(row=101, column=4).value = array_values[20][2]
     sheet.cell(row=103, column=4).value = str(round(Nitrogen, 2)) + '%'
     sheet.cell(row=104, column=4).value = array_values[23][2]
@@ -125,8 +125,10 @@ def BCandOtherReport(workbook, CQAREF):
     HighlighterChecker.get_non_ontario_cqa_constraints(sheet)
 
     #
-    font_size = Font(size='7')
-    sheet.cell(row=111, column=6).font = font_size
+    font_black = Font(color='000000', size=10)
+    sheet.cell(row=111, column=6).font = font_black
+    current_cell = sheet['F111']
+    current_cell.alignment = current_cell.alignment.copy(wrapText=True)
 
     # putting in the images------------------------------------
     from openpyxl.drawing.image import Image
@@ -144,4 +146,3 @@ def BCandOtherReport(workbook, CQAREF):
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport", CQAREF)
     filename = saveLocation + "\%sReport.xlsx" % CQAREF
     Workbook.save(workbook, filename)
-

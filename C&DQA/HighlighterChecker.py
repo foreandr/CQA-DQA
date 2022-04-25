@@ -65,7 +65,7 @@ def get_ontario_cqa_constraints_A(sheet):
     column6_value = 4  # COMPARISON VALUE
     if column4_value == 'BDL':
         pass
-    elif column4_value > column6_value:
+    elif float(column4_value) > column6_value:
         sheet.cell(row=33, column=4).fill = highlight
 
     column4_value = try_cast_to_num(sheet.cell(row=35, column=4).value)
@@ -95,6 +95,11 @@ def get_ontario_cqa_constraints_A(sheet):
             sheet.cell(row=41, column=4).fill = highlight
     else:
         print'NOT A NUMBER', (casted_value)
+
+
+    if sheet.cell(row=55, column=6).value == 'N/A':
+        sheet.cell(row=55, column=6).fill = highlight
+
 
 
 def get_non_ontario_cqa_constraints(sheet):
@@ -213,11 +218,9 @@ def get_ontario_category(CQAREF='CQA2200061'):
                     print(i, k, 'B')
                     CAT_B = True
                 else:  # check cat A
-                    print(i, k, 'A/AA')
+                    print(i, k, 'A')
                     CAT_A = True
                     CAT_AA = True
-
-
     # --
     print('\nCAT_AA:    ' + str(CAT_AA))
     print('CAT_A:     ' + str(CAT_A))
@@ -270,8 +273,8 @@ def get_non_ontario_category(CQAREF='CQA2100409'):
     if CAT_B:
         return 'CATEGORY B'
     if CAT_A:
-        return 'CATEGORY A/AA'
+        return 'CATEGORY A'
 
 
 
-get_ontario_category()
+# get_ontario_category()

@@ -393,19 +393,28 @@ def get_partcile(CQAREF):
     INNER JOIN report rep
     ON rep.rptno = env.rptno
     WHERE rep.refno = '%s' AND env.feecode = 'SQCC023'
-    OR rep.refno = 'CQA2200061' AND env.feecode = 'SQBC023'  
-    OR rep.refno = 'CQA2200061' AND env.feecode = 'SSCC023' 
-    OR rep.refno = 'CQA2200061' AND env.feecode = 'SSBC023'
-    OR rep.refno = 'CQA2200061' AND env.feecode = 'SQAC023'  
-    ''' % CQAREF
+    OR rep.refno = '%s' AND env.feecode = 'SQBC023'  
+    OR rep.refno = '%s' AND env.feecode = 'SSCC023' 
+    OR rep.refno = '%s' AND env.feecode = 'SSBC023'
+    OR rep.refno = '%s' AND env.feecode = 'SQAC023'  
+    ''' % (CQAREF, CQAREF, CQAREF, CQAREF, CQAREF)
     cursor.execute(query)
     usingDict = {}
     for item in cursor:
         usingDict[item[0]] = item[1]
 
     print('\n')
+
     for key, value in usingDict.items():
-        print(key, value)
+        try:
+            newValue = float(value)
+            usingDict[key] = newValue
+        except:
+            pass
+    for key, value in usingDict.items():
+        print(key, value, type(value))
+        if value == 'N/A' or value == 'n/a':
+            return 'N/A'
 
     if usingDict['SQCC023'] >= 79.5:
         return '1/4'
@@ -422,6 +431,7 @@ def get_partcile(CQAREF):
     else:
         return '2'
         # 2
+print(get_partcile('CQA2200119'))
 
 def DQA_CFIA_ADDING_NA(sheet):
     for i in range(11, 22):
@@ -430,7 +440,6 @@ def DQA_CFIA_ADDING_NA(sheet):
 
 
 def DQA_CFIA_FORMATTING(sheet):
-
     thick = Side(border_style="medium")
     thin = Side(border_style="thin")
     # A. -----------
@@ -482,7 +491,6 @@ def DQA_CFIA_FORMATTING(sheet):
 
     border = Border(top=thin, bottom=thick)
     Utilities.FixFormatting(sheet, 'B35:J35', border)
-
 
     # D --
     for i in range(51, 55):  # BOX OUTLINE
@@ -548,7 +556,6 @@ def DQA_CFIA_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'A89:L89', border)
 
 
-
 def DQA_CFIA_PERCENT_ADDITION(sheet):
     print(Colors.bcolors.OKBLUE + '\n\nEXECUTING CFIA PERCENT ADDITION' + Colors.bcolors.ENDC)
     for i in range(1, 100):
@@ -558,7 +565,7 @@ def DQA_CFIA_PERCENT_ADDITION(sheet):
                 value = sheet.cell(row=i, column=4).value
                 try:
                     new_value = round(float(value), 2)
-                    #print(new_value, type(new_value))
+                    # print(new_value, type(new_value))
                     new_value = str(new_value) + '%'
                     sheet.cell(row=i, column=4).value = new_value
                 except:
@@ -621,7 +628,6 @@ def DQA_ONT_FORMATTING(sheet):
 
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'B34:K34', border)
-
 
     border = Border(bottom=thin, top=thin)
     Utilities.FixFormatting(sheet, 'B36:K36', border)
@@ -703,9 +709,9 @@ def DQA_ONT_FORMATTING(sheet):
     sheet.cell(row=27, column=4).value = 'Test Result'
     sheet.cell(row=34, column=4).value = 'Test Result'
 
-    #font_size = Font(size='9')
-    #sheet.cell(row=27, column=4).font = font_size
-    #sheet.cell(row=34, column=4).font = font_size
+    # font_size = Font(size='9')
+    # sheet.cell(row=27, column=4).font = font_size
+    # sheet.cell(row=34, column=4).font = font_size
 
     border = Border(left=thin)
     Utilities.FixFormatting(sheet, 'D27:D27', border)
@@ -723,7 +729,6 @@ def DQA_ONT_FORMATTING(sheet):
 
     current_cell = sheet['D6']
     current_cell.alignment = Alignment(horizontal='center', vertical='center')
-
 
 
 def CQA_ONT_FORMATTING(sheet):
@@ -820,6 +825,11 @@ def CQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'C47:G47', border)
 
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'F46:F46', border)
+    border = Border(left=thin)
+    Utilities.FixFormatting(sheet, 'F47:F47', border)
+
     # Appendix II
     for i in range(52, 62):
         border = Border(left=thick, right=thick)
@@ -899,6 +909,8 @@ def CQA_OTHER_FORMATTING(sheet):
     Utilities.FixFormatting(sheet, 'A24:I24', border)
 
     for i in range(25, 30):
+        if i == 29:
+            pass
         border = Border(bottom=thin)
         Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
 
@@ -907,6 +919,9 @@ def CQA_OTHER_FORMATTING(sheet):
 
     border = Border(left=thin, right=thin)
     Utilities.FixFormatting(sheet, 'E27:F27', border)
+
+    border = Border(left=thick)
+    Utilities.FixFormatting(sheet, 'A27:A27', border)
 
     border = Border(left=thin)
     Utilities.FixFormatting(sheet, 'D27:D27', border)
@@ -928,9 +943,9 @@ def CQA_OTHER_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'A37:I37', border)
 
-    for i in range(34, 37):
-        border = Border(bottom=thin)
-        Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A35:I35', border)
 
     for i in range(34, 38):
         border = Border(right=thin, left=thin)
@@ -952,14 +967,14 @@ def CQA_OTHER_FORMATTING(sheet):
 
     # ROW 46
     for i in range(46, 64):
-        if i == 50 or i == 51 or i == 52 or i == 53:
+        if i == 50 or i == 51 or i == 52 or i == 53 or i==49:
             pass
         else:
             border = Border(left=thick, right=thick)
             Utilities.FixFormatting(sheet, 'C%d:G%d' % (i, i), border)
 
     for i in range(47, 63):
-        if i == 48 or i == 50 or i == 51 or i == 52 or i == 53 or i == 54:
+        if i == 48 or i == 49 or i == 50 or i == 51 or i == 52 or i == 53 or i == 54:
             pass
         else:
             border = Border(bottom=thin)
@@ -1014,6 +1029,11 @@ def CQA_OTHER_FORMATTING(sheet):
     for i in range(96, 112):
         border = Border(left=thick, right=thick)
         Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+
+    # CENTERING ITEMS
+    for i in range(26, 37):
+        current_cell = sheet['D%i' % i]
+        current_cell.alignment = Alignment(horizontal='center', vertical='center')
 
 
 def get_Agindex_Phosphorus(CQAREF):
@@ -1077,17 +1097,17 @@ def agindex_text(number):
     else:
         return "Can be used on all soils"
 
+
 def remove_BDL_percent(sheet):
     for i in range(23, 27):
         # should just use .upper
-        if sheet.cell(row=i, column=4).value == 'BDL%' or sheet.cell(row=i, column=4).value == 'bdl%' :
+        if sheet.cell(row=i, column=4).value == 'BDL%' or sheet.cell(row=i, column=4).value == 'bdl%':
             sheet.cell(row=i, column=4).value = 'BDL'
         elif sheet.cell(row=i, column=4).value == 'N/A%' or sheet.cell(row=i, column=4).value == 'n/a%':
             sheet.cell(row=i, column=4).value = 'N/A'
 
 
-
-
 def similar(a, b):
     from difflib import SequenceMatcher
     return SequenceMatcher(None, a, b).ratio()
+

@@ -27,8 +27,7 @@ def gettingCQAfeeCodes(refno):
             # write a row to the csv file
             writer.writerow(i)
 
+fnum = 7
 
-
-
-
-gettingCQAfeeCodes('CQA2100540')
+res = "{:.2f}".format(fnum)
+print res

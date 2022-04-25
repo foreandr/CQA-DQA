@@ -1,11 +1,11 @@
 import os
 
 from openpyxl import Workbook
-from openpyxl.styles import PatternFill, Side, Font
+from openpyxl.styles import PatternFill, Side, Font, Alignment
 import gettingFeeCodes
 import CQAUtilities
 import Utilities
-
+from Utilities import *
 
 def OntarioQuebecCQA(workbook, CQAREF):
     print  'ONTARIO /QEUEBEC REPORT', workbook, CQAREF
@@ -19,7 +19,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     Utilities.round_all_array_values(array_values)
     item_dict = Utilities.getValuesForAGIndex(CQAREF)
     pe_m3_dict = CQAUtilities.getOtherResults(CQAREF)
-
+    k_m3_value, mg_m3_value, ca_m3_value, na = andres_percent_calc(andres_cec_calc(get_cec_values(CQAREF)), get_cec_values(CQAREF))
     for i in array_values:
         print(i)
 
@@ -37,14 +37,14 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=19, column=4).value = array_values[10][2]
 
     # B.
-    sheet.cell(row=24, column=4).value = array_values[29][2]
-    sheet.cell(row=25, column=4).value = array_values[30][2]
-    sheet.cell(row=26, column=4).value = array_values[11][2]
-    sheet.cell(row=28, column=4).value = array_values[12][2]
-    sheet.cell(row=29, column=4).value = array_values[13][2]
+    sheet.cell(row=24, column=4).value = Utilities.BDL_PERCENT_check(array_values[29][2])
+    sheet.cell(row=25, column=4).value = Utilities.BDL_PERCENT_check(array_values[30][2])
+    sheet.cell(row=26, column=4).value = Utilities.BDL_PERCENT_check(array_values[11][2])
+    sheet.cell(row=28, column=4).value = Utilities.BDL_PERCENT_check(array_values[12][2])
+    sheet.cell(row=29, column=4).value = Utilities.BDL_PERCENT_check(array_values[13][2])
 
     # C.
-    sheet.cell(row=33, column=4).value = array_values[14][2]
+    sheet.cell(row=33, column=4).value = Utilities.BDL_PERCENT_check(array_values[14][2])
     # sheet.cell(row=34, column=4).value = array_values[][]
 
     # D.
@@ -58,17 +58,16 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=53, column=6).value = array_values[19][2]
     sheet.cell(row=54, column=6).value = array_values[20][2]
     sheet.cell(row=55, column=6).value = CQAUtilities.get_partcile(CQAREF)
-    sheet.cell(row=56, column=6).value = pe_m3_dict['salt']  # salt
-    sheet.cell(row=57, column=6).value = str(pe_m3_dict['perna_m3']) + '%'  # perna
-    # Major nutrients
-    sheet.cell(row=59, column=6).value = str(pe_m3_dict['perk_m3']) + '%'  # perk
-    sheet.cell(row=60, column=6).value = str(pe_m3_dict['permg_m3']) + '%'  # perma
-    sheet.cell(row=61, column=6).value = str(pe_m3_dict['perca_m3']) + '%'  # perca
+    sheet.cell(row=56, column=6).value = "{:.1f}".format(round(float(pe_m3_dict['salt']), 1))  # salt
+    sheet.cell(row=57, column=6).value = "{:.2f}%".format(na)
+    sheet.cell(row=59, column=6).value = str(k_m3_value) + '%'  # perk
+    sheet.cell(row=60, column=6).value = str(mg_m3_value) + '%'  # perma
+    sheet.cell(row=61, column=6).value = str(ca_m3_value) + '%'  # perca
 
     # APENDIX 3
     sheet.cell(row=100, column=4).value = str(CQAUtilities.get_dry_matter(CQAREF)) + '%'
     sheet.cell(row=101, column=4).value = item_dict['PH']
-    sheet.cell(row=102, column=4).value = array_values[22][2]
+    sheet.cell(row=102, column=4).value = "{:.0f}".format(float(array_values[22][2])) # remove decimal
     sheet.cell(row=103, column=4).value = array_values[20][2]
 
     # FERTILIZER
@@ -78,7 +77,7 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.cell(row=107, column=4).value = str(array_values[24][2]) + '%'
     sheet.cell(row=108, column=4).value = str(array_values[25][2]) + '%'
     sheet.cell(row=109, column=4).value = str(array_values[26][2]) + '%'
-    sheet.cell(row=110, column=4).value = str(array_values[27][2]) + '%'
+    sheet.cell(row=110, column=4).value = "{:.2f}%".format(array_values[27][2])
     sheet.cell(row=111, column=4).value = array_values[28][2]
 
     # AGINDEX----------------------------------------------------------
@@ -107,8 +106,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     print('AGINDEX = ', ag_index)
     sheet.cell(row=113, column=4).value = round(ag_index, 2)
     sheet.cell(row=113, column=6).value = CQAUtilities.agindex_text(ag_index)
-    font_black = Font(color='000000', size=10)
-    sheet.cell(row=113, column=6).font = font_black
 
     # -------- FORMATTING
     CQAUtilities.CQA_ONT_FORMATTING(sheet)
@@ -124,11 +121,14 @@ def OntarioQuebecCQA(workbook, CQAREF):
     import HighlighterChecker
     HighlighterChecker.get_ontario_cqa_constraints_A(sheet)
 
-    sheet.cell(row=24, column=4).value = str(array_values[29][2]) + '%' # put later in file
-    sheet.cell(row=25, column=4).value = str(array_values[30][2]) + '%'
-
-    # REMOVING THE PLACES WHERE BDL HAS PERCENT
+    # REMOVING THE PLACES WHERE BDL HAS PERCENT OR NA
     CQAUtilities.remove_BDL_percent(sheet)
+
+    #AGINDEX FONT
+    font_black = Font(color='000000', size=10)
+    sheet.cell(row=113, column=6).font = font_black
+    current_cell = sheet['F113']
+    current_cell.alignment = current_cell.alignment.copy(wrapText=True)
 
     # ------
     # putting in the images------------------------------------
@@ -143,11 +143,6 @@ def OntarioQuebecCQA(workbook, CQAREF):
     sheet.add_image(img, 'A94')
     img = Image('Digestate-logo.png')
     sheet.add_image(img, 'H94')
-
-    # changing agindex font
-    # 111
-    font_size = Font(size='7')
-    sheet.cell(row=113, column=6).font = font_size
 
     # ----------------------------------------------------------------
     saveLocation = os.path.join(r"C:\CQA\FULL CQA - DQA\C&DQA\FinishedReport",
