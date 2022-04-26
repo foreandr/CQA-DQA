@@ -154,7 +154,7 @@ def get_non_ontario_cqa_constraints(sheet):
     print('c6', column6_value, type(column6_value))
     if column4_value == 'BDL' or column4_value == '<3':
         pass
-    elif float(column4_value) > float(column6_value):
+    elif float(column4_value[1:]) > float(column6_value):
         sheet.cell(row=41, column=4).fill = highlight
 
     column4_value = try_cast_to_num(sheet.cell(row=42, column=4).value)

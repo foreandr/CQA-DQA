@@ -907,12 +907,24 @@ def CQA_OTHER_FORMATTING(sheet):
 
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'A24:I24', border)
-
+    """
     for i in range(25, 30):
         if i == 29:
             pass
         border = Border(bottom=thin)
         Utilities.FixFormatting(sheet, 'A%d:I%d' % (i, i), border)
+    """
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A25:E25', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A27:I27', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A28:E28', border)
+
+    border = Border(bottom=thin)
+    Utilities.FixFormatting(sheet, 'A29:E29', border)
 
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'A30:I30', border)
@@ -1006,6 +1018,10 @@ def CQA_OTHER_FORMATTING(sheet):
     # apendix 3
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'A96:I96', border)
+
+    for i in range(97, 102):
+        border = Border(right=thin)
+        Utilities.FixFormatting(sheet, 'G%d:G%d' % (i, i), border)
 
     for i in range(97, 110):
         if i == 97 or i == 102 or i == 109:
