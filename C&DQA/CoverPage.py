@@ -2,7 +2,7 @@ import time, os
 import mysql.connector
 from mysql.connector import errorcode
 from openpyxl.styles import Border, Side
-from Utilities import FixFormatting, findLocation
+from Utilities import FixFormatting, findLocation, read_from_csv
 import shutil, os, sys
 import Colors
 import SQL_CONNECTOR
@@ -138,11 +138,11 @@ def coverPageWrite(CQARef, workingFolder):
     import HighlighterChecker
     location = findLocation(CQARef)
     if location == 'ON' or location == 'QC':
-        value = HighlighterChecker.get_ontario_category(CQARef)
-        coverDict['A10'] = value
+        HighlighterChecker.get_ontario_category(CQARef)
+        coverDict['A10'] = read_from_csv()
     else:
-        value = HighlighterChecker.get_non_ontario_category(CQARef)
-        coverDict['A10'] = value
+        HighlighterChecker.get_non_ontario_category(CQARef)
+        coverDict['A10'] = read_from_csv()
 
     # ---B18 Query FEEDSTOCK---#
     # print 'executing query 18 for feedstock'

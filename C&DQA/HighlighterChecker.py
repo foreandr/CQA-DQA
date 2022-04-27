@@ -15,6 +15,11 @@ def try_cast_to_num(value):
 
 
 def get_ontario_cqa_constraints_A(sheet):
+    CAT_AA = False
+    CAT_A = False
+    CAT_B = False
+    CAT_FAIL = False
+
     highlight = PatternFill(start_color='F3F315', end_color='F3F315', fill_type='solid')
     # sheet.cell(row=9, column=4).value = 14 TESTER
     for i in range(9, 20):
@@ -96,10 +101,17 @@ def get_ontario_cqa_constraints_A(sheet):
     else:
         print'NOT A NUMBER', (casted_value)
 
-
     if sheet.cell(row=55, column=6).value == 'N/A':
         sheet.cell(row=55, column=6).fill = highlight
 
+    if CAT_FAIL:
+        Utilities.write_to_csv('EXCEEDS GUIDELINES')
+    elif CAT_B:
+        Utilities.write_to_csv('CAT B')
+    elif CAT_A:
+        Utilities.write_to_csv('CAT A')
+    elif CAT_AA:
+        Utilities.write_to_csv('CAT AA')
 
 
 def get_non_ontario_cqa_constraints(sheet):
@@ -136,6 +148,7 @@ def get_non_ontario_cqa_constraints(sheet):
         pass
     elif column4_value > column6_value:
         sheet.cell(row=29, column=4).fill = highlight
+        CAT_B = True
 
     column4_value = try_cast_to_num(sheet.cell(row=30, column=4).value)
     column6_value = 0  # COMPARISON VALUE
@@ -143,6 +156,7 @@ def get_non_ontario_cqa_constraints(sheet):
         pass
     elif column4_value > column6_value:
         sheet.cell(row=30, column=4).fill = highlight
+        CAT_FAIL = True
 
     column4_value = try_cast_to_num(sheet.cell(row=34, column=4).value)
     column6_value = 4  # COMPARISON VALUE
@@ -150,6 +164,7 @@ def get_non_ontario_cqa_constraints(sheet):
         pass
     elif column4_value > column6_value:
         sheet.cell(row=34, column=4).fill = highlight
+        CAT_B = True
 
     column4_value = try_cast_to_num(sheet.cell(row=36, column=4).value)
     column6_value = 400  # COMPARISON VALUE
@@ -157,15 +172,17 @@ def get_non_ontario_cqa_constraints(sheet):
         pass
     elif column4_value > column6_value:
         sheet.cell(row=36, column=4).fill = highlight
+        CAT_B = True
 
     column4_value = try_cast_to_num(sheet.cell(row=41, column=4).value)
-    column6_value = 400  # COMPARISON VALUE
+    column6_value = 1000  # COMPARISON VALUE
     print('c4', column4_value, type(column4_value))
     print('c6', column6_value, type(column6_value))
     if column4_value == 'BDL' or column4_value == '<3':
         pass
-    elif float(column4_value[1:]) > float(column6_value):
+    elif float(column4_value[1:]) >= float(column6_value):
         sheet.cell(row=41, column=4).fill = highlight
+        CAT_FAIL = True
 
     column4_value = try_cast_to_num(sheet.cell(row=42, column=4).value)
     column6_value = 3  # COMPARISON VALUE
@@ -175,11 +192,22 @@ def get_non_ontario_cqa_constraints(sheet):
         casted_value = float(column4_value)
     except:
         casted_value = column4_value
+    if casted_value == 'POSITIVE' or casted_value == 'positive':
+        CAT_B = True
     if type(casted_value) == float:
         if casted_value >= column6_value:
             sheet.cell(row=42, column=4).fill = highlight
     else:
         print'NOT A NUMBER', (casted_value)
+
+    if CAT_FAIL:
+        Utilities.write_to_csv('EXCEEDS GUIDELINES')
+    elif CAT_B:
+        Utilities.write_to_csv('CAT B')
+    elif CAT_A:
+        Utilities.write_to_csv('CAT A')
+    elif CAT_AA:
+        Utilities.write_to_csv('CAT AA')
 
 
 def get_ontario_category(CQAREF):
@@ -232,9 +260,9 @@ def get_ontario_category(CQAREF):
                     CAT_A = True
                     CAT_AA = True
 
-    fecal_coli = Utilities.remove_greater_than(Utilities.get_fecal(CQAREF))
-    if fecal_coli >= 1000:
-        CAT_FAIL = True
+    #fecal_coli = Utilities.remove_greater_than(Utilities.get_fecal(CQAREF))
+    #if fecal_coli >= 1000:
+    #    CAT_FAIL = True
     # --
     print('\nCAT_AA:    ' + str(CAT_AA))
     print('CAT_A:     ' + str(CAT_A))
@@ -242,16 +270,16 @@ def get_ontario_category(CQAREF):
     print('CAT_FAIL:  ' + str(CAT_FAIL))
 
     if CAT_FAIL:
-        return 'EXCEEDS GUIDELINES'
-    if CAT_B:
-        return 'CATEGORY B'
-    if CAT_A:
-        return 'CATEGORY A'
-    if CAT_AA:
-        return 'CATEGORY AA'
+        Utilities.write_to_csv('EXCEEDS GUIDELINES')
+    elif CAT_B:
+        Utilities.write_to_csv('CAT B')
+    elif CAT_A:
+        Utilities.write_to_csv('CAT A')
+    elif CAT_AA:
+        Utilities.write_to_csv('CAT AA')
 
 
-def get_non_ontario_category(CQAREF='CQA2200135'):
+def get_non_ontario_category(CQAREF):
     array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
     Utilities.round_all_array_values(array_values)
     new_2d_array = array_values[0:11]
@@ -287,12 +315,10 @@ def get_non_ontario_category(CQAREF='CQA2200135'):
     print('CAT_FAIL:  ' + str(CAT_FAIL))
 
     if CAT_FAIL:
-        return 'EXCEEDS GUIDELINES'
-    if CAT_B:
-        return 'CATEGORY B'
-    if CAT_A:
-        return 'CATEGORY A'
-
-get_non_ontario_category()
-
-# get_ontario_category()
+        Utilities.write_to_csv('EXCEEDS GUIDELINES')
+    elif CAT_B:
+        Utilities.write_to_csv('CAT B')
+    elif CAT_A:
+        Utilities.write_to_csv('CAT A')
+    # if CAT_AA:
+    #    Utilities.write_to_csv('CAT AA')

@@ -122,7 +122,7 @@ def BCandOtherReport(workbook, CQAREF):
     # ---------------------------------------
     # HIGHLIGHTING
     import HighlighterChecker
-    HighlighterChecker.get_non_ontario_cqa_constraints(sheet)
+    category = HighlighterChecker.get_non_ontario_cqa_constraints(sheet)
 
     #
     font_black = Font(color='000000', size=10)

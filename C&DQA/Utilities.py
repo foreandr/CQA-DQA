@@ -592,6 +592,7 @@ def get_fecal(CQAREF):
     where feecode = 'BMPZ484' and rep.refno = '%s'
     """ % CQAREF
     cursor.execute(query)
+    fecal = ''
     for item in cursor:
         fecal = str(item[0])
     return fecal
@@ -636,6 +637,21 @@ CQA_ON_SECOND_PART_CHECK = [
     [7, 'Salmonella spp.', 0, 1000],  # IF NOT NEG FAIL
 ]
 
+def write_to_csv(string):
+    import csv
+    f = open('C:\CQA\FULL CQA - DQA\C&DQA\category.csv', 'w')
+    writer = csv.writer(f)
+    writer.writerow([string])
+    f.close()
+def read_from_csv():
+    import csv
+    file = open('C:\CQA\FULL CQA - DQA\C&DQA\category.csv', 'r')
+    csvreader = csv.reader(file)
+    string = ''
+    for row in csvreader:
+        string = row
+    string = string[0]
+    return string
 
 def get_company_name(CQAref):
     # Finds the company name
