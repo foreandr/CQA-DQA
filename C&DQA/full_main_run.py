@@ -43,16 +43,18 @@ class GUI:
         CQA_ONT_FAIL = u'CQA2200094'
         N_A_TEST = u'CQA2200119'
         failtest_1 = u'CQA2200133'
+        new_fail_test = U'CQA2200135'
 
         #relevant_reference_numbers.append(DQAother_demo)  # WORKING
         #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
         #relevant_reference_numbers.append(CQAquebec_demo) # WORKING
-        relevant_reference_numbers.append(CQAbc_demo)
+        #relevant_reference_numbers.append(CQAbc_demo)
         #relevant_reference_numbers.append(CQAONt)  #
         #relevant_reference_numbers.append(another_test)
         #relevant_reference_numbers.append(CQA_ONT_FAIL)
         #relevant_reference_numbers.append(N_A_TEST)
         #relevant_reference_numbers.append(failtest_1)
+        relevant_reference_numbers.append(new_fail_test)
 
         import Colors
         print(Colors.bcolors.OKBLUE + '\n\nBEGINNING RUNNING CODE\n\n' + Colors.bcolors.ENDC)

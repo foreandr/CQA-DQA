@@ -220,6 +220,8 @@ def coverPageWrite(CQARef, workingFolder):
     valueToFill = coverDict[cellName]
     sheet.cell(row=22, column=3).value = valueToFill
 
+    print 'PRINTING COVER \n', coverDict
+
     # Creates the border styles for the different side types
     thick = Side(border_style="thick", color='00B050')
     thin = Side(border_style="medium", color='00B050')

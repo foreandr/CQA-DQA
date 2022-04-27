@@ -431,7 +431,7 @@ def get_partcile(CQAREF):
     else:
         return '2'
         # 2
-print(get_partcile('CQA2200119'))
+
 
 def DQA_CFIA_ADDING_NA(sheet):
     for i in range(11, 22):
@@ -955,7 +955,6 @@ def CQA_OTHER_FORMATTING(sheet):
     border = Border(bottom=thick)
     Utilities.FixFormatting(sheet, 'A37:I37', border)
 
-
     border = Border(bottom=thin)
     Utilities.FixFormatting(sheet, 'A35:I35', border)
 
@@ -979,7 +978,7 @@ def CQA_OTHER_FORMATTING(sheet):
 
     # ROW 46
     for i in range(46, 64):
-        if i == 50 or i == 51 or i == 52 or i == 53 or i==49:
+        if i == 50 or i == 51 or i == 52 or i == 53 or i == 49:
             pass
         else:
             border = Border(left=thick, right=thick)
@@ -1051,6 +1050,11 @@ def CQA_OTHER_FORMATTING(sheet):
         current_cell = sheet['D%i' % i]
         current_cell.alignment = Alignment(horizontal='center', vertical='center')
 
+    # print('TESTING RIGHT NOW 135')
+    for i in range(10, 21):
+        sheet.cell(row=i, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
+        # print(sheet.cell(row=i, column=4).value, type(sheet.cell(row=i, column=4).value))
+    sheet.cell(row=47, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
 
 def get_Agindex_Phosphorus(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
@@ -1126,4 +1130,3 @@ def remove_BDL_percent(sheet):
 def similar(a, b):
     from difflib import SequenceMatcher
     return SequenceMatcher(None, a, b).ratio()
-

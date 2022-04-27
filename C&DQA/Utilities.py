@@ -622,6 +622,7 @@ CQA_NON_ON_DATA_CATEGORY = [
     ['Nickel', 62, 180],
     ['Selenium', 2, 14],
     ['Zinc', 700, 1850],
+    ['Fecal Coliform (MPN/g dry)', 1000]
 ]
 # IF YOU EDIT THIS OR THE TITLES IN THE EXCELS OTHER PARTS HAVE TO CHANGE TOO
 CQA_ON_SECOND_PART_CHECK = [
@@ -687,7 +688,7 @@ def BDL_PERCENT_check(value):
     elif value == 'N/A' or value == 'n/a':
         return 'N/A'
     else:
-        return float("{:.2f}".format(float(value)))
+        return "{:.2f}".format(float(value))
 
 
 def get_company_state_v2(CQAref):
@@ -720,6 +721,16 @@ def get_FULL_ADDRESS(CQAref):
 
     address = city + ', ' + state + ' ' + zip
     return address
+
+
+def remove_greater_than(string):
+    if string[0] == '>':
+        try:
+            return float(string[1:])
+        except:
+            return string[1:]
+    else:
+        return string
 
 
 def get_sample_ID(CQAref):
@@ -832,6 +843,7 @@ def get_cec_values(CQAREF):
 
     return list_of_items
 
+
 def andres_cec_calc(cec_array):
     value = (cec_array[0] / 390) + (cec_array[1] / 121.6) + (cec_array[2] / 200) + (cec_array[3] / 230.0)
     buffer = cec_array[4]
@@ -841,11 +853,13 @@ def andres_cec_calc(cec_array):
         return cec
     else:
         return value
-def andres_percent_calc(cec_value,  array ):
+
+
+def andres_percent_calc(cec_value, array):
     k_m3_value = round((array[0] / 390 / cec_value * 100), 2)
     mg_m3_value = round((array[1] / 121.6 / cec_value * 100), 2)
     ca_m3_value = round((array[2] / 200 / cec_value * 100), 2)
-    na = round((array[3] / 230  / cec_value * 100), 2)
-    return (k_m3_value, mg_m3_value,  ca_m3_value, na)
+    na = round((array[3] / 230 / cec_value * 100), 2)
+    return (k_m3_value, mg_m3_value, ca_m3_value, na)
 
-#print(andres_percent_calc(andres_cec_calc(get_cec_values('CQA2200119')), get_cec_values('CQA2200119')))
+# print(andres_percent_calc(andres_cec_calc(get_cec_values('CQA2200119')), get_cec_values('CQA2200119')))

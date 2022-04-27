@@ -103,22 +103,32 @@ def get_ontario_cqa_constraints_A(sheet):
 
 
 def get_non_ontario_cqa_constraints(sheet):
+    CAT_AA = False
+    CAT_A = False
+    CAT_B = False
+    CAT_FAIL = False
+
     highlight = PatternFill(start_color='F3F315', end_color='F3F315', fill_type='solid')
     for i in range(10, 21):
         column4_value = try_cast_to_num(sheet.cell(row=i, column=4).value)
-        column6_value = sheet.cell(row=i, column=5).value
+        column5_value = sheet.cell(row=i, column=5).value
         if type(column4_value) == unicode:
             continue
-        if column4_value > column6_value:
+        if column4_value > column5_value:
             sheet.cell(row=i, column=4).fill = highlight
+            CAT_B = True
             # print('CURRENT TYPE', type(column4_value), column4_value)
 
     column4_value = try_cast_to_num(sheet.cell(row=26, column=4).value)
-    column6_value = 1  # COMPARISON VALUE
+    column5_value = 1  # COMPARISON VALUE
+    column6_value = 2
     if column4_value == 'BDL':
         pass
-    elif column4_value > column6_value:
+    elif column4_value > column5_value:
         sheet.cell(row=26, column=4).fill = highlight
+        CAT_B = True
+    elif column4_value > column6_value:
+        CAT_FAIL = True
 
     column4_value = try_cast_to_num(sheet.cell(row=29, column=4).value)
     column6_value = 0  # COMPARISON VALUE
@@ -172,7 +182,7 @@ def get_non_ontario_cqa_constraints(sheet):
         print'NOT A NUMBER', (casted_value)
 
 
-def get_ontario_category(CQAREF='CQA2200061'):
+def get_ontario_category(CQAREF):
     array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
     Utilities.round_all_array_values(array_values)
     print('\nRESULTS FROM EXECUTION\n')
@@ -221,6 +231,10 @@ def get_ontario_category(CQAREF='CQA2200061'):
                     print(i, k, 'A')
                     CAT_A = True
                     CAT_AA = True
+
+    fecal_coli = Utilities.remove_greater_than(Utilities.get_fecal(CQAREF))
+    if fecal_coli >= 1000:
+        CAT_FAIL = True
     # --
     print('\nCAT_AA:    ' + str(CAT_AA))
     print('CAT_A:     ' + str(CAT_A))
@@ -237,11 +251,12 @@ def get_ontario_category(CQAREF='CQA2200061'):
         return 'CATEGORY AA'
 
 
-def get_non_ontario_category(CQAREF='CQA2100409'):
+def get_non_ontario_category(CQAREF='CQA2200135'):
     array_values, _, _ = CQAUtilities.OntarioResults(CQAREF)
     Utilities.round_all_array_values(array_values)
     new_2d_array = array_values[0:11]
     check_array = Utilities.CQA_NON_ON_DATA_CATEGORY
+    fecal_coli = Utilities.remove_greater_than(Utilities.get_fecal(CQAREF))
     print('\nRESULTS FROM EXECUTION\n')
 
     # for i in new_2d_array:
@@ -250,8 +265,6 @@ def get_non_ontario_category(CQAREF='CQA2100409'):
     CAT_A = False
     CAT_B = False
     CAT_FAIL = False
-
-    'Percent (%) FM > 3mm/500mL'
 
     for i in new_2d_array:
         # print(i[2])
@@ -267,6 +280,11 @@ def get_non_ontario_category(CQAREF='CQA2100409'):
                 else:
                     print(i, j, 'A')
                     CAT_A = True
+    if fecal_coli >= 1000:
+        CAT_FAIL = True
+    print('CAT_A:     ' + str(CAT_A))
+    print('CAT_B:     ' + str(CAT_B))
+    print('CAT_FAIL:  ' + str(CAT_FAIL))
 
     if CAT_FAIL:
         return 'EXCEEDS GUIDELINES'
@@ -275,6 +293,6 @@ def get_non_ontario_category(CQAREF='CQA2100409'):
     if CAT_A:
         return 'CATEGORY A'
 
-
+get_non_ontario_category()
 
 # get_ontario_category()
