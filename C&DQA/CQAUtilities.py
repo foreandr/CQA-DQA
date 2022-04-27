@@ -878,6 +878,11 @@ def CQA_ONT_FORMATTING(sheet):
     border = Border(bottom=thick, top=thick)
     Utilities.FixFormatting(sheet, 'A113:I113', border)
 
+    for i in range(9, 20):
+        sheet.cell(row=i, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
+        # print(sheet.cell(row=i, column=4).value, type(sheet.cell(row=i, column=4).value))
+    sheet.cell(row=46, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=47, column=4).value)
+
 
 def CQA_OTHER_FORMATTING(sheet):
     thick = Side(border_style="medium")
@@ -1054,7 +1059,7 @@ def CQA_OTHER_FORMATTING(sheet):
     for i in range(10, 21):
         sheet.cell(row=i, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
         # print(sheet.cell(row=i, column=4).value, type(sheet.cell(row=i, column=4).value))
-    sheet.cell(row=47, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
+    sheet.cell(row=47, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=47, column=4).value)
 
 def get_Agindex_Phosphorus(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()
