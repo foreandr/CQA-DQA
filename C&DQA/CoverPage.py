@@ -138,11 +138,9 @@ def coverPageWrite(CQARef, workingFolder):
     import HighlighterChecker
     location = findLocation(CQARef)
     if location == 'ON' or location == 'QC':
-        HighlighterChecker.get_ontario_category(CQARef)
-        coverDict['A10'] = read_from_csv()
+        coverDict['A10'] = HighlighterChecker.get_ontario_category(CQARef)
     else:
-        HighlighterChecker.get_non_ontario_category(CQARef)
-        coverDict['A10'] = read_from_csv()
+        coverDict['A10'] = HighlighterChecker.get_non_ontario_category(CQARef)
 
     # ---B18 Query FEEDSTOCK---#
     # print 'executing query 18 for feedstock'

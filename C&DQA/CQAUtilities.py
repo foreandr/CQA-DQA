@@ -881,7 +881,13 @@ def CQA_ONT_FORMATTING(sheet):
     for i in range(9, 20):
         sheet.cell(row=i, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
         # print(sheet.cell(row=i, column=4).value, type(sheet.cell(row=i, column=4).value))
-    sheet.cell(row=46, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=47, column=4).value)
+    value = Utilities.BDL_PERCENT_check(Utilities.removePercentSign(sheet.cell(row=46, column=6).value))
+    value = value + '%'
+    sheet.cell(row=46, column=6).value = value
+
+    value = Utilities.BDL_PERCENT_check(Utilities.removePercentSign(sheet.cell(row=47, column=6).value))
+    value = value + '%'
+    sheet.cell(row=47, column=6).value = value
 
 
 def CQA_OTHER_FORMATTING(sheet):
@@ -1059,7 +1065,14 @@ def CQA_OTHER_FORMATTING(sheet):
     for i in range(10, 21):
         sheet.cell(row=i, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=i, column=4).value)
         # print(sheet.cell(row=i, column=4).value, type(sheet.cell(row=i, column=4).value))
-    sheet.cell(row=47, column=4).value = Utilities.BDL_PERCENT_check(sheet.cell(row=47, column=4).value)
+
+    value = Utilities.BDL_PERCENT_check(Utilities.removePercentSign(sheet.cell(row=47, column=6).value))
+    value = value + '%'
+    sheet.cell(row=47, column=6).value = value
+
+    value = Utilities.BDL_PERCENT_check(Utilities.removePercentSign(sheet.cell(row=48, column=6).value))
+    value = value + '%'
+    sheet.cell(row=48, column=6).value = value
 
 def get_Agindex_Phosphorus(CQAREF):
     cnx = SQL_CONNECTOR.test_connection()

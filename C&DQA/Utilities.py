@@ -364,7 +364,7 @@ def removePercentSign(string):
     try:
         if string[-1] == '%':
             new_string = string[:-1]
-            return new_string
+            return float(new_string)
     except:
         return string
 
@@ -632,10 +632,17 @@ CQA_ON_SECOND_PART_CHECK = [
     [2, 'Total FM > 25 mm', 0.0, 0.0],
     [3, 'Total sharps > 2.8 mm*', 0.0, 3],
     [4, 'Total sharps > 12.5 mm', 0.0, 0],
-    [5, 'Respiration-mgCO2-C/g OM/day', 0, 4],  # ABOVE 4 IS FAIL
-    [6, 'E. coli', 0, 1000],  # ANYTHING LOWER 1000 'fix for symbols'
+    [5, 'Respiration-mgCO2-C/g OM/day', 1000, 4],  # ABOVE 4 IS FAIL
+    [6, 'E. coli', 500, 1000],  # ANYTHING LOWER 1000 'fix for symbols'
     [7, 'Salmonella spp.', 0, 1000],  # IF NOT NEG FAIL
 ]
+CQA_NON_ON_SECOND_PART = [
+    [0, 'Total FM > 25 mm', 1, 2],
+    [1, 'Total sharps > 2.8 mm*', 0, 5], # THE 5 IS ABITRARY
+    [2, 'Total sharps > 12.5 mm', 0.1, 3],
+    [3, 'Respiration-mgCO2-C/g OM/day', 1000, 4],
+]
+
 
 def write_to_csv(string):
     import csv
@@ -643,6 +650,8 @@ def write_to_csv(string):
     writer = csv.writer(f)
     writer.writerow([string])
     f.close()
+
+
 def read_from_csv():
     import csv
     file = open('C:\CQA\FULL CQA - DQA\C&DQA\category.csv', 'r')
@@ -652,6 +661,7 @@ def read_from_csv():
         string = row
     string = string[0]
     return string
+
 
 def get_company_name(CQAref):
     # Finds the company name
