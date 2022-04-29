@@ -129,7 +129,7 @@ def get_non_ontario_cqa_constraints(sheet):
         sheet.cell(row=29, column=4).fill = highlight
 
     column4_value = try_cast_to_num(sheet.cell(row=30, column=4).value)
-    column6_value = 0  # COMPARISON VALUE
+    column6_value = 3  # COMPARISON VALUE
     if column4_value == 'BDL':
         pass
     elif column4_value > column6_value:
@@ -229,9 +229,9 @@ def get_ontario_category(CQAREF):
     if CAT_FAIL:
         return 'EXCEEDS GUIDELINES'
     elif CAT_B:
-        return 'CAT B'
+        return 'CATEGORY B'
     elif CAT_A:
-        return 'CAT A'
+        return 'CATEGORY A'
 
 
 def get_non_ontario_category(CQAREF):
@@ -292,12 +292,12 @@ def get_non_ontario_category(CQAREF):
     if CAT_FAIL:
         return 'EXCEEDS GUIDELINES'
     elif CAT_B:
-        return 'CAT B'
+        return 'CATEGORY B'
     elif CAT_A:
-        return 'CAT A'
+        return 'CATEGORY A'
     # if CAT_AA:
     #    Utilities.write_to_csv('CAT AA')
 
 
 #get_non_ontario_category('CQA2200124')
-get_ontario_category('CQA2200094')
+#get_ontario_category('CQA2200094')

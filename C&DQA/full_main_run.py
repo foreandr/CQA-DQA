@@ -29,8 +29,8 @@ class GUI:
         relevant_reference_numbers = []
 
         # The automatic tests
-        for i in nums:
-            relevant_reference_numbers.append(i)
+        #for i in nums:
+        #    relevant_reference_numbers.append(i)
 
         print()
 
@@ -44,6 +44,7 @@ class GUI:
         N_A_TEST = u'CQA2200119'
         failtest_1 = u'CQA2200133'
         new_fail_test = U'CQA2200135'
+        kelly_test_n1 = u'CQA2200009'
 
         #relevant_reference_numbers.append(DQAother_demo)  # WORKING
         #relevant_reference_numbers.append(DQAontario_demo)  #  WORKING
@@ -54,7 +55,9 @@ class GUI:
         #relevant_reference_numbers.append(CQA_ONT_FAIL)
         #relevant_reference_numbers.append(N_A_TEST)
         #relevant_reference_numbers.append(failtest_1)
-        relevant_reference_numbers.append(new_fail_test) #fecal
+        #relevant_reference_numbers.append(new_fail_test) #fecal
+        relevant_reference_numbers.append(kelly_test_n1)
+
 
         import Colors
         print(Colors.bcolors.OKBLUE + '\n\nBEGINNING RUNNING CODE\n\n' + Colors.bcolors.ENDC)
