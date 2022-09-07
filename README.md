@@ -1,3 +1,3 @@
 # CQA-DQA
 
-Argiculture Regulatory Analysis Script
+Agriculture Regulatory Analysis Script
